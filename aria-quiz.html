@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find Your ARIA — Babylon Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C96A;
+  --gold-dim: #8B6F2E;
+  --black: #0A0A0A;
+  --dark: #111111;
+  --dark2: #161616;
+  --dark3: #1E1E2E;
+  --white: #F5F0E8;
+  --white-dim: rgba(245,240,232,0.65);
+  --white-faint: rgba(245,240,232,0.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+}
+
+/* Nav */
+nav {
+  padding: 28px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-logo span { font-style: italic; color: var(--white); }
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 40px 60px;
+  position: relative;
+}
+.hero-label {
+  font-size: 10px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 14px;
+  color: var(--white-dim);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+.progress-bar-wrap {
+  max-width: 400px;
+  margin: 40px auto 0;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--white-dim);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.progress-track {
+  height: 2px;
+  background: rgba(201,168,76,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+/* Quiz container */
+.quiz-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 40px 120px;
+}
+
+.question-card {
+  background: var(--dark2);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-top: 2px solid var(--gold);
+  padding: 48px 48px 40px;
+  margin-bottom: 24px;
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+.question-card.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.q-number {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 16px;
+}
+.q-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.q-sub {
+  font-size: 13px;
+  color: var(--white-dim);
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+
+/* Options */
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid rgba(201,168,76,0.15);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: left;
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+}
+.option:hover {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.05);
+}
+.option.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+.option-letter {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  font-weight: 500;
+  transition: all 0.25s;
+}
+.option.selected .option-letter {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
+.option-content { flex: 1; }
+.option-title {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.option-desc {
+  font-size: 12px;
+  color: var(--white-dim);
+  line-height: 1.6;
+}
+
+/* Multi-select hint */
+.multi-hint {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 20px;
+}
+
+/* Text input */
+.text-input {
+  width: 100%;
+  background: var(--dark3);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 0;
+  color: var(--white);
+  padding: 16px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.3s;
+}
+.text-input:focus { border-color: var(--gold); }
+.text-input::placeholder { color: rgba(245,240,232,0.25); }
+
+/* Nav buttons */
+.q-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 36px;
+}
+.btn-next {
+  padding: 14px 40px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-next:hover { background: var(--gold-light); }
+.btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-back {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  transition: color 0.3s;
+}
+.btn-back:hover { color: var(--gold); }
+
+/* Results */
+.result-card {
+  display: none;
+  text-align: center;
+  padding: 64px 48px;
+  background: var(--dark2);
+  border: 1px solid rgba(201,168,76,0.12);
+  border-top: 3px solid var(--gold);
+  animation: fadeIn 0.5s ease;
+}
+.result-card.active { display: block; }
+.result-tier {
+  font-size: 10px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.result-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+.result-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--gold);
+  font-style: italic;
+  margin-bottom: 32px;
+}
+.result-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 32px;
+}
+.result-desc {
+  font-size: 14px;
+  color: var(--white-dim);
+  line-height: 1.9;
+  max-width: 480px;
+  margin: 0 auto 40px;
+}
+.result-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 440px;
+  margin: 0 auto 48px;
+  text-align: left;
+}
+.result-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--white-dim);
+  line-height: 1.6;
+}
+.feature-dot {
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+/* CTA */
+.result-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.btn-primary {
+  display: inline-block;
+  padding: 16px 40px;
+  background: var(--gold);
+  color: var(--black);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-primary:hover { background: var(--gold-light); }
+.btn-ghost {
+  display: inline-block;
+  padding: 16px 40px;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-ghost:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+.restart-link {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.restart-link:hover { color: var(--gold); }
+
+/* Summary box */
+.summary-box {
+  background: var(--dark3);
+  border: 1px solid rgba(201,168,76,0.1);
+  padding: 24px 28px;
+  margin: 0 auto 32px;
+  max-width: 500px;
+  text-align: left;
+}
+.summary-title {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 16px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+  color: var(--white-dim);
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-val { color: var(--white); font-weight: 400; }
+
+footer {
+  border-top: 1px solid rgba(201,168,76,0.1);
+  padding: 32px 60px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(245,240,232,0.25);
+  letter-spacing: 1px;
+}
+
+@media (max-width: 640px) {
+  nav { padding: 20px 24px; }
+  .quiz-wrap { padding: 0 20px 80px; }
+  .question-card { padding: 32px 24px; }
+  .q-text { font-size: 22px; }
+  .result-card { padding: 40px 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://www.babylonconsulting.us" class="nav-logo">BABYLON <span>Consulting</span></a>
+  <span style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--white-dim)">ARIA Assessment</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Your Personal AI Executive Assistant</div>
+  <h1 class="hero-title">Find Your <em>ARIA</em></h1>
+  <p class="hero-sub">Answer 8 questions and we'll match you to the exact ARIA configuration built for your life and business.</p>
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span id="progress-text">Question 1 of 8</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-wrap">
+
+  <!-- Q1 -->
+  <div class="question-card active" data-q="1">
+    <div class="q-number">Question 01</div>
+    <div class="q-text">What best describes your role?</div>
+    <div class="q-sub">This helps us understand how ARIA will fit into your day.</div>
+    <div class="options">
+      <button class="option" data-value="executive" onclick="selectOption(this)">
+        <div class="option-letter">A</div>
+        <div class="option-content">
+          <div class="option-title">Business owner or executive</div>
+          <div class="option-desc">You run a company, manage a team, or make high-stakes decisions daily</div>
+        </div>
+      </button>
+      <button class="option" data-value="professional" onclick="selectOption(this)">
+        <div class="option-letter">B</div>
+        <div class="option-content">
+          <div class="option-title">Professional or specialist</div>
+          <div class="option-desc">Doctor, lawyer, consultant, sales professional, or independent operator</div>
+        </div>
+      </button>
+      <button class="option" data-value="entrepreneur" onclick="selectOption(this)">
+        <div class="option-letter">C</div>
+        <div class="option-content">
+          <div class="option-title">Entrepreneur or builder</div>
+          <div class="option-desc">You're building something — a startup, a side business, a personal brand</div>
+        </div>
+      </button>
+      <button class="option" data-value="individual" onclick="selectOption(this)">
+        <div class="option-letter">D</div>
+        <div class="option-content">
+          <div class="option-title">High-achieving individual</div>
+          <div class="option-desc">You want a personal assistant for life management — calendar, tasks, research, coordination</div>
+        </div>
+      </button>
+    </div>
+    <div class="q-nav">
+      <span></span>
+      <button class="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card" data-q="2">
+    <div class="q-number">Question 02</div>
+    <div class="q-text">How much time do you lose each week to tasks an assistant could handle?</div>
+    <div class="q-sub">Think: email triage, scheduling, research, drafting, follow-ups, coordination.</div>
+    <div class="options">
+      <button class="option" data-value="low" onclick="selectOption(this)">
+        <div class="option-letter">A</div>
+        <div class="option-content">
+          <div class="option-title">1–3 hours</div>
+          <div class="option-desc">Occasional admin tasks — manageable but annoying</div>
+        </div>
+      </button>
+      <button class="option" data-value="medium" onclick="selectOption(this)">
+        <div class="option-letter">B</div>
+        <div class="option-content">
+          <div class="option-title">4–8 hours</div>
+          <div class="option-desc">A meaningful chunk of every week goes to things that shouldn't need you</div>
+        </div>
+      </button>
+      <button class="option" data-value="high" onclick="selectOption(this)">
+        <div class="option-letter">C</div>
+        <div class="option-content">
+          <div class="option-title">8–15 hours</div>
+          <div class="option-desc">Almost two full days per week — you're buried in operational work</div>
+        </div>
+      </button>
+      <button class="option" data-value="critical" onclick="selectOption(this)">
+        <div class="option-letter">D</div>
+        <div class="option-content">
+          <div class="option-title">15+ hours</div>
+          <div class="option-desc">You're running the business and doing the admin — no separation at all</div>
+        </div>
+      </button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card" data-q="3">
+    <div class="q-number">Question 03</div>
+    <div class="q-text">Which communication channels are critical to your work?</div>
+    <div class="q-sub">Select all that apply — ARIA can monitor and respond across all of these.</div>
+    <div class="multi-hint">Select all that apply</div>
+    <div class="options" id="q3-options">
+      <button class="option multi" data-value="whatsapp" onclick="toggleMulti(this)">
+        <div class="option-letter">A</div>
+        <div class="option-content">
+          <div class="option-title">WhatsApp</div>
+          <div class="option-desc">Clients, partners, or team communicate primarily on WhatsApp</div>
+        </div>
+      </button>
+      <button class="option multi" data-value="email" onclick="toggleMulti(this)">
+        <div class="option-letter">B</div>
+        <div class="option-content">
+          <div class="option-title">Email</div>
+          <div class="option-desc">High-volume inbox that needs triage, drafting, and follow-up</div>
+        </div>
+      </button>
+      <button class="option multi" data-value="phone" onclick="toggleMulti(this)">
+        <div class="option-letter">C</div>
+        <div class="option-content">
+          <div class="option-title">Phone calls</div>
+          <div class="option-desc">Inbound calls need screening, scheduling, or handling</div>
+        </div>
+      </button>
+      <button class="option multi" data-value="calendar" onclick="toggleMulti(this)">
+        <div class="option-letter">D</div>
+        <div class="option-content">
+          <div class="option-title">Calendar and scheduling</div>
+          <div class="option-desc">Meeting coordination, appointment booking, schedule management</div>
+        </div>
+      </button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" id="q3-next" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card" data-q="4">
+    <div class="q-number">Question 04</div>
+    <div class="q-text">Do you have a business that handles sensitive client or patient information?</div>
+    <div class="q-sub">This determines whether HIPAA-grade compliance is required for your ARIA setup.</div>
+    <div class="options">
+      <button class="option" data-value="hipaa_yes" onclick="selectOption(this)">
+        <div class="option-letter">A</div>
+        <div class="option-content">
+          <div class="option-title">Yes — medical, legal, or financial data</div>
+          <div class="option-desc">Patient records, billing data, legal files, or regulated financial information</div>
+        </div>
+      </button>
+      <button class="option" data-value="hipaa_maybe" onclick="selectOption(this)">
+        <div class="option-letter">B</div>
+        <div class="option-content">
+          <div class="option-title">Possibly — business client data</div>
+          <div class="option-desc">Client contracts, proposals, or confidential business information</div>
+        </div>
+      </button>
+      <button class="option" data-value="hipaa_no" onclick="selectOption(this)">
+        <div class="option-letter">C</div>
+        <div class="option-content">
+          <div class="option-title">No — personal or general business use</div>
+          <div class="option-desc">No regulated data — personal assistant, general business operations</div>
+        </div>
+      </button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card" data-q="5">
+    <div class="q-number">Question 05</div>
+    <div class="q-text">What would you most want ARIA to handle for your business?</div>
+    <div class="q-sub">Select the one that would create the most immediate value.</div>
+    <div class="options">
+      <button class="option" data-value="biz_sales" onclick="selectOption(this)">
+        <div class="option-letter">A</div>
+        <div class="option-content">
+          <div class="option-title">Sales and client outreach</div>
+          <div class="option-desc">Following up on leads, drafting proposals, managing the pipeline</div>
+        </div>
+      </button>
+      <button class="option" data-value="biz_ops" onclick="selectOption(this)">
+        <div class="option-letter">B</div>
+        <div class="option-content">
+          <div class="option-title">Operations and scheduling</div>
+          <div class="option-desc">Booking appointments, managing team schedules, handling inquiries</div>
+        </div>
+      </button>
+      <button class="option" data-value="biz_marketing" onclick="selectOption(this)">
+        <div class="option-letter">C</div>
+        <div class="option-content">
+          <div class="option-title">Marketing and content</div>
+          <div class="option-desc">Social posts, email campaigns, newsletters, brand content</div>
+        </div>
+      </button>
+      <button class="option" data-value="biz_research" onclick="selectOption(this)">
+        <div class="option-letter">D</div>
+        <div class="option-content">
+          <div class="option-title">Research and intelligence</div>
+          <div class="option-desc">Market monitoring, competitor tracking, industry briefings</div>
+        </div>
+      </button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card" data-q="6">
+    <div class="q-number">Question 06</div>
+    <div class="q-text">How comfortable are you with technology?</div>
+    <div class="q-sub">This determines how much setup support you'll need and how we configure your ARIA.</div>
+    <div class="options">
+      <button class="option" data-value="tech_low" onclick="selectOption(this)">
+        <div class="option-letter">A</div>
+        <div class="option-content">
+          <div class="option-title">I want it to just work</div>
+          <div class="option-desc">Minimal setup, everything managed for me — I just use it</div>
+        </div>
+      </button>
+      <button class="option" data-value="tech_med" onclick="selectOption(this)">
+        <div class="option-letter">B</div>
+        <div class="option-content">
+          <div class="option-title">Comfortable with basic setup</div>
+          <div class="option-desc">I can follow instructions and connect apps, but I don't want complexity</div>
+        </div>
+      </button>
+      <button class="option" data-value="tech_high" onclick="selectOption(this)">
+        <div class="option-letter">C</div>
+        <div class="option-content">
+          <div class="option-title">Technical — I like to customize</div>
+          <div class="option-desc">I want control, I'm comfortable with APIs, and I like tweaking how things work</div>
+        </div>
+      </button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card" data-q="7">
+    <div class="q-number">Question 07</div>
+    <div class="q-text">What's your biggest frustration right now?</div>
+    <div class="q-sub">Be honest — this is the most important question for matching you to the right solution.</div>
+    <textarea class="text-input" id="q7-text" placeholder="e.g. I spend 2 hours a day responding to WhatsApp messages from clients and I never have time to focus on growth..." oninput="checkTextInput('q7-text', 'q7-next')"></textarea>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" id="q7-next" onclick="nextQuestion()" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-card" data-q="8">
+    <div class="q-number">Question 08</div>
+    <div class="q-text">What investment level feels right for a tool that gives you back 10+ hours per week?</div>
+    <div class="q-sub">Remember — a good human EA in South Florida costs $4,000–6,000/month. This is a fraction of that.</div>
+    <div class="options">
+      <button class="option" data-value="price_low" onclick="selectOption(this)">
+        <div class="option-letter">A</div>
+        <div class="option-content">
+          <div class="option-title">$97 / month</div>
+          <div class="option-desc">Core personal assistant — calendar, email, research, voice</div>
+        </div>
+      </button>
+      <button class="option" data-value="price_mid" onclick="selectOption(this)">
+        <div class="option-letter">B</div>
+        <div class="option-content">
+          <div class="option-title">$197 / month</div>
+          <div class="option-desc">Full personal + business coordination, all channels, unlimited usage</div>
+        </div>
+      </button>
+      <button class="option" data-value="price_high" onclick="selectOption(this)">
+        <div class="option-letter">C</div>
+        <div class="option-content">
+          <div class="option-title">$497 / month</div>
+          <div class="option-desc">Elite — personal ARIA + full business team (sales, marketing, intelligence)</div>
+        </div>
+      </button>
+      <button class="option" data-value="price_enterprise" onclick="selectOption(this)">
+        <div class="option-letter">D</div>
+        <div class="option-content">
+          <div class="option-title">Custom — I have specific needs</div>
+          <div class="option-desc">Multiple team members, HIPAA compliance, or enterprise integration required</div>
+        </div>
+      </button>
+    </div>
+    <div class="q-nav">
+      <button class="btn-back" onclick="prevQuestion()">← Back</button>
+      <button class="btn-next" onclick="showResults()" disabled>See My ARIA →</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="result-card" id="result-core">
+    <div class="result-tier">Your Match</div>
+    <div class="result-title">ARIA Core</div>
+    <div class="result-price">$97 / month</div>
+    <div class="result-divider"></div>
+    <div class="result-desc">You need a smart, always-on personal assistant that handles your calendar, email, and research — without the overhead of managing a human EA or paying for tools you won't use.</div>
+    <div class="summary-box" id="summary-core"></div>
+    <div class="result-features">
+      <div class="result-feature"><div class="feature-dot"></div>Voice assistant via Telegram — talk to ARIA, she talks back</div>
+      <div class="result-feature"><div class="feature-dot"></div>Google Calendar — ARIA knows your schedule, preps you for meetings</div>
+      <div class="result-feature"><div class="feature-dot"></div>Email monitoring — surfaces what matters, drafts responses</div>
+      <div class="result-feature"><div class="feature-dot"></div>Web research — answers questions with real, current information</div>
+      <div class="result-feature"><div class="feature-dot"></div>Proactive briefings — morning summary every day without being asked</div>
+      <div class="result-feature"><div class="feature-dot"></div>Fully managed — we handle everything, you just use it</div>
+    </div>
+    <div class="result-cta">
+      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Core — I'm interested" class="btn-primary">Get Started</a>
+      <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Talk to Ahmed First</a>
+    </div>
+    <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
+  </div>
+
+  <div class="result-card" id="result-pro">
+    <div class="result-tier">Your Match</div>
+    <div class="result-title">ARIA Pro</div>
+    <div class="result-price">$197 / month</div>
+    <div class="result-divider"></div>
+    <div class="result-desc">You run a real operation and need an assistant that can handle both your personal life and your business — coordinating across all channels without mixing the two.</div>
+    <div class="summary-box" id="summary-pro"></div>
+    <div class="result-features">
+      <div class="result-feature"><div class="feature-dot"></div>Everything in Core — voice, calendar, email, research</div>
+      <div class="result-feature"><div class="feature-dot"></div>WhatsApp integration — ARIA monitors and responds to your WhatsApp</div>
+      <div class="result-feature"><div class="feature-dot"></div>Personal + Business separation — two ARIAs that coordinate but never cross</div>
+      <div class="result-feature"><div class="feature-dot"></div>Phone call handling — ARIA screens and handles inbound calls</div>
+      <div class="result-feature"><div class="feature-dot"></div>Unlimited usage — no message caps, no throttling</div>
+      <div class="result-feature"><div class="feature-dot"></div>White-glove setup — we configure everything for your specific workflow</div>
+    </div>
+    <div class="result-cta">
+      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Pro — I'm interested" class="btn-primary">Get Started</a>
+      <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Talk to Ahmed First</a>
+    </div>
+    <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
+  </div>
+
+  <div class="result-card" id="result-elite">
+    <div class="result-tier">Your Match</div>
+    <div class="result-title">ARIA Elite</div>
+    <div class="result-price">$497 / month</div>
+    <div class="result-divider"></div>
+    <div class="result-desc">You need more than an assistant — you need a full executive team in your pocket. ARIA Elite gives you a CMO, Sales Director, and Intelligence Director working alongside your personal assistant 24/7.</div>
+    <div class="summary-box" id="summary-elite"></div>
+    <div class="result-features">
+      <div class="result-feature"><div class="feature-dot"></div>Everything in Pro — all channels, personal + business</div>
+      <div class="result-feature"><div class="feature-dot"></div>Maria (CMO) — marketing campaigns, content, brand across your businesses</div>
+      <div class="result-feature"><div class="feature-dot"></div>SAM (Sales) — pipeline management, outreach, scripts, CRM</div>
+      <div class="result-feature"><div class="feature-dot"></div>Rachel (Intelligence) — market research, industry monitoring, opportunity alerts</div>
+      <div class="result-feature"><div class="feature-dot"></div>HIPAA-eligible option — for medical or regulated business use</div>
+      <div class="result-feature"><div class="feature-dot"></div>Priority support — direct line to Ahmed for configuration and updates</div>
+    </div>
+    <div class="result-cta">
+      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Elite — I'm interested" class="btn-primary">Get Started</a>
+      <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Talk to Ahmed First</a>
+    </div>
+    <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
+  </div>
+
+  <div class="result-card" id="result-enterprise">
+    <div class="result-tier">Your Match</div>
+    <div class="result-title">ARIA Enterprise</div>
+    <div class="result-price">Custom Pricing</div>
+    <div class="result-divider"></div>
+    <div class="result-desc">Your needs go beyond a standard configuration. You may require HIPAA compliance, multiple team members, custom integrations, or a fully managed white-label deployment. Let's talk.</div>
+    <div class="summary-box" id="summary-enterprise"></div>
+    <div class="result-features">
+      <div class="result-feature"><div class="feature-dot"></div>Everything in Elite — full personal + business team</div>
+      <div class="result-feature"><div class="feature-dot"></div>HIPAA-compliant infrastructure — BAA included</div>
+      <div class="result-feature"><div class="feature-dot"></div>Multiple team members — each with their own ARIA instance</div>
+      <div class="result-feature"><div class="feature-dot"></div>Custom integrations — EHR, CRM, practice management systems</div>
+      <div class="result-feature"><div class="feature-dot"></div>Dedicated onboarding — Ahmed personally configures your deployment</div>
+      <div class="result-feature"><div class="feature-dot"></div>Ongoing optimization — monthly reviews and updates</div>
+    </div>
+    <div class="result-cta">
+      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Enterprise — Let's Talk" class="btn-primary">Schedule a Call</a>
+      <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Learn More</a>
+    </div>
+    <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
+  </div>
+
+</div>
+
+<footer>© 2026 Babylon Consulting LLC · Fort Lauderdale, FL · ahmed@babylonconsulting.us</footer>
+
+<script>
+const answers = {};
+let currentQ = 1;
+const totalQ = 8;
+
+function updateProgress() {
+  const pct = Math.round(((currentQ - 1) / totalQ) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `Question ${currentQ} of ${totalQ}`;
+  document.getElementById('progress-pct').textContent = pct + '%';
+}
+
+function selectOption(btn) {
+  const card = btn.closest('.question-card');
+  card.querySelectorAll('.option:not(.multi)').forEach(o => o.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers['q' + card.dataset.q] = btn.dataset.value;
+  const nextBtn = card.querySelector('.btn-next');
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function toggleMulti(btn) {
+  btn.classList.toggle('selected');
+  const card = btn.closest('.question-card');
+  const selected = Array.from(card.querySelectorAll('.option.selected')).map(o => o.dataset.value);
+  answers['q3'] = selected;
+}
+
+function checkTextInput(id, btnId) {
+  const val = document.getElementById(id).value.trim();
+  const btn = document.getElementById(btnId);
+  if (btn) btn.disabled = val.length < 10;
+  answers['q7'] = val;
+}
+
+function nextQuestion() {
+  const currentCard = document.querySelector(`.question-card[data-q="${currentQ}"]`);
+  currentCard.classList.remove('active');
+  currentQ++;
+  const nextCard = document.querySelector(`.question-card[data-q="${currentQ}"]`);
+  if (nextCard) {
+    nextCard.classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function prevQuestion() {
+  const currentCard = document.querySelector(`.question-card[data-q="${currentQ}"]`);
+  currentCard.classList.remove('active');
+  currentQ--;
+  const prevCard = document.querySelector(`.question-card[data-q="${currentQ}"]`);
+  if (prevCard) {
+    prevCard.classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function calcTier() {
+  let score = 0;
+
+  // Role weight
+  const roleScores = { executive: 3, professional: 2, entrepreneur: 2, individual: 1 };
+  score += roleScores[answers.q1] || 0;
+
+  // Time lost
+  const timeScores = { low: 0, medium: 1, high: 2, critical: 3 };
+  score += timeScores[answers.q2] || 0;
+
+  // HIPAA
+  if (answers.q4 === 'hipaa_yes') score += 4;
+  else if (answers.q4 === 'hipaa_maybe') score += 1;
+
+  // Business need
+  const bizScores = { biz_sales: 2, biz_ops: 2, biz_marketing: 2, biz_research: 1 };
+  score += bizScores[answers.q5] || 0;
+
+  // Tech comfort (inverse — less tech = more managed = higher tier needed)
+  if (answers.q6 === 'tech_low') score += 1;
+
+  // Price selection
+  const priceScores = { price_low: 0, price_mid: 2, price_high: 3, price_enterprise: 5 };
+  score += priceScores[answers.q8] || 0;
+
+  // Channels — WhatsApp or phone adds complexity
+  const channels = answers.q3 || [];
+  if (channels.includes('whatsapp') || channels.includes('phone')) score += 2;
+
+  // HIPAA forces enterprise
+  if (answers.q4 === 'hipaa_yes') return 'enterprise';
+  if (answers.q8 === 'price_enterprise') return 'enterprise';
+
+  if (score >= 12) return 'elite';
+  if (score >= 7) return 'pro';
+  return 'core';
+}
+
+function buildSummary(tier) {
+  const roleLabels = { executive: 'Business owner / executive', professional: 'Professional / specialist', entrepreneur: 'Entrepreneur / builder', individual: 'High-achieving individual' };
+  const timeLabels = { low: '1–3 hrs/week', medium: '4–8 hrs/week', high: '8–15 hrs/week', critical: '15+ hrs/week' };
+  const hipaaLabels = { hipaa_yes: 'Yes — regulated data', hipaa_maybe: 'Possibly', hipaa_no: 'No' };
+  const bizLabels = { biz_sales: 'Sales & outreach', biz_ops: 'Operations & scheduling', biz_marketing: 'Marketing & content', biz_research: 'Research & intelligence' };
+
+  const channels = (answers.q3 || []).join(', ') || 'Not specified';
+
+  return `
+    <div class="summary-title">Your Profile</div>
+    <div class="summary-row"><span>Role</span><span class="summary-val">${roleLabels[answers.q1] || '—'}</span></div>
+    <div class="summary-row"><span>Time lost weekly</span><span class="summary-val">${timeLabels[answers.q2] || '—'}</span></div>
+    <div class="summary-row"><span>Key channels</span><span class="summary-val">${channels}</span></div>
+    <div class="summary-row"><span>Sensitive data</span><span class="summary-val">${hipaaLabels[answers.q4] || '—'}</span></div>
+    <div class="summary-row"><span>Top business need</span><span class="summary-val">${bizLabels[answers.q5] || '—'}</span></div>
+  `;
+}
+
+function showResults() {
+  // Hide all questions
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+
+  // Store last answer
+  const lastQ = document.querySelector('.question-card[data-q="8"]');
+  const selected = lastQ.querySelector('.option.selected');
+  if (selected) answers.q8 = selected.dataset.value;
+
+  // Update progress to 100%
+  document.getElementById('progress-fill').style.width = '100%';
+  document.getElementById('progress-text').textContent = 'Complete';
+  document.getElementById('progress-pct').textContent = '100%';
+
+  const tier = calcTier();
+  const resultId = 'result-' + tier;
+  const summaryId = 'summary-' + tier;
+
+  document.getElementById(summaryId).innerHTML = buildSummary(tier);
+  document.getElementById(resultId).classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restartQuiz() {
+  document.querySelectorAll('.result-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.btn-next').forEach(b => { if (b.id !== 'q3-next') b.disabled = true; });
+  if (document.getElementById('q7-text')) document.getElementById('q7-text').value = '';
+  Object.keys(answers).forEach(k => delete answers[k]);
+  currentQ = 1;
+  document.querySelector('.question-card[data-q="1"]').classList.add('active');
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+updateProgress();
+</script>
+</body>
+</html>

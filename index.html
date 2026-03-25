@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARIA — The Assistant You've Been Waiting For</title>
+<meta name="description" content="The AI executive assistant that handles what you shouldn't have to. Built for entrepreneurs, executives, and anyone who means business.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:       #F7F4EF;
+  --bg2:      #F0EDE6;
+  --bg3:      #E8E4DC;
+  --ink:      #111111;
+  --ink-60:   rgba(17,17,17,0.6);
+  --ink-35:   rgba(17,17,17,0.35);
+  --ink-12:   rgba(17,17,17,0.12);
+  --ink-06:   rgba(17,17,17,0.06);
+  --gold:     #C9A84C;
+  --gold-dk:  #8B6F2E;
+  --gold-lt:  #E8C96A;
+  --gold-10:  rgba(201,168,76,0.1);
+  --gold-20:  rgba(201,168,76,0.2);
+  --dark:     #111111;
+  --dark2:    #1A1A1A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
+
+/* ── CURSOR ── */
+#cur{width:7px;height:7px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.2s;}
+#ring{width:26px;height:26px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,opacity 0.3s;}
+body:hover #cur{opacity:1;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:26px 72px;display:flex;align-items:center;justify-content:space-between;background:rgba(247,244,239,0);transition:background 0.4s,border-color 0.4s;border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;letter-spacing:8px;color:var(--ink);text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-r{display:flex;align-items:center;gap:44px;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:400;color:var(--ink-60);text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-cta{padding:11px 26px;background:var(--ink);color:var(--bg);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;transition:background 0.3s;display:inline-block;}
+.nav-cta:hover{background:var(--dark2);}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 72px 80px;position:relative;overflow:hidden;}
+.hero-rule{position:absolute;top:0;right:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--ink-06) 20%,var(--ink-06) 80%,transparent);}
+.hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;font-weight:500;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:14px;opacity:0;animation:up 0.9s 0.2s ease forwards;}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(56px,8vw,108px);font-weight:400;line-height:0.97;letter-spacing:-2px;margin-bottom:36px;opacity:0;animation:up 0.9s 0.35s ease forwards;}
+.hero-h1 em{font-style:italic;}
+.hero-body{font-size:16px;line-height:1.9;color:var(--ink-60);max-width:500px;margin-bottom:44px;opacity:0;animation:up 0.9s 0.5s ease forwards;}
+.hero-btns{display:flex;gap:14px;align-items:center;opacity:0;animation:up 0.9s 0.62s ease forwards;}
+.btn-black{padding:16px 42px;background:var(--ink);color:var(--bg);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;border:1px solid var(--ink);transition:all 0.3s;display:inline-block;cursor:none;}
+.btn-black:hover{background:var(--dark2);}
+.btn-gold{padding:16px 42px;background:transparent;color:var(--gold-dk);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;border:1px solid var(--gold);transition:all 0.3s;display:inline-block;cursor:none;}
+.btn-gold:hover{background:var(--gold-10);color:var(--gold);}
+.hero-stats{display:grid;grid-template-columns:repeat(3,auto);gap:0;margin-top:72px;width:fit-content;border:1px solid var(--ink-12);opacity:0;animation:up 0.9s 0.75s ease forwards;}
+.hstat{padding:20px 40px;border-right:1px solid var(--ink-12);}
+.hstat:last-child{border-right:none;}
+.hstat-n{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:var(--gold);line-height:1;margin-bottom:4px;}
+.hstat-l{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-35);}
+.hero-scroll{position:absolute;bottom:44px;right:72px;display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-35);opacity:0;animation:up 0.9s 1s ease forwards;}
+.scroll-bar{width:1px;height:36px;background:var(--ink-12);overflow:hidden;position:relative;}
+.scroll-bar::after{content:'';position:absolute;top:-100%;width:100%;height:100%;background:var(--gold);animation:drip 2s ease infinite;}
+@keyframes drip{to{top:100%;}}
+@keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── MARQUEE ── */
+.mq{overflow:hidden;padding:22px 0;background:var(--ink);border-top:none;}
+.mq-track{display:flex;gap:56px;width:max-content;animation:mq 28s linear infinite;}
+@keyframes mq{to{transform:translateX(-50%);}}
+.mq-item{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(247,244,239,0.3);white-space:nowrap;display:flex;align-items:center;gap:56px;}
+.mq-dot{width:3px;height:3px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+
+/* ── SECTIONS ── */
+section{padding:120px 72px;}
+.sec-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;font-weight:500;color:var(--gold);margin-bottom:64px;display:flex;align-items:center;gap:14px;}
+.sec-eyebrow::after{content:'';width:36px;height:1px;background:var(--gold);}
+
+/* ── GAP SECTION ── */
+.gap-sec{background:var(--ink);padding:100px 72px;}
+.gap-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
+.gap-label{font-size:10px;letter-spacing:5px;text-transform:uppercase;font-weight:500;color:var(--gold);margin-bottom:32px;display:flex;align-items:center;gap:14px;}
+.gap-label::after{content:'';width:36px;height:1px;background:var(--gold);}
+.gap-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:400;line-height:1.1;color:var(--bg);margin-bottom:28px;}
+.gap-title em{font-style:italic;color:var(--gold);}
+.gap-body{font-size:14px;line-height:2;color:rgba(247,244,239,0.55);margin-bottom:20px;}
+.gap-pull{font-family:'Playfair Display',serif;font-size:20px;font-style:italic;color:rgba(247,244,239,0.7);line-height:1.6;padding:28px 0 28px 24px;border-left:2px solid var(--gold);margin:32px 0;}
+.gap-cards{display:flex;flex-direction:column;gap:2px;}
+.gap-card{background:rgba(247,244,239,0.04);border:1px solid rgba(247,244,239,0.08);padding:28px 32px;transition:all 0.4s;position:relative;overflow:hidden;}
+.gap-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform 0.4s;}
+.gap-card:hover{background:rgba(247,244,239,0.07);}
+.gap-card:hover::before{transform:scaleY(1);}
+.gap-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.gap-card-title{font-size:14px;font-weight:500;color:var(--bg);}
+.gap-card-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.gap-card-body{font-size:13px;color:rgba(247,244,239,0.45);line-height:1.75;}
+
+/* ── DONNA SECTION ── */
+.donna-sec{background:var(--bg);}
+.donna-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;}
+.donna-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:400;line-height:1.05;margin-bottom:28px;}
+.donna-title em{font-style:italic;color:var(--gold-dk);}
+.donna-body{font-size:14px;line-height:2;color:var(--ink-60);margin-bottom:20px;}
+.donna-pull{font-family:'Playfair Display',serif;font-size:19px;font-style:italic;color:var(--ink);line-height:1.6;padding:24px 0 24px 24px;border-left:2px solid var(--gold);margin:32px 0;}
+.origin-box{background:var(--bg2);border:1px solid var(--ink-12);padding:36px;margin-top:32px;}
+.origin-label{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dk);margin-bottom:20px;font-weight:500;}
+.origin-row{display:flex;align-items:center;gap:16px;margin-bottom:12px;}
+.origin-pill{padding:7px 18px;border:1px solid var(--ink-12);font-family:'Playfair Display',serif;font-size:14px;font-weight:400;color:var(--ink-60);}
+.origin-arrow{font-size:18px;color:var(--gold);}
+.origin-pill.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.origin-sub{font-size:12px;color:var(--ink-35);line-height:1.7;margin-top:16px;font-style:italic;}
+.donna-visual{display:flex;flex-direction:column;gap:2px;}
+.dcard{background:var(--bg2);border:1px solid var(--ink-12);padding:32px 36px;transition:all 0.4s;position:relative;overflow:hidden;}
+.dcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.dcard:hover{background:var(--bg3);}
+.dcard:hover::after{transform:scaleX(1);}
+.dcard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.dcard-title{font-size:14px;font-weight:500;}
+.dcard-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dk);}
+.dcard-body{font-size:13px;color:var(--ink-60);line-height:1.75;}
+
+/* ── CAPABILITIES ── */
+.cap-sec{background:var(--bg2);}
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink-12);}
+.cap{background:var(--bg2);padding:48px 40px;transition:background 0.3s;position:relative;}
+.cap:hover{background:var(--bg);}
+.cap-n{font-family:'Playfair Display',serif;font-size:11px;font-style:italic;color:var(--gold-dk);letter-spacing:2px;margin-bottom:18px;}
+.cap-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin-bottom:12px;line-height:1.2;}
+.cap-body{font-size:13px;color:var(--ink-60);line-height:1.85;}
+.cap-rule{position:absolute;bottom:0;left:40px;right:40px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.cap:hover .cap-rule{transform:scaleX(1);}
+
+/* ── HOW IT WORKS ── */
+.how-sec{background:var(--bg);}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink-12);}
+.how-step{background:var(--bg);padding:44px 36px;position:relative;}
+.how-n{font-family:'Playfair Display',serif;font-size:48px;font-weight:400;color:var(--ink-06);line-height:1;margin-bottom:16px;}
+.how-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:12px;}
+.how-body{font-size:13px;color:var(--ink-60);line-height:1.85;}
+.how-connector{position:absolute;top:44px;right:-1px;width:1px;height:48px;background:var(--gold);opacity:0.4;}
+.how-step:last-child .how-connector{display:none;}
+
+/* ── TEAM ── */
+.team-sec{background:var(--bg2);}
+.team-intro{max-width:600px;margin-bottom:64px;}
+.team-intro-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:400;line-height:1.1;margin-bottom:16px;}
+.team-intro-title em{font-style:italic;color:var(--gold-dk);}
+.team-intro-body{font-size:14px;color:var(--ink-60);line-height:1.9;}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink-12);}
+.tcard{background:var(--bg2);padding:52px 40px;position:relative;overflow:hidden;transition:background 0.3s;}
+.tcard:hover{background:var(--bg);}
+.tcard-init{font-family:'Playfair Display',serif;font-size:100px;font-weight:400;color:var(--ink-06);position:absolute;top:16px;right:28px;line-height:1;transition:color 0.4s;}
+.tcard:hover .tcard-init{color:rgba(201,168,76,0.08);}
+.tcard-role{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dk);margin-bottom:8px;font-weight:500;}
+.tcard-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;margin-bottom:6px;}
+.tcard-stands{font-size:10px;letter-spacing:1px;color:var(--ink-35);margin-bottom:20px;font-style:italic;}
+.tcard-body{font-size:13px;color:var(--ink-60);line-height:1.85;margin-bottom:28px;}
+.tcard-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.pill{font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--ink-12);color:var(--ink-35);}
+
+/* ── PRICING ── */
+.price-sec{background:var(--bg);}
+.price-intro{text-align:center;max-width:520px;margin:0 auto 72px;}
+.price-intro-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:400;line-height:1.1;margin-bottom:14px;}
+.price-intro-title em{font-style:italic;color:var(--gold-dk);}
+.price-intro-sub{font-size:14px;color:var(--ink-60);line-height:1.85;}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink-12);}
+.pcard{background:var(--bg);padding:52px 40px;position:relative;border-top:2px solid transparent;transition:border-color 0.3s;}
+.pcard.hot{border-top-color:var(--gold);background:var(--bg2);}
+.pcard-tier{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dk);margin-bottom:14px;font-weight:500;}
+.pcard-name{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;margin-bottom:4px;}
+.pcard-price{font-family:'Playfair Display',serif;font-size:56px;font-weight:400;line-height:1;margin-bottom:4px;}
+.pcard-mo{font-size:11px;letter-spacing:2px;color:var(--ink-35);margin-bottom:28px;}
+.pcard-desc{font-size:13px;color:var(--ink-60);line-height:1.8;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--ink-12);}
+.pcard-feats{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;}
+.pfeat{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-60);line-height:1.5;}
+.pdot{width:5px;height:5px;min-width:5px;background:var(--gold);border-radius:50%;margin-top:5px;}
+.pcard-cta-blk{display:block;text-align:center;padding:14px;background:var(--ink);color:var(--bg);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;transition:background 0.3s;cursor:none;}
+.pcard-cta-blk:hover{background:var(--dark2);}
+.pcard-cta-gld{display:block;text-align:center;padding:14px;background:transparent;color:var(--gold-dk);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;border:1px solid var(--gold);transition:all 0.3s;cursor:none;}
+.pcard-cta-gld:hover{background:var(--gold-10);}
+.price-enterprise{text-align:center;margin-top:44px;}
+.price-enterprise p{font-size:13px;color:var(--ink-35);margin-bottom:12px;}
+.price-enterprise a{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dk);text-decoration:none;font-weight:500;}
+.price-enterprise a:hover{color:var(--gold);}
+
+/* ── FINAL CTA ── */
+.final{background:var(--ink);padding:120px 72px;text-align:center;position:relative;overflow:hidden;}
+.final-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(201,168,76,0.05) 0%,transparent 65%);}
+.final-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:14px;position:relative;}
+.final-eyebrow::before,.final-eyebrow::after{content:'';width:36px;height:1px;background:var(--gold);}
+.final-title{font-family:'Playfair Display',serif;font-size:clamp(52px,7vw,96px);font-weight:400;line-height:0.97;letter-spacing:-2px;color:var(--bg);margin-bottom:24px;position:relative;}
+.final-title em{font-style:italic;color:var(--gold);}
+.final-sub{font-size:15px;color:rgba(247,244,239,0.5);line-height:1.9;max-width:480px;margin:0 auto 48px;position:relative;}
+.final-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;}
+.btn-cream{padding:16px 42px;background:var(--bg);color:var(--ink);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;border:1px solid var(--bg);transition:all 0.3s;display:inline-block;cursor:none;}
+.btn-cream:hover{background:var(--bg2);}
+.btn-gold-outline{padding:16px 42px;background:transparent;color:var(--gold);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;border:1px solid var(--gold);transition:all 0.3s;display:inline-block;cursor:none;}
+.btn-gold-outline:hover{background:rgba(201,168,76,0.08);}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:32px;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:8px;color:var(--ink);font-weight:400;}
+.footer-logo span{color:var(--gold);}
+.footer-links{display:flex;gap:32px;list-style:none;justify-content:center;}
+.footer-links a{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ink-35);text-decoration:none;transition:color 0.3s;}
+.footer-links a:hover{color:var(--ink);}
+.footer-copy{font-size:11px;color:var(--ink-35);text-align:right;line-height:1.7;}
+.footer-copy a{color:var(--gold-dk);text-decoration:none;}
+
+/* ── REVEAL ── */
+.r{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.r.v{opacity:1;transform:translateY(0);}
+.r2{opacity:0;transform:translateY(20px);transition:opacity 0.8s 0.15s ease,transform 0.8s 0.15s ease;}
+.r2.v{opacity:1;transform:translateY(0);}
+.r3{opacity:0;transform:translateY(20px);transition:opacity 0.8s 0.3s ease,transform 0.8s 0.3s ease;}
+.r3.v{opacity:1;transform:translateY(0);}
+
+/* ── DIVIDER ── */
+.div{height:1px;background:var(--ink-12);}
+
+@media(max-width:960px){
+  nav{padding:20px 28px;}
+  .nav-links{display:none;}
+  .hero,.final,section,.gap-sec,.donna-sec,.cap-sec,.how-sec,.team-sec,.price-sec{padding:80px 28px;}
+  .hero-h1{font-size:52px;letter-spacing:-1px;}
+  .donna-inner,.gap-inner{grid-template-columns:1fr;}
+  .cap-grid,.team-grid,.price-grid,.how-grid{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;text-align:center;padding:40px 28px;}
+  .footer-copy{text-align:center;}
+  .hero-stats{grid-template-columns:1fr 1fr;width:100%;}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">ARIA<span>.</span></a>
+  <div class="nav-r">
+    <ul class="nav-links">
+      <li><a href="#gap">The Gap</a></li>
+      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#team">The Team</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <a href="aria-quiz.html" class="nav-cta">Find My ARIA</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-rule"></div>
+  <div class="hero-eyebrow">Your AI Executive Assistant</div>
+  <h1 class="hero-h1">The assistant<br>you've been<br><em>waiting for.</em></h1>
+  <p class="hero-body">Completely customizable, endlessly capable. Whether you're building an empire or managing a packed schedule — ARIA handles what you shouldn't have to.</p>
+  <div style="display:inline-block;border-left:2px solid #C9A84C;padding:14px 24px;margin-bottom:44px;opacity:0;animation:up 0.9s 0.56s ease forwards;">
+    <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:#111111;line-height:1.5">
+      <span style="color:#C9A84C">A</span>nybody's&nbsp;
+      <span style="color:#C9A84C">R</span>esearch&nbsp;
+      <span style="color:#C9A84C">I</span>ntelligence&nbsp;
+      <span style="color:#C9A84C">A</span>ssistant
+    </div>
+  </div>
+  <div class="hero-btns">
+    <a href="aria-quiz.html" class="btn-black">Find My ARIA</a>
+    <a href="#gap" class="btn-gold">See How She Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-n">10+</div><div class="hstat-l">Hours back weekly</div></div>
+    <div class="hstat"><div class="hstat-n">24/7</div><div class="hstat-l">Always on</div></div>
+    <div class="hstat"><div class="hstat-n">1</div><div class="hstat-l">Call to get started</div></div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-bar"></div>Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track">
+    <div class="mq-item">Voice Assistant<div class="mq-dot"></div>Email Intelligence<div class="mq-dot"></div>WhatsApp<div class="mq-dot"></div>Calendar<div class="mq-dot"></div>Document Generation<div class="mq-dot"></div>Market Research<div class="mq-dot"></div>Sales Support<div class="mq-dot"></div>Call Screening<div class="mq-dot"></div>Proactive Briefings<div class="mq-dot"></div>Always On</div>
+    <div class="mq-item">Voice Assistant<div class="mq-dot"></div>Email Intelligence<div class="mq-dot"></div>WhatsApp<div class="mq-dot"></div>Calendar<div class="mq-dot"></div>Document Generation<div class="mq-dot"></div>Market Research<div class="mq-dot"></div>Sales Support<div class="mq-dot"></div>Call Screening<div class="mq-dot"></div>Proactive Briefings<div class="mq-dot"></div>Always On</div>
+  </div>
+</div>
+
+<!-- THE GAP -->
+<div class="gap-sec" id="gap">
+  <div class="gap-inner r">
+    <div>
+      <div class="gap-label">The Gap</div>
+      <h2 class="gap-title">You have Claude.<br>You have ChatGPT.<br><em>So why are you still drowning?</em></h2>
+      <p class="gap-body">You're paying for some of the most powerful technology ever built. And what are you actually doing with it? Asking questions. Getting answers. Maybe drafting an email once a week.</p>
+      <p class="gap-body">That's not AI working for you. That's a glorified search engine with a better personality.</p>
+      <div class="gap-pull">"The capability has always been there. What's been missing is the layer between the model and your life."</div>
+      <p class="gap-body">ARIA is that layer. The configuration, the context, the channels, the memory, the proactivity — everything that turns raw intelligence into someone who actually runs your operation.</p>
+    </div>
+    <div class="gap-cards r2">
+      <div class="gap-card">
+        <div class="gap-card-top"><div class="gap-card-title">What you have now</div><div class="gap-card-tag">The problem</div></div>
+        <div class="gap-card-body">A chat window you open when you remember to. You ask, it answers. You forget. Nothing changes. Your inbox is still full. Your calendar still owns you.</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-top"><div class="gap-card-title">What you actually need</div><div class="gap-card-tag">The solution</div></div>
+        <div class="gap-card-body">Something that runs in the background. That monitors your channels, preps your day, handles your routine, and only pulls you in when your judgment is actually required.</div>
+      </div>
+      <div class="gap-card">
+        <div class="gap-card-top"><div class="gap-card-title">What ARIA is</div><div class="gap-card-tag">The difference</div></div>
+        <div class="gap-card-body">The bridge between AI capability and your actual life. Configured for your businesses, your voice, your channels — not a generic template. Yours.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DONNA / ORIGIN -->
+<section class="donna-sec" id="about">
+  <div class="sec-eyebrow r">The Origin</div>
+  <div class="donna-inner">
+    <div class="r">
+      <h2 class="donna-title">Everyone deserves<br><em>a Donna.</em></h2>
+      <p class="donna-body">If you've watched Suits, you know. Donna doesn't wait to be told what to do. She already did it. Harvey walks into a meeting and everything is exactly where it needs to be — because Donna handled it before he knew he needed it handled.</p>
+      <p class="donna-body">That level of operational support used to be reserved for a very specific kind of executive at a very specific kind of firm. You needed the budget, the office, the team. Most people never got a Donna.</p>
+      <div class="donna-pull">"She makes you look more together than you actually are. That's the job."</div>
+      <p class="donna-body">ARIA was built to change that. Sharp, no-nonsense, proactive — the high-powered EA that makes your life run, whether you're closing a $10M deal or managing five kids' after-school schedules.</p>
+
+    </div>
+    <div class="donna-visual r2">
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Proactive, not reactive</div><div class="dcard-tag">Always on</div></div>
+        <div class="dcard-body">ARIA doesn't wait to be asked. She monitors your calendar, flags urgent emails, surfaces what matters, and preps you for what's coming — before you know you need it.</div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Built for your world</div><div class="dcard-tag">Customized</div></div>
+        <div class="dcard-body">Every ARIA is configured for your specific businesses, your communication style, and your daily rhythm. Not a generic assistant — yours.</div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Sharper every day</div><div class="dcard-tag">Self-improving</div></div>
+        <div class="dcard-body">Every conversation teaches ARIA more about how you work. Within a week she anticipates your needs. Within a month you won't remember how you managed without her.</div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Your data. Your rules.</div><div class="dcard-tag">Private</div></div>
+        <div class="dcard-body">ARIA runs on infrastructure you control. Your business conversations, your client data, your personal life — completely isolated, completely yours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- CAPABILITIES -->
+<section class="cap-sec" id="capabilities">
+  <div class="sec-eyebrow r">What She Does</div>
+  <div class="cap-grid r2">
+    <div class="cap"><div class="cap-n">01</div><div class="cap-title">Voice & Phone</div><div class="cap-body">Talk to ARIA, she talks back. Voice notes in, voice replies out. She answers your business line, screens callers, handles routine inquiries, and escalates only what needs you.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">02</div><div class="cap-title">WhatsApp & Messaging</div><div class="cap-body">ARIA monitors your WhatsApp, drafts responses in your exact voice, and handles the back-and-forth — so your inbox doesn't run your day.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">03</div><div class="cap-title">Email Intelligence</div><div class="cap-body">Triages your inbox, flags urgent items, drafts responses in your voice, sends on your behalf after approval. Urgent surfaces immediately. Everything else waits until you're ready.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">04</div><div class="cap-title">Calendar & Scheduling</div><div class="cap-body">Books appointments, protects your time, sends reminders, coordinates across your personal and business calendars. She knows your schedule better than you do.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">05</div><div class="cap-title">Research & Intelligence</div><div class="cap-body">Daily briefings on your industries, competitor monitoring, regulatory alerts, market movements — delivered to your phone every morning, before you ask.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">06</div><div class="cap-title">Documents & Building</div><div class="cap-body">Proposals, reports, presentations, websites, scripts — ARIA drafts and builds in your brand voice. She writes code, designs documents, and deploys projects from a single message.</div><div class="cap-rule"></div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-sec" id="how">
+  <div class="sec-eyebrow r">How It Works</div>
+  <div class="how-grid r2">
+    <div class="how-step">
+      <div class="how-n">01</div>
+      <div class="how-title">You tell us about your world</div>
+      <div class="how-body">Answer a few questions about your businesses, your channels, how you communicate, and what's eating your time. Takes three minutes.</div>
+      <div class="how-connector"></div>
+    </div>
+    <div class="how-step">
+      <div class="how-n">02</div>
+      <div class="how-title">We configure your ARIA</div>
+      <div class="how-body">Our team sets up your ARIA with your business context, connects your accounts, and trains her on your voice and preferences. White-glove from day one.</div>
+      <div class="how-connector"></div>
+    </div>
+    <div class="how-step">
+      <div class="how-n">03</div>
+      <div class="how-title">She goes to work immediately</div>
+      <div class="how-body">ARIA goes live on your channels that day. She's monitoring your email, managing your calendar, and proactively surfacing what matters.</div>
+      <div class="how-connector"></div>
+    </div>
+    <div class="how-step">
+      <div class="how-n">04</div>
+      <div class="how-title">She gets sharper every day</div>
+      <div class="how-body">Every interaction teaches ARIA more about how you work. Within a week she anticipates your needs. Within a month she's indispensable.</div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- THE TEAM -->
+<section class="team-sec" id="team">
+  <div class="sec-eyebrow r">On Elite — The Full Team</div>
+  <div class="team-intro r">
+    <h2 class="team-intro-title">ARIA doesn't<br>work <em>alone.</em></h2>
+    <p class="team-intro-body">On ARIA Elite, she brings three specialists — each an expert in their domain, each waiting for your approval before anything goes out. Think of it as hiring a CMO, Sales Director, and Head of Intelligence — all in your pocket.</p>
+  </div>
+  <div class="team-grid r2">
+    <div class="tcard">
+      <div class="tcard-init">M</div>
+      <div class="tcard-role">Chief Marketing Officer</div>
+      <div class="tcard-name">MARIAM</div>
+      <div class="tcard-stands" style="font-family:'Playfair Display',serif;font-size:13px;font-style:normal;color:rgba(17,17,17,0.4);letter-spacing:0;margin-bottom:20px"><span style="color:#C9A84C">M</span>arketing <span style="color:#C9A84C">ARIA</span> <span style="color:#C9A84C">M</span>odel</div>
+      <div class="tcard-body">Builds full marketing campaigns across all your businesses. Studies what actually works, adapts it to your market, and executes across every channel.</div>
+      <div class="tcard-pills"><span class="pill">Campaigns</span><span class="pill">Content</span><span class="pill">Brand</span><span class="pill">Social</span></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-init">S</div>
+      <div class="tcard-role">Sales Director</div>
+      <div class="tcard-name">SAM</div>
+      <div class="tcard-stands" style="font-family:'Playfair Display',serif;font-size:13px;font-style:normal;color:rgba(17,17,17,0.4);letter-spacing:0;margin-bottom:20px"><span style="color:#C9A84C">S</span>ales <span style="color:#C9A84C">ARIA</span> <span style="color:#C9A84C">M</span>odel</div>
+      <div class="tcard-body">Manages your full sales cycle — pipeline, outreach, scripts, follow-ups, CRM. Studies proven methodologies and applies them to close more of the right deals.</div>
+      <div class="tcard-pills"><span class="pill">Pipeline</span><span class="pill">Scripts</span><span class="pill">CRM</span><span class="pill">Outreach</span></div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-init">R</div>
+      <div class="tcard-role">Intelligence Director</div>
+      <div class="tcard-name">RACHEL</div>
+      <div class="tcard-stands" style="font-family:'Playfair Display',serif;font-size:13px;font-style:normal;color:rgba(17,17,17,0.4);letter-spacing:0;margin-bottom:20px"><span style="color:#C9A84C">R</span>esearch <span style="color:#C9A84C">A</span>ssistant / <span style="color:#C9A84C">C</span>oding <span style="color:#C9A84C">HEL</span>per</div>
+      <div class="tcard-body">Monitors your industries 24/7. Tracks regulatory changes, market movements, competitive intelligence — delivered before you need to ask.</div>
+      <div class="tcard-pills"><span class="pill">Research</span><span class="pill">Markets</span><span class="pill">Intel</span><span class="pill">Alerts</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- PRICING -->
+<section class="price-sec" id="pricing">
+  <div class="price-intro r">
+    <h2 class="price-intro-title">Simple,<br><em>honest</em> pricing.</h2>
+    <p class="price-intro-sub">A great EA in South Florida costs $4,000–6,000 a month. ARIA starts at $97. Fully managed. No setup required on your end.</p>
+  </div>
+  <div class="price-grid r2">
+    <div class="pcard">
+      <div class="pcard-tier">Personal</div>
+      <div class="pcard-name">ARIA Core</div>
+      <div class="pcard-price">$97</div>
+      <div class="pcard-mo">per month · fully managed</div>
+      <div class="pcard-desc">Your personal AI assistant. Calendar, email, research, voice — all handled. No setup, no maintenance, no learning curve.</div>
+      <div class="pcard-feats">
+        <div class="pfeat"><div class="pdot"></div>Voice assistant via Telegram</div>
+        <div class="pfeat"><div class="pdot"></div>Google Calendar management</div>
+        <div class="pfeat"><div class="pdot"></div>Email monitoring & drafting</div>
+        <div class="pfeat"><div class="pdot"></div>Web research on demand</div>
+        <div class="pfeat"><div class="pdot"></div>Daily morning briefings</div>
+        <div class="pfeat"><div class="pdot"></div>Fully managed by our team</div>
+      </div>
+      <a href="aria-quiz.html" class="pcard-cta-gld">Get Started</a>
+    </div>
+    <div class="pcard hot">
+      <div class="pcard-tier">Most Popular</div>
+      <div class="pcard-name">ARIA Pro</div>
+      <div class="pcard-price">$297</div>
+      <div class="pcard-mo">per month · fully managed</div>
+      <div class="pcard-desc">Personal + business ARIA that coordinate seamlessly. All channels. Phone, WhatsApp, email, calendar — everywhere you are.</div>
+      <div class="pcard-feats">
+        <div class="pfeat"><div class="pdot"></div>Everything in Core</div>
+        <div class="pfeat"><div class="pdot"></div>WhatsApp integration</div>
+        <div class="pfeat"><div class="pdot"></div>Phone call screening</div>
+        <div class="pfeat"><div class="pdot"></div>Personal + Business separation</div>
+        <div class="pfeat"><div class="pdot"></div>Document generation</div>
+        <div class="pfeat"><div class="pdot"></div>White-glove onboarding call</div>
+      </div>
+      <a href="aria-quiz.html" class="pcard-cta-blk">Get Started</a>
+    </div>
+    <div class="pcard">
+      <div class="pcard-tier">Full Team</div>
+      <div class="pcard-name">ARIA Elite</div>
+      <div class="pcard-price">$497</div>
+      <div class="pcard-mo">per month · fully managed</div>
+      <div class="pcard-desc">ARIA plus Maria, SAM, and Rachel. A CMO, Sales Director, and Intelligence Director in your pocket — waiting for your direction.</div>
+      <div class="pcard-feats">
+        <div class="pfeat"><div class="pdot"></div>Everything in Pro</div>
+        <div class="pfeat"><div class="pdot"></div>Maria — marketing campaigns</div>
+        <div class="pfeat"><div class="pdot"></div>SAM — sales & pipeline</div>
+        <div class="pfeat"><div class="pdot"></div>Rachel — market intelligence</div>
+        <div class="pfeat"><div class="pdot"></div>HIPAA-eligible option</div>
+        <div class="pfeat"><div class="pdot"></div>Priority support from Ahmed</div>
+      </div>
+      <a href="aria-quiz.html" class="pcard-cta-gld">Get Started</a>
+    </div>
+  </div>
+  <div class="price-enterprise r3">
+    <p>Need ARIA for your whole executive team? Custom integrations? HIPAA compliance?</p>
+    <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Enterprise">Talk to us about Enterprise →</a>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final r" id="start">
+  <div class="final-bg"></div>
+  <div class="final-eyebrow">Ready?</div>
+  <h2 class="final-title">Meet your<br><em>ARIA.</em></h2>
+  <p class="final-sub">Three minutes to find the right configuration. One setup call. Then she gets to work — and keeps getting better, every single day.</p>
+  <div class="final-btns">
+    <a href="aria-quiz.html" class="btn-cream">Find My ARIA →</a>
+    <a href="mailto:ahmed@babylonconsulting.us?subject=I want to meet my ARIA" class="btn-gold-outline">Talk to Ahmed First</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ARIA<span>.</span></div>
+  <ul class="footer-links">
+    <li><a href="#gap">The Gap</a></li>
+    <li><a href="#capabilities">Capabilities</a></li>
+    <li><a href="#team">The Team</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="aria-quiz.html">Find My ARIA</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 Your ARIA<br>Powered by <a href="https://www.babylonconsulting.us">Babylon Consulting LLC</a></p>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function loop(){
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.dcard,.gap-card,.cap,.tcard,.pcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.opacity='0.6';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='1';});
+});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}}),{threshold:0.07});
+document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
