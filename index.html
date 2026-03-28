@@ -53,24 +53,33 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hero-badges-strip{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;opacity:0;animation:up 0.9s 0.85s ease forwards;}
 .hero-badge{padding:6px 16px;border:1px solid var(--ink-12);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-35);font-weight:500;}
 
-/* hero scenes */
-.hs-wrap{position:relative;max-width:360px;width:100%;min-height:220px;}
-.hs-scene{position:absolute;top:0;left:0;right:0;opacity:0;transition:opacity 0.7s ease;display:flex;flex-direction:column;gap:8px;}
-.hs-scene.active{opacity:1;position:relative;}
-.hs-label{font-size:10px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:500;margin-bottom:8px;}
-.hs-bubble{padding:10px 14px;font-size:13px;line-height:1.55;color:#E9EDEF;font-family:system-ui,-apple-system,sans-serif;position:relative;}
-.hs-bubble.user{background:#005C4B;align-self:flex-end;border-radius:18px 18px 4px 18px;max-width:280px;margin-left:auto;}
-.hs-bubble.aria{background:#1e1e1e;align-self:flex-start;border-radius:18px 18px 18px 4px;max-width:300px;}
-.hs-aria-label{font-size:9px;color:#8696A0;font-weight:600;letter-spacing:0.05em;margin-bottom:4px;}
-.hs-time{font-size:10px;color:#8696A0;text-align:right;margin-top:2px;}
-.hs-checks{color:#53BDEB;font-size:11px;margin-left:4px;}
+/* hero phone + scenes */
+.hs-glow{position:absolute;width:380px;height:380px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(201,168,76,0.12) 0%,transparent 70%);border-radius:50%;z-index:0;pointer-events:none;}
+.hs-phone{position:relative;z-index:1;width:300px;height:520px;background:#000;border:8px solid #1a1a1a;border-radius:40px;box-shadow:0 30px 80px rgba(0,0,0,0.3);overflow:hidden;animation:hs-bob 4s ease-in-out infinite;}
+@keyframes hs-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hs-notch{width:80px;height:20px;background:#1a1a1a;border-radius:0 0 12px 12px;margin:0 auto;position:relative;z-index:2;}
+.hs-wa-header{background:#1F2C34;height:52px;display:flex;align-items:center;gap:10px;padding:0 16px;}
+.hs-wa-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:#fff;font-weight:500;}
+.hs-wa-name{font-family:system-ui,sans-serif;font-size:14px;font-weight:600;color:#E9EDEF;}
+.hs-wa-status{font-family:system-ui,sans-serif;font-size:10px;color:#25D366;}
+.hs-screen{background:#0B141A;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 10 M10 20 L15 25 M45 35 L50 30 M20 50 L25 45' stroke='%23ffffff' stroke-opacity='0.015' stroke-width='1' fill='none'/%3E%3C/svg%3E");flex:1;overflow:hidden;padding:12px 10px;position:relative;}
+.hs-wrap{position:relative;height:100%;}
+.hs-scene{position:absolute;top:0;left:0;right:0;opacity:0;transition:opacity 0.7s ease;display:flex;flex-direction:column;gap:6px;}
+.hs-scene.active{opacity:1;}
+.hs-label{font-size:10px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-weight:500;margin-bottom:6px;text-align:center;}
+.hs-bubble{padding:8px 12px;font-size:12px;line-height:1.5;color:#E9EDEF;font-family:system-ui,-apple-system,sans-serif;}
+.hs-bubble.user{background:#005C4B;align-self:flex-end;border-radius:14px 14px 4px 14px;max-width:230px;margin-left:auto;}
+.hs-bubble.aria{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 4px;max-width:240px;}
+.hs-aria-label{font-size:8px;color:#8696A0;font-weight:600;letter-spacing:0.05em;margin-bottom:3px;}
+.hs-time{font-size:9px;color:#8696A0;text-align:right;margin-top:2px;}
+.hs-checks{color:#53BDEB;font-size:10px;margin-left:3px;}
 .hs-line{width:48px;height:1px;background:var(--gold);margin:16px auto 0;}
-.hs-voice{display:flex;align-items:center;gap:8px;}
-.hs-voice-play{width:24px;height:24px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.hs-voice-play::after{content:'';width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #fff;margin-left:2px;}
-.hs-voice-bars{display:flex;gap:2px;align-items:center;height:20px;flex:1;}
-.hs-voice-bars span{display:block;width:3px;border-radius:2px;background:#8696A0;}
-.hs-voice-dur{font-size:11px;color:#8696A0;}
+.hs-voice{display:flex;align-items:center;gap:6px;}
+.hs-voice-play{width:22px;height:22px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hs-voice-play::after{content:'';width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:7px solid #fff;margin-left:2px;}
+.hs-voice-bars{display:flex;gap:2px;align-items:center;height:18px;flex:1;}
+.hs-voice-bars span{display:block;width:2px;border-radius:2px;background:#8696A0;}
+.hs-voice-dur{font-size:10px;color:#8696A0;}
 .hero-rule{position:absolute;top:0;right:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--ink-06) 20%,var(--ink-06) 80%,transparent);}
 .hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;font-weight:500;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:14px;opacity:0;animation:up 0.9s 0.2s ease forwards;}
 .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
@@ -419,60 +428,70 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
     <div class="hero-badge">Your Data, Your Privacy</div>
   </div>
   </div>
-  <div class="hero-right">
-    <div class="hs-wrap" id="heroScenes">
-
-      <!-- Scene 1: Drafting a proposal -->
-      <div class="hs-scene active">
-        <div class="hs-label">Drafting a proposal —</div>
-        <div class="hs-bubble user">Can you put together a service proposal for Hiba at Highview Billing? Two-year contract, our standard rates.<div class="hs-time">2:14 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>On it. I'll pull our rate sheet, draft the proposal, and save it as a PDF. Give me two minutes.<div class="hs-time">2:14 PM</div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Done — 'Highview Billing Proposal 2026.pdf' is in your Drafts. Want me to email it to her?<div class="hs-time">2:16 PM</div></div>
+  <div class="hero-right" style="position:relative;">
+    <div class="hs-glow"></div>
+    <div class="hs-phone">
+      <div class="hs-notch"></div>
+      <div class="hs-wa-header">
+        <div class="hs-wa-avatar">A</div>
+        <div><div class="hs-wa-name">ARIA</div><div class="hs-wa-status">online</div></div>
       </div>
+      <div class="hs-screen">
+        <div class="hs-wrap" id="heroScenes">
 
-      <!-- Scene 2: Summarizing a call -->
-      <div class="hs-scene">
-        <div class="hs-label">Summarizing a call —</div>
-        <div class="hs-bubble user"><div class="hs-voice"><div class="hs-voice-play"></div><div class="hs-voice-bars"><span style="height:4px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:20px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:8px"></span><span style="height:14px"></span><span style="height:6px"></span></div><div class="hs-voice-dur">0:04</div></div><div class="hs-time">10:31 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Got it. Summary: Greg called about the 750MW deal. He confirmed the plant is under contract but wants first right of refusal if it falls through. Action item: follow up in 30 days. Want me to set a reminder?<div class="hs-time">10:31 AM</div></div>
-        <div class="hs-bubble user">Yes, 30 days.<div class="hs-time">10:32 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Reminder set for April 28th. I'll brief you the morning before.<div class="hs-time">10:32 AM</div></div>
+          <!-- Scene 1: Drafting a proposal -->
+          <div class="hs-scene active">
+            <div class="hs-label">Drafting a proposal —</div>
+            <div class="hs-bubble user">Put together a service proposal for Sarah at Meridian Partners. Two-year contract, our standard rates.<div class="hs-time">2:14 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>On it. I'll pull the rate sheet, draft the proposal, and save it as a PDF. Give me two minutes.<div class="hs-time">2:14 PM</div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Done — 'Meridian Partners Proposal 2026.pdf' is in your Drafts. Want me to email it to her?<div class="hs-time">2:16 PM</div></div>
+          </div>
+
+          <!-- Scene 2: Summarizing a call -->
+          <div class="hs-scene">
+            <div class="hs-label">Summarizing a call —</div>
+            <div class="hs-bubble user"><div class="hs-voice"><div class="hs-voice-play"></div><div class="hs-voice-bars"><span style="height:4px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:20px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:8px"></span><span style="height:14px"></span><span style="height:6px"></span></div><div class="hs-voice-dur">0:04</div></div><div class="hs-time">10:31 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Got it. Derek called about the deal. He confirmed it's under contract but wants first right of refusal if it falls through. Follow up in 30 days. Want me to set a reminder?<div class="hs-time">10:31 AM</div></div>
+            <div class="hs-bubble user">Yes, 30 days.<div class="hs-time">10:32 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Reminder set for April 28th. I'll brief you the morning before.<div class="hs-time">10:32 AM</div></div>
+          </div>
+
+          <!-- Scene 3: Finding dinner -->
+          <div class="hs-scene">
+            <div class="hs-label">Finding dinner —</div>
+            <div class="hs-bubble user">I need a good spot for a business dinner tonight. 5 miles, private enough to talk.<div class="hs-time">4:12 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Top three: Osteria Moderna (Italian, private booths, 0.8mi), The Capital Grille (upscale, 2.1mi), Villa Terrace (quiet, 3.2mi). Check availability?<div class="hs-time">4:12 PM</div></div>
+            <div class="hs-bubble user">Check all three for 7:30.<div class="hs-time">4:13 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Calling now — confirmations back to you in a few minutes.<div class="hs-time">4:13 PM</div></div>
+          </div>
+
+          <!-- Scene 4: Building a deck -->
+          <div class="hs-scene">
+            <div class="hs-label">Building a deck —</div>
+            <div class="hs-bubble user">Make me a pitch deck. 6 slides, investor-facing, keep it sharp.<div class="hs-time">11:04 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Working on it. Problem, solution, product, traction, market, ask — that structure?<div class="hs-time">11:04 AM</div></div>
+            <div class="hs-bubble user">Perfect.<div class="hs-time">11:05 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Done. 'Investor Deck.pptx' is ready. Sending the link now.<div class="hs-time">11:07 AM</div></div>
+          </div>
+
+          <!-- Scene 5: Making the call -->
+          <div class="hs-scene">
+            <div class="hs-label">Making the call —</div>
+            <div class="hs-bubble user">Call The Capital Grille and book a table for 4 at 7:30 tonight.<div class="hs-time">4:18 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Calling them now...<div class="hs-time">4:18 PM</div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Confirmed. Table for 4 at 7:30pm, The Capital Grille. Confirmation #8841. Added to your calendar.<div class="hs-time">4:20 PM</div></div>
+          </div>
+
+          <!-- Scene 6: Morning briefing -->
+          <div class="hs-scene">
+            <div class="hs-label">Every morning —</div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Good morning. John replied — he's reaching out to the seller today. Two meetings, both prepped. One email needs a decision, I flagged it. Sarah opened the proposal. Start with John?<div class="hs-time">8:02 AM</div></div>
+            <div class="hs-bubble user">Start with John.<div class="hs-time">8:03 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
+            <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Pulling up the full thread now...<div class="hs-time">8:03 AM</div></div>
+          </div>
+
+        </div>
       </div>
-
-      <!-- Scene 3: Finding dinner -->
-      <div class="hs-scene">
-        <div class="hs-label">Finding dinner —</div>
-        <div class="hs-bubble user">I need a good spot for a business dinner tonight. 5 mile radius, private enough to talk, not too loud.<div class="hs-time">4:12 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Found 6 options nearby. Top three: Louie Bossi (Italian, private booths, 0.8mi), Steak 954 (upscale, 2.1mi), Casa D'Angelo (quiet, 3.2mi). Want me to check availability for tonight?<div class="hs-time">4:12 PM</div></div>
-        <div class="hs-bubble user">Check all three for 7:30.<div class="hs-time">4:13 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Calling now — I'll have confirmations back to you in a few minutes.<div class="hs-time">4:13 PM</div></div>
-      </div>
-
-      <!-- Scene 4: Building a deck -->
-      <div class="hs-scene">
-        <div class="hs-label">Building a deck —</div>
-        <div class="hs-bubble user">Make me a pitch deck for ARIA. 6 slides, investor-facing, keep it sharp.<div class="hs-time">11:04 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Working on it. Problem, solution, product, traction, market, ask — that structure?<div class="hs-time">11:04 AM</div></div>
-        <div class="hs-bubble user">Perfect.<div class="hs-time">11:05 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Done. 'ARIA Investor Deck.pptx' is ready. Sending the link now.<div class="hs-time">11:07 AM</div></div>
-      </div>
-
-      <!-- Scene 5: Making the call -->
-      <div class="hs-scene">
-        <div class="hs-label">Making the call —</div>
-        <div class="hs-bubble user">Call Steak 954 and book a table for 4 at 7:30 tonight. Name under Babylon Consulting.<div class="hs-time">4:18 PM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Calling them now...<div class="hs-time">4:18 PM</div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Confirmed. Table for 4 at 7:30pm, Steak 954, under Babylon Consulting. Confirmation #8841. Added to your calendar.<div class="hs-time">4:20 PM</div></div>
-      </div>
-
-      <!-- Scene 6: Morning briefing -->
-      <div class="hs-scene">
-        <div class="hs-label">Every morning —</div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Good morning. Quick rundown: Milt replied — he's reaching out to the seller today. You have two meetings, both prepped. One email needs a decision from you, I flagged it. And Hiba opened the proposal. Want me to start with Milt?<div class="hs-time">8:02 AM</div></div>
-        <div class="hs-bubble user">Start with Milt.<div class="hs-time">8:03 AM<span class="hs-checks">&#10003;&#10003;</span></div></div>
-        <div class="hs-bubble aria"><div class="hs-aria-label">ARIA</div>Pulling up the full thread now...<div class="hs-time">8:03 AM</div></div>
-      </div>
-
     </div>
     <div class="hs-line"></div>
   </div>
