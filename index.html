@@ -47,7 +47,14 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .nav-cta:hover{background:var(--dark2);}
 
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 72px 80px;position:relative;overflow:hidden;}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:140px 72px 80px;position:relative;overflow:hidden;}
+.hero-left{}
+.hero-right{display:flex;flex-direction:column;align-items:center;gap:24px;opacity:0;animation:up 0.9s 0.8s ease forwards;}
+.hero-glow{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(201,168,76,0.15) 0%,transparent 70%);border-radius:50%;z-index:0;}
+.hero-phone{background:#000;border-radius:36px;padding:10px;width:260px;box-shadow:0 20px 50px rgba(0,0,0,0.2);animation:hw-float 3s ease-in-out infinite;position:relative;z-index:1;}
+.hero-phone-inner{border-radius:28px;overflow:hidden;background:#0B141A;}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.hero-badge{padding:8px 18px;border:1px solid var(--ink-12);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-60);font-weight:500;}
 .hero-rule{position:absolute;top:0;right:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--ink-06) 20%,var(--ink-06) 80%,transparent);}
 .hero-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;font-weight:500;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:14px;opacity:0;animation:up 0.9s 0.2s ease forwards;}
 .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
@@ -159,13 +166,15 @@ section{padding:120px 72px;}
 .dcard-body{font-size:13px;color:var(--ink-60);line-height:1.75;}
 
 /* ── CAPABILITIES ── */
-.cap-sec{background:var(--bg2);}
-.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink-12);}
-.cap{background:var(--bg2);padding:48px 40px;transition:background 0.3s;position:relative;}
-.cap:hover{background:var(--bg);}
-.cap-n{font-family:'Playfair Display',serif;font-size:11px;font-style:italic;color:var(--gold-dk);letter-spacing:2px;margin-bottom:18px;}
-.cap-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin-bottom:12px;line-height:1.2;}
-.cap-body{font-size:13px;color:var(--ink-60);line-height:1.85;}
+.cap-sec{background:var(--ink);}
+.cap-sec .sec-eyebrow{color:var(--gold);}
+.cap-sec .sec-eyebrow::after{background:var(--gold);}
+.cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06);}
+.cap{background:#1a1a1a;padding:48px 40px;transition:background 0.3s;position:relative;}
+.cap:hover{background:#222;}
+.cap-n{font-family:'Playfair Display',serif;font-size:11px;font-style:italic;color:var(--gold);letter-spacing:2px;margin-bottom:18px;}
+.cap-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin-bottom:12px;line-height:1.2;color:#fff;}
+.cap-body{font-size:13px;color:#999;line-height:1.85;}
 .cap-rule{position:absolute;bottom:0;left:40px;right:40px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
 .cap:hover .cap-rule{transform:scaleX(1);}
 
@@ -324,6 +333,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
   .nav-links{display:none;}
   .hero,.final,section,.gap-sec,.donna-sec,.cap-sec,.how-sec,.team-sec,.price-sec,.wa-sec,.claude-sec{padding:80px 28px;}
   .hero-h1{font-size:52px;letter-spacing:-1px;}
+  .hero{grid-template-columns:1fr;} .hero-right{margin-top:48px;}
   .donna-inner,.gap-inner,.wa-inner{grid-template-columns:1fr;}
   .cap-grid,.team-grid,.how-grid{grid-template-columns:1fr;}
   .price-grid{grid-template-columns:1fr 1fr;}
@@ -358,6 +368,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-rule"></div>
+  <div class="hero-left">
   <div class="hero-eyebrow">Your AI Executive Assistant</div>
   <h1 class="hero-h1">The assistant<br>you've been<br><em>waiting for.</em></h1>
   <p class="hero-body">ARIA thinks with Claude — Anthropic's most capable AI. She researches, writes, builds, and executes in the background. You only see the results.</p>
@@ -377,6 +388,28 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
     <div class="hstat"><div class="hstat-n">10+</div><div class="hstat-l">Hours back weekly</div></div>
     <div class="hstat"><div class="hstat-n">24/7</div><div class="hstat-l">Always on</div></div>
     <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l">Apps to install</div></div>
+  </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-glow"></div>
+    <div class="hero-phone">
+      <div class="hero-phone-inner">
+        <div class="wa-header">
+          <div class="wa-avatar">A</div>
+          <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
+        </div>
+        <div class="wa-chat" style="padding:12px 10px;min-height:200px;font-family:system-ui,sans-serif;">
+          <div class="wa-msg aria" style="font-size:11px;line-height:1.5;padding:6px 9px 3px;"><div class="wa-msg-name" style="font-size:8px;">ARIA</div>Good morning Ahmed. Three things worth your attention — Milt replied about the turbine deal, you have a consent form to sign, and your 2pm got moved. Want me to start with Milt?<div class="wa-msg-meta"><span class="wa-msg-time" style="font-size:8px;">9:02 AM</span></div></div>
+          <div class="wa-msg user" style="font-size:11px;line-height:1.5;padding:6px 9px 3px;">Yes, start with Milt.<div class="wa-msg-meta"><span class="wa-msg-time" style="font-size:8px;">9:02 AM</span><span class="wa-checks" style="font-size:10px;">&#10003;&#10003;</span></div></div>
+          <div class="wa-msg aria" style="font-size:11px;line-height:1.5;padding:6px 9px 3px;"><div class="wa-msg-name" style="font-size:8px;">ARIA</div>On it — pulling up the full thread now...<div class="wa-msg-meta"><span class="wa-msg-time" style="font-size:8px;">9:02 AM</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">Claude Sonnet 4.6</div>
+      <div class="hero-badge">ElevenLabs Voice</div>
+      <div class="hero-badge">Your Data, Your Privacy</div>
+    </div>
   </div>
   <div class="hero-scroll"><div class="scroll-bar"></div>Scroll</div>
 </section>
@@ -416,6 +449,55 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
     </div>
   </div>
 </div>
+
+<!-- DONNA / ORIGIN -->
+<section class="donna-sec" id="about">
+  <div class="sec-eyebrow r">The Origin</div>
+  <div class="donna-inner">
+    <div class="r">
+      <h2 class="donna-title">Everyone deserves<br><em>a Donna.</em></h2>
+      <p class="donna-body">If you've watched Suits, you know. Donna doesn't wait to be told what to do. She already did it. Harvey walks into a meeting and everything is exactly where it needs to be — because Donna handled it before he knew he needed it handled.</p>
+      <p class="donna-body">That level of operational support used to be reserved for a very specific kind of executive at a very specific kind of firm. You needed the budget, the office, the team. Most people never got a Donna.</p>
+      <div class="donna-pull">"She makes you look more together than you actually are. That's the job."</div>
+      <p class="donna-body">ARIA was built to change that. Sharp, no-nonsense, proactive — the high-powered EA that makes your life run, whether you're closing a $10M deal or managing five kids' after-school schedules.</p>
+    </div>
+    <div class="donna-visual r2">
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Proactive, not reactive</div><div class="dcard-tag">Always on</div></div>
+        <div class="dcard-body">ARIA doesn't wait to be asked. She monitors your calendar, flags urgent emails, surfaces what matters, and preps you for what's coming — before you know you need it.</div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Built for your world</div><div class="dcard-tag">Customized</div></div>
+        <div class="dcard-body">Every ARIA is configured for your specific businesses, your communication style, and your daily rhythm. Not a generic assistant — yours.</div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Sharper every day</div><div class="dcard-tag">Self-improving</div></div>
+        <div class="dcard-body">Every conversation teaches ARIA more about how you work. Within a week she anticipates your needs. Within a month you won't remember how you managed without her.</div>
+      </div>
+      <div class="dcard">
+        <div class="dcard-top"><div class="dcard-title">Your data. Your rules.</div><div class="dcard-tag">Private</div></div>
+        <div class="dcard-body">ARIA runs on infrastructure you control. Your business conversations, your client data, your personal life — completely isolated, completely yours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- CAPABILITIES -->
+<section class="cap-sec" id="capabilities">
+  <div class="sec-eyebrow r">What She Does</div>
+  <div class="cap-grid r2">
+    <div class="cap"><div class="cap-n">01</div><div class="cap-title">Voice & Phone</div><div class="cap-body">Talk to ARIA, she talks back. Voice notes in, voice replies out. She answers your business line, screens callers, handles routine inquiries, and escalates only what needs you.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">02</div><div class="cap-title">WhatsApp & Messaging</div><div class="cap-body">ARIA monitors your WhatsApp, drafts responses in your exact voice, and handles the back-and-forth — so your inbox doesn't run your day.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">03</div><div class="cap-title">Email Intelligence</div><div class="cap-body">Triages your inbox, flags urgent items, drafts responses in your voice, sends on your behalf after approval. Urgent surfaces immediately. Everything else waits until you're ready.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">04</div><div class="cap-title">Calendar & Scheduling</div><div class="cap-body">Books appointments, protects your time, sends reminders, coordinates across your personal and business calendars. She knows your schedule better than you do.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">05</div><div class="cap-title">Research & Intelligence</div><div class="cap-body">Daily briefings on your industries, competitor monitoring, regulatory alerts, market movements — delivered to your phone every morning, before you ask.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">06</div><div class="cap-title">Documents & Building</div><div class="cap-body">Proposals, reports, presentations, websites, scripts — ARIA drafts and builds in your brand voice. She writes code, designs documents, and deploys projects from a single message.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">07</div><div class="cap-title">Inbound & Outbound Calls</div><div class="cap-body">ARIA answers your business line and makes calls on your behalf. In her voice. 24/7. She screens, routes, takes messages, and books appointments without you lifting a finger.</div><div class="cap-rule"></div></div>
+    <div class="cap"><div class="cap-n">08</div><div class="cap-title">Builds on Demand</div><div class="cap-body">Ask for a landing page, a pitch deck, a spreadsheet. Get a live link back in minutes. ARIA doesn't just draft — she ships.</div><div class="cap-rule"></div></div>
+  </div>
+</section>
 
 <!-- SHE LIVES IN WHATSAPP -->
 <div class="wa-sec" id="whatsapp">
@@ -473,67 +555,6 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
     </div>
   </div>
 </div>
-
-<!-- CLAUDE'S BRAIN -->
-<div class="claude-sec r" id="claude">
-  <div class="sec-eyebrow" style="justify-content:center;color:var(--gold);margin-bottom:44px;">The Brain</div>
-  <h2 class="claude-title">Powered by <em>Claude.</em><br>No account required.</h2>
-  <p class="claude-body">Every ARIA tier runs on Claude — the same AI behind Anthropic's most advanced reasoning. ARIA can think, research, write, build, and execute exactly the way you would using Claude yourself. The difference: she does it all in the background. No Anthropic account. No OpenAI account. No prompts. No learning curve. Just tell ARIA what you need.</p>
-  <div class="claude-badges">
-    <div class="claude-badge">Claude Sonnet 4.6</div>
-    <div class="claude-badge">ElevenLabs Voice</div>
-    <div class="claude-badge">Your Data, Your Privacy</div>
-  </div>
-</div>
-
-<!-- DONNA / ORIGIN -->
-<section class="donna-sec" id="about">
-  <div class="sec-eyebrow r">The Origin</div>
-  <div class="donna-inner">
-    <div class="r">
-      <h2 class="donna-title">Everyone deserves<br><em>a Donna.</em></h2>
-      <p class="donna-body">If you've watched Suits, you know. Donna doesn't wait to be told what to do. She already did it. Harvey walks into a meeting and everything is exactly where it needs to be — because Donna handled it before he knew he needed it handled.</p>
-      <p class="donna-body">That level of operational support used to be reserved for a very specific kind of executive at a very specific kind of firm. You needed the budget, the office, the team. Most people never got a Donna.</p>
-      <div class="donna-pull">"She makes you look more together than you actually are. That's the job."</div>
-      <p class="donna-body">ARIA was built to change that. Sharp, no-nonsense, proactive — the high-powered EA that makes your life run, whether you're closing a $10M deal or managing five kids' after-school schedules.</p>
-    </div>
-    <div class="donna-visual r2">
-      <div class="dcard">
-        <div class="dcard-top"><div class="dcard-title">Proactive, not reactive</div><div class="dcard-tag">Always on</div></div>
-        <div class="dcard-body">ARIA doesn't wait to be asked. She monitors your calendar, flags urgent emails, surfaces what matters, and preps you for what's coming — before you know you need it.</div>
-      </div>
-      <div class="dcard">
-        <div class="dcard-top"><div class="dcard-title">Built for your world</div><div class="dcard-tag">Customized</div></div>
-        <div class="dcard-body">Every ARIA is configured for your specific businesses, your communication style, and your daily rhythm. Not a generic assistant — yours.</div>
-      </div>
-      <div class="dcard">
-        <div class="dcard-top"><div class="dcard-title">Sharper every day</div><div class="dcard-tag">Self-improving</div></div>
-        <div class="dcard-body">Every conversation teaches ARIA more about how you work. Within a week she anticipates your needs. Within a month you won't remember how you managed without her.</div>
-      </div>
-      <div class="dcard">
-        <div class="dcard-top"><div class="dcard-title">Your data. Your rules.</div><div class="dcard-tag">Private</div></div>
-        <div class="dcard-body">ARIA runs on infrastructure you control. Your business conversations, your client data, your personal life — completely isolated, completely yours.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="div"></div>
-
-<!-- CAPABILITIES -->
-<section class="cap-sec" id="capabilities">
-  <div class="sec-eyebrow r">What She Does</div>
-  <div class="cap-grid r2">
-    <div class="cap"><div class="cap-n">01</div><div class="cap-title">Voice & Phone</div><div class="cap-body">Talk to ARIA, she talks back. Voice notes in, voice replies out. She answers your business line, screens callers, handles routine inquiries, and escalates only what needs you.</div><div class="cap-rule"></div></div>
-    <div class="cap"><div class="cap-n">02</div><div class="cap-title">WhatsApp & Messaging</div><div class="cap-body">ARIA monitors your WhatsApp, drafts responses in your exact voice, and handles the back-and-forth — so your inbox doesn't run your day.</div><div class="cap-rule"></div></div>
-    <div class="cap"><div class="cap-n">03</div><div class="cap-title">Email Intelligence</div><div class="cap-body">Triages your inbox, flags urgent items, drafts responses in your voice, sends on your behalf after approval. Urgent surfaces immediately. Everything else waits until you're ready.</div><div class="cap-rule"></div></div>
-    <div class="cap"><div class="cap-n">04</div><div class="cap-title">Calendar & Scheduling</div><div class="cap-body">Books appointments, protects your time, sends reminders, coordinates across your personal and business calendars. She knows your schedule better than you do.</div><div class="cap-rule"></div></div>
-    <div class="cap"><div class="cap-n">05</div><div class="cap-title">Research & Intelligence</div><div class="cap-body">Daily briefings on your industries, competitor monitoring, regulatory alerts, market movements — delivered to your phone every morning, before you ask.</div><div class="cap-rule"></div></div>
-    <div class="cap"><div class="cap-n">06</div><div class="cap-title">Documents & Building</div><div class="cap-body">Proposals, reports, presentations, websites, scripts — ARIA drafts and builds in your brand voice. She writes code, designs documents, and deploys projects from a single message.</div><div class="cap-rule"></div></div>
-    <div class="cap"><div class="cap-n">07</div><div class="cap-title">Inbound & Outbound Calls</div><div class="cap-body">ARIA answers your business line and makes calls on your behalf. In her voice. 24/7. She screens, routes, takes messages, and books appointments without you lifting a finger.</div><div class="cap-rule"></div></div>
-    <div class="cap"><div class="cap-n">08</div><div class="cap-title">Builds on Demand</div><div class="cap-body">Ask for a landing page, a pitch deck, a spreadsheet. Get a live link back in minutes. ARIA doesn't just draft — she ships.</div><div class="cap-rule"></div></div>
-  </div>
-</section>
 
 <!-- HOW IT WORKS -->
 <section class="how-sec" id="how">
