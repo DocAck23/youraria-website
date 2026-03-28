@@ -63,13 +63,13 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 @keyframes hs-bob{from{transform:translateY(0)}to{transform:translateY(-10px)}}
 .hs-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:0 0 14px 14px;z-index:10;}
 .hs-home{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:80px;height:4px;background:#333;border-radius:2px;z-index:10;}
-.hs-screen{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;}
+.hs-screen{position:relative;width:100%;height:100%;overflow:hidden;background:#0B141A;}
 
 /* slide — direction aware */
-.hs-slide{position:absolute;inset:0;transform:translateX(100%);transition:transform 0.45s ease-in-out;will-change:transform;}
-.hs-slide.active{transform:translateX(0);}
-.hs-slide.exit-left{transform:translateX(-100%);}
-.hs-slide.exit-right{transform:translateX(100%);}
+.hs-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;transform:translateX(100%);transition:transform 0.45s ease-in-out,opacity 0.45s ease-in-out;will-change:transform,opacity;}
+.hs-slide.active{transform:translateX(0);opacity:1;visibility:visible;}
+.hs-slide.exit-left{transform:translateX(-100%);opacity:0;visibility:visible;}
+.hs-slide.exit-right{transform:translateX(100%);opacity:0;visibility:visible;}
 .hs-slide.enter-left{transform:translateX(-100%);}
 
 /* chat */
@@ -78,7 +78,7 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-chat-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:#fff;font-weight:500;}
 .hs-chat-name{font-family:system-ui,sans-serif;font-size:14px;font-weight:600;color:#E9EDEF;}
 .hs-chat-status{font-family:system-ui,sans-serif;font-size:11px;color:#25D366;}
-.hs-chat-body{flex:1;padding:10px 8px;display:flex;flex-direction:column;gap:5px;overflow:hidden;}
+.hs-chat-body{flex:1;padding:10px 8px;display:flex;flex-direction:column;justify-content:flex-end;gap:5px;overflow:hidden;box-sizing:border-box;}
 
 /* bubbles */
 .hs-b{padding:7px 10px;font-size:11px;line-height:1.45;color:#E9EDEF;font-family:system-ui,-apple-system,sans-serif;opacity:0;transform:translateY(8px);transition:opacity 0.3s ease-out,transform 0.3s ease-out;}
@@ -90,8 +90,8 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-b-ck{color:#53BDEB;font-size:9px;margin-left:3px;}
 
 /* typing indicator — always left/ARIA side */
-.hs-tdot{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;padding:10px 14px;display:none;gap:3px;}
-.hs-tdot.shown{display:flex;}
+.hs-tdot{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;padding:10px 14px;display:flex;gap:3px;opacity:0;height:0;overflow:hidden;transition:opacity 0.2s ease,height 0.2s ease;margin:0;}
+.hs-tdot.shown{opacity:1;height:auto;overflow:visible;margin-bottom:0;}
 .hs-tdot span{width:5px;height:5px;background:#8696A0;border-radius:50%;animation:typingBounce 0.6s ease-in-out infinite;}
 .hs-tdot span:nth-child(2){animation-delay:0.15s;}
 .hs-tdot span:nth-child(3){animation-delay:0.3s;}
@@ -1032,102 +1032,103 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60)
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}}),{threshold:0.07});
 document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
 
-// Hero carousel with animated bubbles + direction-aware sliding
+// Hero carousel — reliable JS timeout animation
 (function(){
   const slides=document.querySelectorAll('#heroPhone .hs-slide');
   const dots=document.querySelectorAll('#heroDots .hs-dot');
   const descs=document.querySelectorAll('#heroDesc .hs-desc-item');
   if(!slides.length)return;
-  let cur=0,timer=null,animTimers=[];
+  let cur=0,autoTimer=null,stepTimers=[];
 
-  function clearAnims(){animTimers.forEach(t=>clearTimeout(t));animTimers=[];}
+  function clearSteps(){stepTimers.forEach(clearTimeout);stepTimers=[];}
 
-  function resetBubbles(slide){
+  function reset(slide){
     slide.querySelectorAll('.hs-b').forEach(b=>b.classList.remove('shown'));
-    const td=slide.querySelector('.hs-tdot');
+    const td=slide.querySelector('[data-typing]');
     if(td)td.classList.remove('shown');
-    const bn=slide.querySelector('.hs-banner');
+    const bn=slide.querySelector('[data-banner]');
     if(bn)bn.classList.remove('shown');
   }
 
-  function animateBubbles(slide){
-    const bubbles=slide.querySelectorAll('.hs-b[data-d]');
-    const td=slide.querySelector('.hs-tdot');
+  function showScene(slide){
+    const bubbles=Array.from(slide.querySelectorAll('.hs-b[data-d]'));
+    const td=slide.querySelector('[data-typing]');
     const bn=slide.querySelector('[data-banner]');
-    let t=300;
+    let t=400;
 
-    // If it's the call screen (no bubbles), show banner after 2s
-    if(!bubbles.length&&bn){
-      animTimers.push(setTimeout(()=>{bn.classList.add('shown');},2000));
-      animTimers.push(setTimeout(()=>{bn.classList.remove('shown');},5000));
+    // Call screen — no bubbles, just banner
+    if(!bubbles.length){
+      if(bn){
+        stepTimers.push(setTimeout(()=>bn.classList.add('shown'),2000));
+        stepTimers.push(setTimeout(()=>bn.classList.remove('shown'),5000));
+      }
       return 8000;
     }
 
-    bubbles.forEach(b=>{
+    bubbles.forEach((b,i)=>{
       const isAria=b.classList.contains('a');
       if(isAria&&td){
-        animTimers.push(setTimeout(()=>{td.classList.add('shown');},t));
+        // Show typing before ARIA bubble
+        stepTimers.push(setTimeout(()=>td.classList.add('shown'),t));
         t+=1200;
-        animTimers.push(setTimeout(()=>{td.classList.remove('shown');},t));
+        stepTimers.push(setTimeout(()=>td.classList.remove('shown'),t));
         t+=100;
-      }else{
-        t+=500;
+      } else {
+        t+=400; // Brief pause before user bubble
       }
-      animTimers.push(setTimeout(()=>{b.classList.add('shown');},t));
-      t+=800;
+      stepTimers.push(setTimeout(()=>b.classList.add('shown'),t));
+      t+=700;
     });
     return t+3000;
   }
 
   function goTo(idx,dir){
-    clearAnims();
-    if(idx===cur)return;
+    if(idx===cur&&slides[cur].classList.contains('active'))return;
+    clearSteps();
+    clearTimeout(autoTimer);
     const prev=cur;
-    const forward=dir==='fwd';
+    const fwd=dir!=='bwd';
 
-    // Exit current slide
+    // Hide prev
     slides[prev].classList.remove('active');
-    slides[prev].classList.add(forward?'exit-left':'exit-right');
-    resetBubbles(slides[prev]);
-    dots[prev]&&dots[prev].classList.remove('active');
-    descs[prev]&&descs[prev].classList.remove('active');
+    slides[prev].classList.add(fwd?'exit-left':'exit-right');
+    reset(slides[prev]);
+    if(dots[prev])dots[prev].classList.remove('active');
+    if(descs[prev])descs[prev].classList.remove('active');
 
-    // Prep new slide entry position (no transition), then activate
+    // Position new slide off-screen first
     cur=idx;
-    resetBubbles(slides[cur]);
+    reset(slides[cur]);
     slides[cur].style.transition='none';
-    slides[cur].classList.remove('exit-left','exit-right','enter-left');
-    slides[cur].classList.add(forward?'':'enter-left');// start from left if going back
-    // Force reflow
-    slides[cur].offsetHeight;
+    slides[cur].classList.remove('active','exit-left','exit-right');
+    if(!fwd){
+      slides[cur].classList.add('enter-left');
+    }
+    void slides[cur].offsetHeight; // force reflow
     slides[cur].style.transition='';
     slides[cur].classList.remove('enter-left');
     slides[cur].classList.add('active');
 
-    dots[cur]&&dots[cur].classList.add('active');
-    descs[cur]&&descs[cur].classList.add('active');
+    if(dots[cur])dots[cur].classList.add('active');
+    if(descs[cur])descs[cur].classList.add('active');
 
-    // Clean up prev after transition
-    setTimeout(()=>{slides[prev].classList.remove('exit-left','exit-right');},500);
+    stepTimers.push(setTimeout(()=>{
+      slides[prev].classList.remove('exit-left','exit-right');
+    },500));
 
-    const dur=animateBubbles(slides[cur]);
-    clearTimeout(timer);
-    timer=setTimeout(()=>goTo((cur+1)%slides.length,'fwd'),dur);
+    const dur=showScene(slides[cur]);
+    autoTimer=setTimeout(()=>goTo((cur+1)%slides.length,'fwd'),dur);
   }
 
-  document.getElementById('hsPrev').addEventListener('click',()=>{
-    goTo((cur-1+slides.length)%slides.length,'bwd');
-  });
-  document.getElementById('hsNext').addEventListener('click',()=>{
-    goTo((cur+1)%slides.length,'fwd');
-  });
-  dots.forEach((d,i)=>d.addEventListener('click',()=>{
-    if(i!==cur)goTo(i,i>cur?'fwd':'bwd');
-  }));
+  // Controls
+  document.getElementById('hsPrev').onclick=()=>goTo((cur-1+slides.length)%slides.length,'bwd');
+  document.getElementById('hsNext').onclick=()=>goTo((cur+1)%slides.length,'fwd');
+  dots.forEach((d,i)=>d.onclick=()=>{if(i!==cur)goTo(i,i>cur?'fwd':'bwd');});
 
-  // Start first scene
-  const firstDur=animateBubbles(slides[0]);
-  timer=setTimeout(()=>goTo(1,'fwd'),firstDur);
+  // Init first scene
+  console.log('[ARIA] Hero carousel: '+slides.length+' scenes loaded');
+  const d=showScene(slides[0]);
+  autoTimer=setTimeout(()=>goTo(1,'fwd'),d);
 })();
 </script>
 </body>
