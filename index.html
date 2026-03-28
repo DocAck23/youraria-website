@@ -170,14 +170,70 @@ section{padding:120px 72px;}
 .cap:hover .cap-rule{transform:scaleX(1);}
 
 /* ── HOW IT WORKS ── */
-.how-sec{background:var(--bg);}
-.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink-12);}
-.how-step{background:var(--bg);padding:44px 36px;position:relative;}
-.how-n{font-family:'Playfair Display',serif;font-size:48px;font-weight:400;color:var(--ink-06);line-height:1;margin-bottom:16px;}
-.how-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:12px;}
-.how-body{font-size:13px;color:var(--ink-60);line-height:1.85;}
-.how-connector{position:absolute;top:44px;right:-1px;width:1px;height:48px;background:var(--gold);opacity:0.4;}
-.how-step:last-child .how-connector{display:none;}
+.how-sec{background:var(--ink);padding:100px 0;}
+.how-sec .sec-eyebrow{padding:0 72px;color:var(--gold);}
+.how-sec .sec-eyebrow::after{background:var(--gold);}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.how-step{padding:60px 72px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);}
+.how-step:nth-child(odd){border-right:1px solid rgba(255,255,255,0.06);}
+.how-text{}
+.how-n{font-family:'Playfair Display',serif;font-size:64px;font-weight:400;color:var(--gold);line-height:1;margin-bottom:16px;opacity:0.7;}
+.how-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;margin-bottom:14px;color:#fff;}
+.how-body{font-size:15px;color:#999;line-height:1.7;}
+
+/* phone mockup */
+.how-phone{background:#000;border-radius:36px;padding:10px;max-width:280px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:hw-float 3s ease-in-out infinite;}
+@keyframes hw-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.how-phone-inner{border-radius:28px;overflow:hidden;background:#0B141A;}
+.how-phone .wa-header{padding:10px 14px;}
+.how-phone .wa-avatar{width:26px;height:26px;font-size:11px;}
+.how-phone .wa-header-name{font-size:13px;}
+.how-phone .wa-header-status{font-size:10px;}
+.how-phone .wa-chat{padding:12px 10px;min-height:auto;gap:5px;}
+.how-phone .wa-msg{font-size:11px;line-height:1.5;padding:6px 9px 3px;max-width:90%;}
+.how-phone .wa-msg-name{font-size:8px;letter-spacing:1.5px;}
+.how-phone .wa-msg-time{font-size:8px;}
+.how-phone .wa-msg-meta{margin-top:1px;}
+.how-phone .wa-checks{font-size:10px;}
+
+/* lock screen */
+.hw-lock{background:linear-gradient(160deg,#0a0a1a 0%,#1a1a2e 50%,#0d0d1a 100%);padding:32px 20px 20px;text-align:center;min-height:360px;position:relative;}
+.hw-lock-time{font-family:system-ui,sans-serif;font-size:56px;font-weight:200;color:#fff;letter-spacing:-2px;line-height:1;}
+.hw-lock-date{font-family:system-ui,sans-serif;font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;margin-bottom:28px;}
+.hw-notif{background:rgba(255,255,255,0.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:14px;padding:12px 14px;text-align:left;margin:0 4px;animation:hw-slide-down 0.8s 0.5s ease both;}
+@keyframes hw-slide-down{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+.hw-notif-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.hw-notif-icon{width:20px;height:20px;border-radius:5px;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;}
+.hw-notif-app{font-family:system-ui,sans-serif;font-size:11px;color:rgba(255,255,255,0.5);flex:1;}
+.hw-notif-when{font-family:system-ui,sans-serif;font-size:10px;color:rgba(255,255,255,0.35);}
+.hw-notif-title{font-family:system-ui,sans-serif;font-size:13px;font-weight:600;color:#fff;margin-bottom:2px;}
+.hw-notif-body{font-family:system-ui,sans-serif;font-size:12px;color:rgba(255,255,255,0.65);line-height:1.45;}
+
+/* typing indicator */
+.hw-typing{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#202C33;border-radius:8px;align-self:flex-start;border-top-left-radius:2px;max-width:60px;}
+.hw-typing span{width:5px;height:5px;background:#8696A0;border-radius:50%;animation:hw-dot 1.4s ease-in-out infinite;}
+.hw-typing span:nth-child(2){animation-delay:0.2s;}
+.hw-typing span:nth-child(3){animation-delay:0.4s;}
+@keyframes hw-dot{0%,60%,100%{opacity:0.3;transform:scale(0.8)}30%{opacity:1;transform:scale(1)}}
+
+/* briefing card inside chat */
+.hw-briefing{background:#2A3942;border-left:3px solid var(--gold);border-radius:8px;padding:10px 12px;margin-top:4px;font-size:11px;line-height:1.6;color:#E9EDEF;}
+
+/* stagger message animations */
+.hw-anim{opacity:0;animation:hw-msg-in 0.6s ease forwards;}
+.hw-anim-1{animation-delay:0.2s;}
+.hw-anim-2{animation-delay:0.5s;}
+.hw-anim-3{animation-delay:0.8s;}
+.hw-anim-4{animation-delay:1.1s;}
+.hw-anim-5{animation-delay:1.4s;}
+@keyframes hw-msg-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:960px){
+  .how-step{grid-template-columns:1fr;padding:48px 28px;}
+  .how-grid{grid-template-columns:1fr;}
+  .how-phone{max-width:240px;}
+  .how-step:nth-child(odd){border-right:none;}
+}
 
 /* ── TEAM ── */
 .team-sec{background:var(--bg2);}
@@ -477,30 +533,101 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
 <!-- HOW IT WORKS -->
 <section class="how-sec" id="how">
   <div class="sec-eyebrow r">How It Works</div>
-  <div class="how-grid r2">
-    <div class="how-step">
-      <div class="how-n">01</div>
-      <div class="how-title">Pay and get ARIA's number</div>
-      <div class="how-body">Save it in your contacts. That's the only setup you do. No app downloads. No dashboards. No onboarding decks.</div>
-      <div class="how-connector"></div>
+  <div class="how-grid">
+
+    <!-- STEP 1 -->
+    <div class="how-step r">
+      <div class="how-text">
+        <div class="how-n">01</div>
+        <div class="how-title">Pay and get ARIA's number</div>
+        <div class="how-body">One payment. One number. Save it in your contacts. That's the only setup you do.</div>
+      </div>
+      <div class="how-phone">
+        <div class="how-phone-inner">
+          <div class="hw-lock">
+            <div class="hw-lock-time">9:47</div>
+            <div class="hw-lock-date">Saturday, March 28</div>
+            <div class="hw-notif">
+              <div class="hw-notif-top">
+                <div class="hw-notif-icon">W</div>
+                <div class="hw-notif-app">WhatsApp</div>
+                <div class="hw-notif-when">now</div>
+              </div>
+              <div class="hw-notif-title">ARIA</div>
+              <div class="hw-notif-body">Hey Ahmed — it's ARIA. I just got the notification that you're joining. I've been looking forward to this &#129293;</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="how-step">
-      <div class="how-n">02</div>
-      <div class="how-title">She asks about your world</div>
-      <div class="how-body">ARIA starts a conversation with you — learns your businesses, your rhythm, your priorities. She configures herself around you.</div>
-      <div class="how-connector"></div>
+
+    <!-- STEP 2 -->
+    <div class="how-step r2">
+      <div class="how-text">
+        <div class="how-n">02</div>
+        <div class="how-title">She asks about your world</div>
+        <div class="how-body">Before she does anything, she listens. She learns your businesses, your rhythm, your priorities. She configures herself around you.</div>
+      </div>
+      <div class="how-phone">
+        <div class="how-phone-inner">
+          <div class="wa-header">
+            <div class="wa-avatar">A</div>
+            <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
+          </div>
+          <div class="wa-chat" style="min-height:280px;">
+            <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div>Really glad you're here. Before we get into setup, I just want to get to know you a bit. So tell me, what does your typical day actually look like right now?<div class="wa-msg-meta"><span class="wa-msg-time">9:48 AM</span></div></div>
+            <div class="wa-msg user hw-anim hw-anim-2">I run a consulting firm, a medical sales role, and I'm building an AI platform...<div class="wa-msg-meta"><span class="wa-msg-time">9:49 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
+            <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>That's a lot of context-switching. What's the thing that eats the most of your time right now?<div class="wa-msg-meta"><span class="wa-msg-time">9:49 AM</span></div></div>
+            <div class="hw-typing hw-anim hw-anim-4"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="how-step">
-      <div class="how-n">03</div>
-      <div class="how-title">She goes to work immediately</div>
-      <div class="how-body">ARIA goes live on your channels that day. She's monitoring your email, managing your calendar, and proactively surfacing what matters.</div>
-      <div class="how-connector"></div>
+
+    <!-- STEP 3 -->
+    <div class="how-step r">
+      <div class="how-text">
+        <div class="how-n">03</div>
+        <div class="how-title">She goes to work immediately</div>
+        <div class="how-body">The moment you're set up, she's on. Reading your inbox. Organizing your calendar. Flagging what matters. You wake up to a world already managed.</div>
+      </div>
+      <div class="how-phone">
+        <div class="how-phone-inner">
+          <div class="wa-header">
+            <div class="wa-avatar">A</div>
+            <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
+          </div>
+          <div class="wa-chat" style="min-height:280px;">
+            <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div><div class="hw-briefing">Good morning Ahmed &#9728;&#65039;<br><br>&#128231; Milt Fyre replied about the turbine deal — flagged as priority<br>&#128197; You have 3 meetings — prepped and ready<br>&#9888;&#65039; AWS security alert on your Babylon account — worth checking</div>Want me to start with Milt?<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span></div></div>
+            <div class="wa-msg user hw-anim hw-anim-2">Start with Milt.<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
+            <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>On it — pulling up the full thread now...<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span></div></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="how-step">
-      <div class="how-n">04</div>
-      <div class="how-title">She gets sharper every day</div>
-      <div class="how-body">Every interaction teaches ARIA more about how you work. Within a week she anticipates your needs. Within a month she's indispensable.</div>
+
+    <!-- STEP 4 -->
+    <div class="how-step r2">
+      <div class="how-text">
+        <div class="how-n">04</div>
+        <div class="how-title">She gets sharper every day</div>
+        <div class="how-body">Every conversation teaches her more about how you work. Within a week she anticipates your needs. Within a month, you won't remember how you managed without her.</div>
+      </div>
+      <div class="how-phone">
+        <div class="how-phone-inner">
+          <div class="wa-header">
+            <div class="wa-avatar">A</div>
+            <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
+          </div>
+          <div class="wa-chat" style="min-height:280px;">
+            <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div>Hey — Milt just replied. You'll want to see this before your 2pm. Want me to read it?<div class="wa-msg-meta"><span class="wa-msg-time">8:47 AM</span></div></div>
+            <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>Your calendar tomorrow is heavy. I moved the Machinio call to Thursday — cleared you a 2-hour block in the morning. Let me know if that works.<div class="wa-msg-meta"><span class="wa-msg-time">11:23 AM</span></div></div>
+            <div class="wa-msg aria hw-anim hw-anim-5"><div class="wa-msg-name">ARIA</div>Just a heads up — the GE Frame 9F listing on Machinio dropped in price. Sending you the details now.<div class="wa-msg-meta"><span class="wa-msg-time">2:14 PM</span></div></div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </section>
 
