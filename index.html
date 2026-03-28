@@ -107,17 +107,26 @@ section{padding:120px 72px;}
 .wa-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:400;line-height:1.05;margin-bottom:28px;}
 .wa-title em{font-style:italic;color:var(--gold-dk);}
 .wa-body{font-size:14px;line-height:2;color:var(--ink-60);margin-bottom:20px;}
-.wa-chat{background:var(--bg3);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;gap:10px;max-width:420px;}
-.wa-msg{padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.65;max-width:88%;position:relative;}
-.wa-msg.user{background:var(--bg);border:1px solid var(--ink-12);align-self:flex-end;color:var(--ink);}
-.wa-msg.aria{background:var(--ink);color:rgba(247,244,239,0.9);align-self:flex-start;}
-.wa-msg-name{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:500;}
-.wa-msg-time{font-size:9px;color:var(--ink-35);text-align:right;margin-top:4px;}
-.wa-msg.aria .wa-msg-time{color:rgba(247,244,239,0.3);}
-.wa-voice-icon{display:inline-flex;align-items:center;gap:6px;color:var(--gold-dk);font-size:12px;}
-.wa-voice-icon::before{content:'';display:inline-block;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid var(--gold);margin-right:2px;}
-.wa-voice-bars{display:inline-flex;gap:2px;align-items:center;height:16px;}
-.wa-voice-bars span{display:block;width:3px;border-radius:2px;background:var(--gold-dk);}
+.wa-phone{background:#000;border-radius:40px;padding:12px;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,0.25);}
+.wa-phone-inner{border-radius:30px;overflow:hidden;}
+.wa-header{background:#1F2C34;padding:12px 16px;display:flex;align-items:center;gap:10px;}
+.wa-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:#fff;font-weight:500;}
+.wa-header-name{font-family:system-ui,sans-serif;font-size:14px;font-weight:500;color:#E9EDEF;}
+.wa-header-status{font-family:system-ui,sans-serif;font-size:11px;color:#8696A0;}
+.wa-chat{background:#0B141A;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 10 M10 20 L15 25 M45 35 L50 30 M20 50 L25 45 M50 15 L45 20 M5 40 L10 35' stroke='%23ffffff' stroke-opacity='0.02' stroke-width='1' fill='none'/%3E%3Ccircle cx='30' cy='30' r='1' fill='%23ffffff' fill-opacity='0.015'/%3E%3C/svg%3E");padding:16px 12px;display:flex;flex-direction:column;gap:6px;min-height:320px;font-family:system-ui,-apple-system,sans-serif;}
+.wa-msg{padding:7px 10px 4px;border-radius:8px;font-size:13px;line-height:1.55;max-width:85%;position:relative;word-wrap:break-word;}
+.wa-msg.user{background:#005C4B;align-self:flex-end;color:#E9EDEF;border-top-right-radius:2px;}
+.wa-msg.aria{background:#202C33;color:#E9EDEF;align-self:flex-start;border-top-left-radius:2px;}
+.wa-msg-name{font-size:11px;color:var(--gold);margin-bottom:2px;font-weight:500;font-family:system-ui,sans-serif;}
+.wa-msg-meta{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:2px;}
+.wa-msg-time{font-size:10px;color:#8696A0;}
+.wa-checks{font-size:12px;color:#53BDEB;line-height:1;}
+.wa-voice{display:flex;align-items:center;gap:8px;padding:4px 0;}
+.wa-voice-play{width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.wa-voice-play::after{content:'';display:block;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid #fff;margin-left:2px;}
+.wa-voice-bars{display:flex;gap:2px;align-items:center;height:24px;flex:1;}
+.wa-voice-bars span{display:block;width:3px;border-radius:2px;background:#8696A0;}
+.wa-voice-dur{font-size:11px;color:#8696A0;flex-shrink:0;}
 
 /* ── CLAUDE SECTION ── */
 .claude-sec{background:var(--ink);padding:100px 72px;text-align:center;}
@@ -352,29 +361,41 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <p class="wa-body">Text her, send a voice note, or just talk. She handles everything in the background and sends you back exactly what you need. Updates, tasks completed, emails sent, calls made. You see results. Nothing else.</p>
     </div>
     <div class="r2">
-      <div class="wa-chat">
-        <div class="wa-msg user">
-          <div class="wa-voice-icon">
-            <div class="wa-voice-bars">
-              <span style="height:4px"></span><span style="height:8px"></span><span style="height:12px"></span><span style="height:16px"></span><span style="height:10px"></span><span style="height:14px"></span><span style="height:8px"></span><span style="height:12px"></span><span style="height:6px"></span><span style="height:10px"></span><span style="height:4px"></span>
+      <div class="wa-phone">
+        <div class="wa-phone-inner">
+          <div class="wa-header">
+            <div class="wa-avatar">A</div>
+            <div>
+              <div class="wa-header-name">ARIA</div>
+              <div class="wa-header-status">online</div>
             </div>
-            &nbsp; 0:03
           </div>
-          <div class="wa-msg-time">9:14 AM</div>
-        </div>
-        <div class="wa-msg aria">
-          <div class="wa-msg-name">ARIA</div>
-          Three things worth your attention. Milt replied about the turbine deal — he's reaching out to the seller. Greg confirmed the Siemens plant is sold. And you have a consent form from Amber Jimenez that needs a signature. Want me to draft a reply to Milt?
-          <div class="wa-msg-time">9:14 AM</div>
-        </div>
-        <div class="wa-msg user">
-          Yes, draft it.
-          <div class="wa-msg-time">9:15 AM</div>
-        </div>
-        <div class="wa-msg aria">
-          <div class="wa-msg-name">ARIA</div>
-          Done — saved as a draft in your Outlook. Want me to send it?
-          <div class="wa-msg-time">9:15 AM</div>
+          <div class="wa-chat">
+            <div class="wa-msg user">
+              <div class="wa-voice">
+                <div class="wa-voice-play"></div>
+                <div class="wa-voice-bars">
+                  <span style="height:4px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:22px"></span><span style="height:14px"></span><span style="height:20px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:8px"></span><span style="height:14px"></span><span style="height:6px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:8px"></span><span style="height:4px"></span>
+                </div>
+                <div class="wa-voice-dur">0:03</div>
+              </div>
+              <div class="wa-msg-meta"><span class="wa-msg-time">9:14 AM</span><span class="wa-checks">&#10003;&#10003;</span></div>
+            </div>
+            <div class="wa-msg aria">
+              <div class="wa-msg-name">ARIA</div>
+              Three things worth your attention. Milt replied about the turbine deal — he's reaching out to the seller. Greg confirmed the Siemens plant is sold. And you have a consent form from Amber Jimenez that needs a signature. Want me to draft a reply to Milt?
+              <div class="wa-msg-meta"><span class="wa-msg-time">9:14 AM</span></div>
+            </div>
+            <div class="wa-msg user">
+              Yes, draft it.
+              <div class="wa-msg-meta"><span class="wa-msg-time">9:15 AM</span><span class="wa-checks">&#10003;&#10003;</span></div>
+            </div>
+            <div class="wa-msg aria">
+              <div class="wa-msg-name">ARIA</div>
+              Done — saved as a draft in your Outlook. Want me to send it?
+              <div class="wa-msg-meta"><span class="wa-msg-time">9:15 AM</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -514,8 +535,8 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
 <!-- PRICING -->
 <section class="price-sec" id="pricing">
   <div class="price-intro r">
-    <h2 class="price-intro-title">Simple,<br><em>honest</em> pricing.</h2>
-    <p class="price-intro-sub">A great EA in South Florida costs $4,000&ndash;6,000 a month. ARIA starts at $197. Fully managed. No learning curve.</p>
+    <h2 class="price-intro-title">Simple, honest pricing.</h2>
+    <p class="price-intro-sub">Building your own AI agent stack without guidance costs thousands in API overages, broken integrations, and months of troubleshooting. ARIA is the finished version — fully managed, already working, and priced for what it actually delivers.</p>
   </div>
   <div class="price-grid r2">
 
@@ -525,15 +546,15 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <div class="pcard-name">Starter</div>
       <div class="pcard-price">$197</div>
       <div class="pcard-mo">per month &middot; no setup fee</div>
-      <div class="pcard-desc">Your first AI chief of staff. Ready before you wake up.</div>
+      <div class="pcard-desc">The simplest way to have an AI chief of staff. ARIA lives in WhatsApp. Every morning she reads your email, checks your calendar, and tells you what matters. Ask her anything — she answers and acts. Automated onboarding means she's ready in minutes. No setup required from you.</div>
       <div class="pcard-feats">
         <div class="pfeat"><div class="pdot"></div>WhatsApp voice + text</div>
-        <div class="pfeat"><div class="pdot"></div>Email + Calendar management</div>
+        <div class="pfeat"><div class="pdot"></div>Email management</div>
+        <div class="pfeat"><div class="pdot"></div>Calendar control</div>
         <div class="pfeat"><div class="pdot"></div>Daily morning briefing</div>
-        <div class="pfeat"><div class="pdot"></div>Web research on demand</div>
+        <div class="pfeat"><div class="pdot"></div>Web research</div>
         <div class="pfeat"><div class="pdot"></div>Priority email flagging</div>
         <div class="pfeat"><div class="pdot"></div>Up to 500 voice interactions/mo</div>
-        <div class="pfeat"><div class="pdot"></div>Automated onboarding</div>
       </div>
       <a href="aria-quiz.html" class="pcard-cta-gld">Get Started</a>
     </div>
@@ -544,17 +565,17 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <div class="pcard-name">Pro</div>
       <div class="pcard-price">$397</div>
       <div class="pcard-mo">per month &middot; + $297 setup</div>
-      <div class="pcard-desc">ARIA built around you, personally.</div>
+      <div class="pcard-desc">ARIA built around you, personally. Ahmed spends 30 minutes with you before you go live — learning your business, your priorities, the people and deals that matter. After that, ARIA isn't generic. She knows exactly who to flag, what to watch, and how you work. Unlimited voice interactions from day one.</div>
       <div class="pcard-feats">
         <div class="pfeat"><div class="pdot"></div>Everything in Starter</div>
-        <div class="pfeat"><div class="pdot"></div>Personal 30-min setup call with Ahmed</div>
+        <div class="pfeat"><div class="pdot"></div>Personal setup call with Ahmed</div>
         <div class="pfeat"><div class="pdot"></div>Custom ARIA persona</div>
-        <div class="pfeat"><div class="pdot"></div>Priority contacts configured</div>
-        <div class="pfeat"><div class="pdot"></div>Document analysis</div>
-        <div class="pfeat"><div class="pdot"></div>CRM tracking</div>
-        <div class="pfeat"><div class="pdot"></div>Custom voice</div>
-        <div class="pfeat"><div class="pdot"></div>Unlimited interactions</div>
-        <div class="pfeat"><div class="pdot"></div>48hr support</div>
+        <div class="pfeat"><div class="pdot"></div>Priority contacts + topics configured</div>
+        <div class="pfeat"><div class="pdot"></div>Document analysis (PDF, DOCX, XLSX)</div>
+        <div class="pfeat"><div class="pdot"></div>CRM + follow-up tracking</div>
+        <div class="pfeat"><div class="pdot"></div>Custom voice selection</div>
+        <div class="pfeat"><div class="pdot"></div>Unlimited voice interactions</div>
+        <div class="pfeat"><div class="pdot"></div>48hr direct support</div>
       </div>
       <a href="aria-quiz.html" class="pcard-cta-blk">Get Started</a>
     </div>
@@ -565,13 +586,16 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <div class="pcard-name">Elite</div>
       <div class="pcard-price">$797</div>
       <div class="pcard-mo">per month &middot; + $497 setup</div>
-      <div class="pcard-desc">An EA who also happens to be a developer.</div>
+      <div class="pcard-desc">Your executive assistant — and she makes the calls. ARIA answers your business line and makes outbound calls on your behalf — in her voice, 24/7. She builds things on demand: landing pages, decks, documents, delivered in minutes. She also comes with three specialist sub-agents — MARIAM (marketing), SAM (sales), RACHEL (research) — that ARIA coordinates in the background and surfaces results to you in your single WhatsApp conversation.</div>
       <div class="pcard-feats">
         <div class="pfeat"><div class="pdot"></div>Everything in Pro</div>
-        <div class="pfeat"><div class="pdot"></div>Answers and makes calls for you</div>
-        <div class="pfeat"><div class="pdot"></div>Builds websites + landing pages</div>
-        <div class="pfeat"><div class="pdot"></div>Presentations + documents</div>
-        <div class="pfeat"><div class="pdot"></div>MARIAM, SAM, RACHEL agents</div>
+        <div class="pfeat"><div class="pdot"></div>Inbound call answering on your number</div>
+        <div class="pfeat"><div class="pdot"></div>Outbound calls + cold calls on your behalf</div>
+        <div class="pfeat"><div class="pdot"></div>Call summaries delivered to WhatsApp</div>
+        <div class="pfeat"><div class="pdot"></div>Builds websites + landing pages on demand</div>
+        <div class="pfeat"><div class="pdot"></div>Presentations + documents + spreadsheets</div>
+        <div class="pfeat"><div class="pdot"></div>MARIAM, SAM + RACHEL sub-agents</div>
+        <div class="pfeat"><div class="pdot"></div>Sub-agents report to ARIA, you see results</div>
         <div class="pfeat"><div class="pdot"></div>Monthly check-in with Ahmed</div>
         <div class="pfeat"><div class="pdot"></div>Same-day support</div>
       </div>
@@ -584,14 +608,18 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <div class="pcard-name">Operator</div>
       <div class="pcard-price">$1,297</div>
       <div class="pcard-mo">per month &middot; no setup fee</div>
-      <div class="pcard-desc">ARIA doesn't just advise. She operates.</div>
+      <div class="pcard-desc">ARIA doesn't just advise. She operates. At every other tier, ARIA works within what you give her access to. At Operator, she has her hands on a computer or terminal of your choosing. She executes automated workflows, deploys applications, runs code across systems — start to finish, without you managing the steps. You describe the outcome. She executes it.</div>
       <div class="pcard-feats">
         <div class="pfeat"><div class="pdot"></div>Everything in Elite</div>
         <div class="pfeat"><div class="pdot"></div>Computer + terminal control</div>
         <div class="pfeat"><div class="pdot"></div>Code execution + deployment</div>
-        <div class="pfeat"><div class="pdot"></div>Autonomous task chains</div>
+        <div class="pfeat"><div class="pdot"></div>Autonomous multi-step task chains</div>
+        <div class="pfeat"><div class="pdot"></div>Workflows spanning multiple systems</div>
+        <div class="pfeat"><div class="pdot"></div>Auto-deploy websites + applications</div>
+        <div class="pfeat"><div class="pdot"></div>Full proactive intelligence suite</div>
         <div class="pfeat"><div class="pdot"></div>Direct access to Ahmed</div>
         <div class="pfeat"><div class="pdot"></div>Same-hour support response</div>
+        <div class="pfeat"><div class="pdot"></div>Quarterly strategy call with Ahmed</div>
       </div>
       <a href="aria-quiz.html" class="pcard-cta-gld">Get Started</a>
     </div>
@@ -602,7 +630,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <div class="pcard-name">Enterprise</div>
       <div class="pcard-price" style="font-size:32px;margin-bottom:8px;">Custom</div>
       <div class="pcard-mo">tailored to your organization</div>
-      <div class="pcard-desc">Built for your organization.</div>
+      <div class="pcard-desc">Custom built for your organization. For teams, agencies, and organizations that need ARIA beyond off-the-shelf. Multi-seat deployment, white-label options, custom integrations, HIPAA compliance, and dedicated infrastructure. Every enterprise deployment starts with a conversation.</div>
       <div class="pcard-feats">
         <div class="pfeat"><div class="pdot"></div>Teams + multi-seat</div>
         <div class="pfeat"><div class="pdot"></div>White-label deployment</div>
