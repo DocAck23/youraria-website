@@ -65,10 +65,12 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-home{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:80px;height:4px;background:#333;border-radius:2px;z-index:10;}
 .hs-screen{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden;}
 
-/* slide */
-.hs-slide{position:absolute;inset:0;transform:translateX(100%);transition:transform 0.5s ease-out;will-change:transform;}
+/* slide — direction aware */
+.hs-slide{position:absolute;inset:0;transform:translateX(100%);transition:transform 0.45s ease-in-out;will-change:transform;}
 .hs-slide.active{transform:translateX(0);}
-.hs-slide.exit{transform:translateX(-100%);}
+.hs-slide.exit-left{transform:translateX(-100%);}
+.hs-slide.exit-right{transform:translateX(100%);}
+.hs-slide.enter-left{transform:translateX(-100%);}
 
 /* chat */
 .hs-chat-inner{display:flex;flex-direction:column;background:#0B141A;height:100%;}
@@ -87,12 +89,55 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-b-time{font-size:9px;color:#8696A0;text-align:right;margin-top:1px;}
 .hs-b-ck{color:#53BDEB;font-size:9px;margin-left:3px;}
 
-/* typing indicator */
-.hs-tdot{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;padding:10px 14px;display:none;}
-.hs-tdot.shown{display:flex;opacity:1;transform:translateY(0);}
+/* typing indicator — always left/ARIA side */
+.hs-tdot{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;padding:10px 14px;display:none;gap:3px;}
+.hs-tdot.shown{display:flex;}
 .hs-tdot span{width:5px;height:5px;background:#8696A0;border-radius:50%;animation:typingBounce 0.6s ease-in-out infinite;}
 .hs-tdot span:nth-child(2){animation-delay:0.15s;}
 .hs-tdot span:nth-child(3){animation-delay:0.3s;}
+
+/* file attachment bubble */
+.hs-file{background:#1a1a1a;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;margin:2px 0;}
+.hs-file-icon{width:32px;height:38px;background:#E53935;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;letter-spacing:0.5px;flex-shrink:0;}
+.hs-file-info{flex:1;min-width:0;}
+.hs-file-name{font-size:11px;color:#E9EDEF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hs-file-size{font-size:10px;color:#8696A0;margin-top:1px;}
+.hs-file-dl{color:#8696A0;font-size:16px;flex-shrink:0;}
+
+/* voice note bubble */
+.hs-vn{display:flex;align-items:center;gap:6px;padding:4px 0;}
+.hs-vn-play{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hs-vn-play.gold{background:var(--gold);}
+.hs-vn-play.white{background:rgba(255,255,255,0.2);}
+.hs-vn-play::after{content:'';width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:9px solid #fff;margin-left:2px;}
+.hs-vn-bars{display:flex;gap:2px;align-items:center;height:22px;flex:1;}
+.hs-vn-bars span{display:block;width:2px;border-radius:1px;}
+.hs-vn-dur{font-size:10px;color:#8696A0;flex-shrink:0;}
+
+/* in-call screen */
+.hs-call{display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,#1a1a2e 0%,#111 100%);height:100%;padding-top:60px;position:relative;}
+.hs-call-name{font-family:system-ui,sans-serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:6px;}
+.hs-call-timer{font-family:'SF Mono',monospace,system-ui;font-size:16px;color:#25D366;margin-bottom:4px;}
+.hs-call-enc{font-size:9px;color:#8696A0;display:flex;align-items:center;gap:4px;margin-bottom:32px;}
+.hs-call-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:32px;color:#fff;position:relative;}
+.hs-call-ring{position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--gold);animation:hs-pulse 1.5s ease-in-out infinite;}
+@keyframes hs-pulse{0%,100%{transform:scale(1);opacity:0.3}50%{transform:scale(1.08);opacity:0.1}}
+.hs-call-controls{position:absolute;bottom:40px;display:flex;gap:16px;align-items:center;}
+.hs-call-btn{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;}
+.hs-call-btn.end{width:52px;height:52px;background:#E53935;}
+
+/* notification banner */
+.hs-banner{position:absolute;top:8px;left:8px;right:8px;background:rgba(30,30,30,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:14px;padding:10px 14px;display:flex;gap:10px;align-items:center;z-index:20;transform:translateY(-120%);transition:transform 0.4s ease-out;font-family:system-ui,sans-serif;}
+.hs-banner.shown{transform:translateY(0);}
+.hs-banner-icon{width:28px;height:28px;border-radius:7px;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;flex-shrink:0;}
+.hs-banner-title{font-size:12px;font-weight:600;color:#fff;}
+.hs-banner-msg{font-size:11px;color:#8696A0;line-height:1.3;}
+
+/* daily digest card */
+.hs-digest{background:#0d1117;border-radius:10px;padding:10px 12px;margin:2px 0;font-family:system-ui,sans-serif;}
+.hs-digest-row{font-size:10px;color:#E9EDEF;line-height:1.6;padding:1px 0;}
+.hs-digest-row.dim{color:#8696A0;}
+.hs-digest-caption{font-size:10px;color:#8696A0;margin-top:4px;}
 
 /* dots */
 .hs-dots{display:flex;gap:10px;justify-content:center;margin-top:16px;z-index:1;align-items:center;}
@@ -461,59 +506,64 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
           <div class="hs-home"></div>
           <div class="hs-screen">
 
-            <!-- S1: Proposal -->
+            <!-- S1: Proposal + file attachment -->
             <div class="hs-slide active"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
               <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-              <div class="hs-b u" data-d="0">Put together a service proposal for Sarah at Meridian Partners. Two-year contract, standard rates.<div class="hs-b-time">2:14 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="1">Got it. Pulling your rate sheet and drafting now...<div class="hs-b-time">2:14 PM</div></div>
-              <div class="hs-b a" data-d="2">Done — 'Meridian Partners Proposal 2026.pdf' is ready. Email it to Sarah, or save for review?<div class="hs-b-time">2:16 PM</div></div>
-              <div class="hs-b u" data-d="3">Email it to her.<div class="hs-b-time">2:16 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="4">Sent to sarah@meridianpartners.com. I'll let you know when she opens it.<div class="hs-b-time">2:16 PM</div></div>
+              <div class="hs-b u" data-d="0">Put together a proposal for Sarah at Meridian Partners. Two-year contract, standard rates.<div class="hs-b-time">2:14 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
+              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>Got it. Pulling your rate sheet and drafting now...<div class="hs-b-time">2:14 PM</div></div>
+              <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div><div class="hs-file"><div class="hs-file-icon">PDF</div><div class="hs-file-info"><div class="hs-file-name">Meridian_Partners_Proposal_2026.pdf</div><div class="hs-file-size">248 KB</div></div><div class="hs-file-dl">&#8595;</div></div>Ready to send. Email it to Sarah?<div class="hs-b-time">2:16 PM</div></div>
+              <div class="hs-b u" data-d="3">Email it.<div class="hs-b-time">2:16 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
+              <div class="hs-b a" data-d="4"><div class="hs-b-name">ARIA</div>Sent to sarah@meridianpartners.com. I'll let you know when she opens it.<div class="hs-b-time">2:16 PM</div></div>
             </div></div></div>
 
-            <!-- S2: Call summary -->
+            <!-- S2: Voice notes -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
               <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-              <div class="hs-b a" data-d="0">Summary from John's call: He wants to move forward but needs revised terms by Friday. Action item: update Section 4. Want me to draft it?<div class="hs-b-time">10:31 AM</div></div>
-              <div class="hs-b u" data-d="1">Yes, draft it.<div class="hs-b-time">10:32 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="2">Draft saved to your Docs. Sending the link now.<div class="hs-b-time">10:32 AM</div></div>
+              <div class="hs-b u" data-d="0"><div class="hs-vn"><div class="hs-vn-play white"></div><div class="hs-vn-bars"><span style="height:4px;background:#aee4d1"></span><span style="height:10px;background:#aee4d1"></span><span style="height:16px;background:#aee4d1"></span><span style="height:12px;background:#aee4d1"></span><span style="height:18px;background:#aee4d1"></span><span style="height:8px;background:#aee4d1"></span><span style="height:14px;background:#aee4d1"></span></div><div class="hs-vn-dur">0:12</div></div><div class="hs-b-time">4:02 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
+              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div><div class="hs-vn"><div class="hs-vn-play gold"></div><div class="hs-vn-bars"><span style="height:6px;background:#8696A0"></span><span style="height:12px;background:#8696A0"></span><span style="height:18px;background:#8696A0"></span><span style="height:14px;background:#8696A0"></span><span style="height:20px;background:#8696A0"></span><span style="height:10px;background:#8696A0"></span><span style="height:16px;background:#8696A0"></span><span style="height:8px;background:#8696A0"></span></div><div class="hs-vn-dur">0:24</div></div><div class="hs-b-time">4:03 PM</div></div>
+              <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div>Summary sent to your notes. Want me to follow up with Derek by end of day?<div class="hs-b-time">4:03 PM</div></div>
             </div></div></div>
 
             <!-- S3: Restaurant -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
               <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-              <div class="hs-b u" data-d="0">Find me restaurants for a dinner meeting tonight. Check 6:30pm.<div class="hs-b-time">4:12 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="1">3 available tonight:<br>1. The Capital Grille — private &#10003;<br>2. Osteria Moderna — quiet &#10003;<br>3. Villa Terrace — rooftop &#10003;<br>Which one?<div class="hs-b-time">4:13 PM</div></div>
-              <div class="hs-b u" data-d="2">The Capital Grille.<div class="hs-b-time">4:13 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="3">Calling to confirm...<div class="hs-b-time">4:13 PM</div></div>
-              <div class="hs-b a" data-d="4">Booked. Table for 4, 6:30pm. Confirmation #7741. Added to calendar. &#127869;<div class="hs-b-time">4:15 PM</div></div>
+              <div class="hs-b u" data-d="0">Find me restaurants for tonight. Check 6:30pm.<div class="hs-b-time">4:12 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
+              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>3 available:<br>1. The Capital Grille — private &#10003;<br>2. Osteria Moderna — quiet &#10003;<br>3. Villa Terrace — rooftop &#10003;<br>Which one?<div class="hs-b-time">4:13 PM</div></div>
+              <div class="hs-b u" data-d="2">Capital Grille.<div class="hs-b-time">4:13 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
+              <div class="hs-b a" data-d="3"><div class="hs-b-name">ARIA</div>Calling to confirm...<div class="hs-b-time">4:13 PM</div></div>
+              <div class="hs-b a" data-d="4"><div class="hs-b-name">ARIA</div>Booked. Table for 4, 6:30pm. #7741. Added to calendar. &#127869;<div class="hs-b-time">4:15 PM</div></div>
             </div></div></div>
 
             <!-- S4: Pitch deck -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
               <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
               <div class="hs-b u" data-d="0">Make me a 6-slide investor pitch deck. Sharp and clean.<div class="hs-b-time">11:04 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="1">On it — problem, solution, product, traction, market, ask. Two minutes.<div class="hs-b-time">11:04 AM</div></div>
-              <div class="hs-b a" data-d="2">Done. 'Investor Deck.pptx' is ready. Want me to email it to Jeff?<div class="hs-b-time">11:06 AM</div></div>
+              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>On it — problem, solution, product, traction, market, ask. Two minutes.<div class="hs-b-time">11:04 AM</div></div>
+              <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div>Done. 'Investor Deck.pptx' is ready. Want me to email it to Jeff?<div class="hs-b-time">11:06 AM</div></div>
             </div></div></div>
 
-            <!-- S5: Messages -->
-            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-              <div class="hs-b a" data-d="0">Derek called while you were in your meeting. Two questions on the contract.<div class="hs-b-time">3:02 PM</div></div>
-              <div class="hs-b u" data-d="1">Call him back and get the details?<div class="hs-b-time">3:04 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="2">Calling Derek now...<div class="hs-b-time">3:04 PM</div></div>
-              <div class="hs-b a" data-d="3">Spoke with Derek: (1) Net-45 terms? (2) International coverage? Want me to draft a response?<div class="hs-b-time">3:08 PM</div></div>
-              <div class="hs-b u" data-d="4">Yes, draft it.<div class="hs-b-time">3:08 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="5">Draft ready in your email. Review and send when ready.<div class="hs-b-time">3:09 PM</div></div>
-            </div></div></div>
+            <!-- S5: In-call UI -->
+            <div class="hs-slide"><div class="hs-call">
+              <div class="hs-banner" data-banner><div class="hs-banner-icon">&#128197;</div><div><div class="hs-banner-title">Calendar Updated</div><div class="hs-banner-msg">Investor call with Jeff — Tomorrow 2pm &#10003; Added</div></div></div>
+              <div class="hs-call-name">ARIA</div>
+              <div class="hs-call-timer">00:03:42</div>
+              <div class="hs-call-enc">&#128274; End-to-end encrypted</div>
+              <div class="hs-call-avatar"><div class="hs-call-ring"></div>A</div>
+              <div class="hs-call-controls">
+                <div class="hs-call-btn">&#128263;</div>
+                <div class="hs-call-btn">&#128264;</div>
+                <div class="hs-call-btn">&#128249;</div>
+                <div class="hs-call-btn end">&#128222;</div>
+              </div>
+            </div></div>
 
-            <!-- S6: Morning -->
+            <!-- S6: Morning + digest -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
               <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-              <div class="hs-b a" data-d="0">Good morning &#9728;&#65039; Derek replied — he's in. Two meetings, both prepped. One email needs a decision. Start with Derek?<div class="hs-b-time">8:02 AM</div></div>
-              <div class="hs-b u" data-d="1">Start with Derek.<div class="hs-b-time">8:03 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="2">Pulling up the full thread now...<div class="hs-b-time">8:03 AM</div></div>
+              <div class="hs-b a" data-d="0"><div class="hs-b-name">ARIA</div>Good morning &#9728;&#65039; Derek replied — he's in. Two meetings, both prepped. One email needs a decision. Start with Derek?<div class="hs-b-time">8:02 AM</div></div>
+              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div><div class="hs-digest"><div class="hs-digest-row">&#128197; 10:00 AM — Investor sync</div><div class="hs-digest-row">&#128197; 2:00 PM — Derek follow-up</div><div class="hs-digest-row dim">&#128231; Sarah opened proposal (11:42 PM)</div><div class="hs-digest-row dim">&#128231; AWS billing alert</div><div class="hs-digest-row dim">&#128231; Machinio — new listing match</div></div><div class="hs-digest-caption">Your day at a glance. &#128203;</div><div class="hs-b-time">8:02 AM</div></div>
+              <div class="hs-b u" data-d="2">Start with Derek.<div class="hs-b-time">8:03 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
+              <div class="hs-b a" data-d="3"><div class="hs-b-name">ARIA</div>Pulling up the full thread now...<div class="hs-b-time">8:03 AM</div></div>
             </div></div></div>
 
           </div>
@@ -526,7 +576,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="hs-desc-item"><div class="hs-desc-title">Every call. Logged, summarized, actioned.</div><div class="hs-desc-sub">ARIA listens, captures what matters, and follows up — so nothing falls through the cracks.</div></div>
         <div class="hs-desc-item"><div class="hs-desc-title">Business dinner sorted. You didn't lift a finger.</div><div class="hs-desc-sub">She searches, calls, checks availability, and books the reservation — all from one message.</div></div>
         <div class="hs-desc-item"><div class="hs-desc-title">A full pitch deck. Built while you were in a meeting.</div><div class="hs-desc-sub">Tell ARIA what you need. Get back a polished, ready-to-send deck in minutes.</div></div>
-        <div class="hs-desc-item"><div class="hs-desc-title">She handles the back-and-forth. You handle the decision.</div><div class="hs-desc-sub">ARIA calls, gets the details, and brings you only what needs your attention.</div></div>
+        <div class="hs-desc-item"><div class="hs-desc-title">She works while you talk.</div><div class="hs-desc-sub">Give ARIA instructions mid-call. She acts on them in real time — calendar updates, emails sent, tasks logged.</div></div>
         <div class="hs-desc-item"><div class="hs-desc-title">Every morning, you're already ahead.</div><div class="hs-desc-sub">Before you open your eyes, ARIA has read your inbox, checked your calendar, and flagged what matters.</div></div>
       </div>
     </div>
@@ -982,7 +1032,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60)
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}}),{threshold:0.07});
 document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
 
-// Hero carousel with animated bubbles
+// Hero carousel with animated bubbles + direction-aware sliding
 (function(){
   const slides=document.querySelectorAll('#heroPhone .hs-slide');
   const dots=document.querySelectorAll('#heroDots .hs-dot');
@@ -996,12 +1046,23 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     slide.querySelectorAll('.hs-b').forEach(b=>b.classList.remove('shown'));
     const td=slide.querySelector('.hs-tdot');
     if(td)td.classList.remove('shown');
+    const bn=slide.querySelector('.hs-banner');
+    if(bn)bn.classList.remove('shown');
   }
 
   function animateBubbles(slide){
     const bubbles=slide.querySelectorAll('.hs-b[data-d]');
     const td=slide.querySelector('.hs-tdot');
+    const bn=slide.querySelector('[data-banner]');
     let t=300;
+
+    // If it's the call screen (no bubbles), show banner after 2s
+    if(!bubbles.length&&bn){
+      animTimers.push(setTimeout(()=>{bn.classList.add('shown');},2000));
+      animTimers.push(setTimeout(()=>{bn.classList.remove('shown');},5000));
+      return 8000;
+    }
+
     bubbles.forEach(b=>{
       const isAria=b.classList.contains('a');
       if(isAria&&td){
@@ -1012,8 +1073,7 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
       }else{
         t+=500;
       }
-      const showAt=t;
-      animTimers.push(setTimeout(()=>{b.classList.add('shown');},showAt));
+      animTimers.push(setTimeout(()=>{b.classList.add('shown');},t));
       t+=800;
     });
     return t+3000;
@@ -1023,35 +1083,51 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     clearAnims();
     if(idx===cur)return;
     const prev=cur;
+    const forward=dir==='fwd';
+
+    // Exit current slide
     slides[prev].classList.remove('active');
-    slides[prev].classList.add('exit');
+    slides[prev].classList.add(forward?'exit-left':'exit-right');
     resetBubbles(slides[prev]);
     dots[prev]&&dots[prev].classList.remove('active');
     descs[prev]&&descs[prev].classList.remove('active');
-    setTimeout(()=>{slides[prev].classList.remove('exit');},600);
+
+    // Prep new slide entry position (no transition), then activate
     cur=idx;
     resetBubbles(slides[cur]);
+    slides[cur].style.transition='none';
+    slides[cur].classList.remove('exit-left','exit-right','enter-left');
+    slides[cur].classList.add(forward?'':'enter-left');// start from left if going back
+    // Force reflow
+    slides[cur].offsetHeight;
+    slides[cur].style.transition='';
+    slides[cur].classList.remove('enter-left');
     slides[cur].classList.add('active');
+
     dots[cur]&&dots[cur].classList.add('active');
     descs[cur]&&descs[cur].classList.add('active');
+
+    // Clean up prev after transition
+    setTimeout(()=>{slides[prev].classList.remove('exit-left','exit-right');},500);
+
     const dur=animateBubbles(slides[cur]);
     clearTimeout(timer);
-    timer=setTimeout(()=>goTo((cur+1)%slides.length),dur);
+    timer=setTimeout(()=>goTo((cur+1)%slides.length,'fwd'),dur);
   }
 
-  // arrows
   document.getElementById('hsPrev').addEventListener('click',()=>{
-    goTo((cur-1+slides.length)%slides.length);
+    goTo((cur-1+slides.length)%slides.length,'bwd');
   });
   document.getElementById('hsNext').addEventListener('click',()=>{
-    goTo((cur+1)%slides.length);
+    goTo((cur+1)%slides.length,'fwd');
   });
-  // dot clicks
-  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
+  dots.forEach((d,i)=>d.addEventListener('click',()=>{
+    if(i!==cur)goTo(i,i>cur?'fwd':'bwd');
+  }));
 
-  // start first scene
+  // Start first scene
   const firstDur=animateBubbles(slides[0]);
-  timer=setTimeout(()=>goTo(1),firstDur);
+  timer=setTimeout(()=>goTo(1,'fwd'),firstDur);
 })();
 </script>
 </body>
