@@ -182,9 +182,9 @@ section{padding:120px 72px;}
 .how-body{font-size:15px;color:#999;line-height:1.7;}
 
 /* phone mockup */
-.how-phone{background:#000;border-radius:36px;padding:10px;max-width:280px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:hw-float 3s ease-in-out infinite;}
+.how-phone{background:#000;border-radius:36px;padding:10px;width:280px;height:480px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:hw-float 3s ease-in-out infinite;overflow:hidden;}
 @keyframes hw-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.how-phone-inner{border-radius:28px;overflow:hidden;background:#0B141A;}
+.how-phone-inner{border-radius:28px;overflow:hidden;background:#0B141A;height:100%;display:flex;flex-direction:column;}
 .how-phone .wa-header{padding:10px 14px;}
 .how-phone .wa-avatar{width:26px;height:26px;font-size:11px;}
 .how-phone .wa-header-name{font-size:13px;}
@@ -195,9 +195,11 @@ section{padding:120px 72px;}
 .how-phone .wa-msg-time{font-size:8px;}
 .how-phone .wa-msg-meta{margin-top:1px;}
 .how-phone .wa-checks{font-size:10px;}
+.how-phone .wa-chat{flex:1;min-height:0;}
+.how-phone .wa-header{flex-shrink:0;}
 
 /* lock screen */
-.hw-lock{background:linear-gradient(160deg,#0a0a1a 0%,#1a1a2e 50%,#0d0d1a 100%);padding:32px 20px 20px;text-align:center;min-height:360px;position:relative;}
+.hw-lock{background:linear-gradient(160deg,#0a0a1a 0%,#1a1a2e 50%,#0d0d1a 100%);padding:32px 20px 20px;text-align:center;flex:1;position:relative;}
 .hw-lock-time{font-family:system-ui,sans-serif;font-size:56px;font-weight:200;color:#fff;letter-spacing:-2px;line-height:1;}
 .hw-lock-date{font-family:system-ui,sans-serif;font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;margin-bottom:28px;}
 .hw-notif{background:rgba(255,255,255,0.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:14px;padding:12px 14px;text-align:left;margin:0 4px;animation:hw-slide-down 0.8s 0.5s ease both;}
@@ -231,7 +233,7 @@ section{padding:120px 72px;}
 @media(max-width:960px){
   .how-step{grid-template-columns:1fr;padding:48px 28px;}
   .how-grid{grid-template-columns:1fr;}
-  .how-phone{max-width:240px;}
+  .how-phone{width:240px;height:400px;}
   .how-step:nth-child(odd){border-right:none;}
 }
 
@@ -575,7 +577,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
             <div class="wa-avatar">A</div>
             <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
           </div>
-          <div class="wa-chat" style="min-height:280px;">
+          <div class="wa-chat">
             <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div>Really glad you're here. Before we get into setup, I just want to get to know you a bit. So tell me, what does your typical day actually look like right now?<div class="wa-msg-meta"><span class="wa-msg-time">9:48 AM</span></div></div>
             <div class="wa-msg user hw-anim hw-anim-2">I run a consulting firm, a medical sales role, and I'm building an AI platform...<div class="wa-msg-meta"><span class="wa-msg-time">9:49 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
             <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>That's a lot of context-switching. What's the thing that eats the most of your time right now?<div class="wa-msg-meta"><span class="wa-msg-time">9:49 AM</span></div></div>
@@ -598,7 +600,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
             <div class="wa-avatar">A</div>
             <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
           </div>
-          <div class="wa-chat" style="min-height:280px;">
+          <div class="wa-chat">
             <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div><div class="hw-briefing">Good morning Ahmed &#9728;&#65039;<br><br>&#128231; Milt Fyre replied about the turbine deal — flagged as priority<br>&#128197; You have 3 meetings — prepped and ready<br>&#9888;&#65039; AWS security alert on your Babylon account — worth checking</div>Want me to start with Milt?<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span></div></div>
             <div class="wa-msg user hw-anim hw-anim-2">Start with Milt.<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
             <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>On it — pulling up the full thread now...<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span></div></div>
@@ -620,7 +622,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
             <div class="wa-avatar">A</div>
             <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
           </div>
-          <div class="wa-chat" style="min-height:280px;">
+          <div class="wa-chat">
             <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div>Hey — Milt just replied. You'll want to see this before your 2pm. Want me to read it?<div class="wa-msg-meta"><span class="wa-msg-time">8:47 AM</span></div></div>
             <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>Your calendar tomorrow is heavy. I moved the Machinio call to Thursday — cleared you a 2-hour block in the morning. Let me know if that works.<div class="wa-msg-meta"><span class="wa-msg-time">11:23 AM</span></div></div>
             <div class="wa-msg aria hw-anim hw-anim-5"><div class="wa-msg-name">ARIA</div>Just a heads up — the GE Frame 9F listing on Machinio dropped in price. Sending you the details now.<div class="wa-msg-meta"><span class="wa-msg-time">2:14 PM</span></div></div>
