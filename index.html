@@ -127,6 +127,11 @@ section{padding:120px 72px;}
 .wa-voice-bars{display:flex;gap:2px;align-items:center;height:24px;flex:1;}
 .wa-voice-bars span{display:block;width:3px;border-radius:2px;background:#8696A0;}
 .wa-voice-dur{font-size:11px;color:#8696A0;flex-shrink:0;}
+.wa-email-card{background:#2A3942;border-radius:8px;padding:10px 12px;margin-top:6px;border-left:3px solid var(--gold);overflow:hidden;}
+.wa-email-label{font-size:10px;color:#8696A0;margin-bottom:4px;}
+.wa-email-subject{font-size:12px;font-weight:500;color:#E9EDEF;margin-bottom:4px;line-height:1.4;}
+.wa-email-body{font-size:11px;color:#8696A0;line-height:1.5;margin-bottom:6px;}
+.wa-email-link{font-size:10px;color:#53BDEB;text-decoration:none;font-weight:500;}
 
 /* ── CLAUDE SECTION ── */
 .claude-sec{background:var(--ink);padding:100px 72px;text-align:center;}
@@ -199,14 +204,14 @@ section{padding:120px 72px;}
 .price-intro-title em{font-style:italic;color:var(--gold-dk);}
 .price-intro-sub{font-size:14px;color:var(--ink-60);line-height:1.85;}
 .price-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--ink-12);}
-.pcard{background:var(--bg);padding:44px 32px;position:relative;border-top:2px solid transparent;transition:border-color 0.3s;}
+.pcard{background:var(--bg);padding:44px 32px;position:relative;border-top:2px solid transparent;transition:border-color 0.3s;display:flex;flex-direction:column;}
 .pcard.hot{border-top-color:var(--gold);background:var(--bg2);}
 .pcard-tier{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-dk);margin-bottom:14px;font-weight:500;}
 .pcard-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;margin-bottom:4px;}
 .pcard-price{font-family:'Playfair Display',serif;font-size:44px;font-weight:400;line-height:1;margin-bottom:4px;}
 .pcard-mo{font-size:10px;letter-spacing:2px;color:var(--ink-35);margin-bottom:20px;line-height:1.6;}
 .pcard-desc{font-size:12px;color:var(--ink-60);line-height:1.8;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--ink-12);}
-.pcard-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.pcard-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;flex:1;}
 .pfeat{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--ink-60);line-height:1.5;}
 .pdot{width:5px;height:5px;min-width:5px;background:var(--gold);border-radius:50%;margin-top:5px;}
 .pcard-cta-blk{display:block;text-align:center;padding:14px;background:var(--ink);color:var(--bg);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;transition:background 0.3s;cursor:none;}
@@ -392,7 +397,13 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
             </div>
             <div class="wa-msg aria">
               <div class="wa-msg-name">ARIA</div>
-              Done — saved as a draft in your Outlook. Want me to send it?
+              Done — sent to Milt. Here's what went out:
+              <div class="wa-email-card">
+                <div class="wa-email-label">&#128231; Sent to Milt Fyre</div>
+                <div class="wa-email-subject">Re: 750MW Steam Turbine Inquiry — Following Up</div>
+                <div class="wa-email-body">Hi Milt, following up on your message — glad to hear you're reaching out to the seller. We're still very interested and would like to move quickly if the opportunity opens back up...</div>
+                <a href="#" class="wa-email-link">View in Outlook &#8594;</a>
+              </div>
               <div class="wa-msg-meta"><span class="wa-msg-time">9:15 AM</span></div>
             </div>
           </div>
