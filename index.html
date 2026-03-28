@@ -1103,16 +1103,20 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     bubbles.forEach((b,i)=>{
       const isAria=b.classList.contains('a');
       if(isAria&&td){
-        // Show typing before ARIA bubble
+        // Show typing
         stepTimers.push(setTimeout(()=>td.classList.add('shown'),t));
-        t+=1200;
+        t+=1400;
+        // Hide typing
         stepTimers.push(setTimeout(()=>td.classList.remove('shown'),t));
-        t+=100;
+        t+=150;
+        // Then show ARIA bubble
+        stepTimers.push(setTimeout(()=>b.classList.add('shown'),t));
+        t+=700;
       } else {
-        t+=400; // Brief pause before user bubble
+        t+=400;
+        stepTimers.push(setTimeout(()=>b.classList.add('shown'),t));
+        t+=700;
       }
-      stepTimers.push(setTimeout(()=>b.classList.add('shown'),t));
-      t+=700;
     });
     return t+3000;
   }
