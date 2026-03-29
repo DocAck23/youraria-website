@@ -221,6 +221,34 @@ section{padding:120px 72px;}
 .wa-body{font-size:14px;line-height:2;color:var(--ink-60);margin-bottom:20px;}
 .wa-phone{background:#000;border-radius:40px;padding:12px;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,0.25);position:relative;}
 .wa-phone-inner{border-radius:30px;overflow:hidden;}
+/* animated wa conversation */
+.wac-phone{background:#000;border:10px solid #111;border-radius:36px;width:300px;height:520px;box-shadow:0 24px 60px rgba(0,0,0,0.25);position:relative;overflow:hidden;}
+.wac-notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;}
+.wac-screen{display:flex;flex-direction:column;height:100%;background:#0B141A;}
+.wac-header{background:#1F2C34;height:52px;display:flex;align-items:center;gap:10px;padding:22px 12px 0;flex-shrink:0;}
+.wac-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:#fff;}
+.wac-hname{font-family:system-ui,sans-serif;font-size:14px;font-weight:600;color:#E9EDEF;}
+.wac-hstat{font-family:system-ui,sans-serif;font-size:11px;color:#25D366;}
+.wac-body{flex:1;overflow:hidden;padding:8px;display:flex;flex-direction:column;}
+.wac-scroll{display:flex;flex-direction:column;gap:4px;transition:transform 0.6s ease;}
+.wac-m{padding:8px 12px;font-size:13px;line-height:1.5;color:#E9EDEF;font-family:system-ui,sans-serif;margin-bottom:4px;opacity:0;transform:translateY(6px);transition:opacity 0.3s ease,transform 0.3s ease;}
+.wac-m.vis{opacity:1;transform:translateY(0);}
+.wac-m.u{background:#005C4B;align-self:flex-end;border-radius:18px 18px 4px 18px;max-width:220px;margin-left:auto;}
+.wac-m.a{background:#202C33;align-self:flex-start;border-radius:18px 18px 18px 4px;max-width:230px;}
+.wac-m .t{font-size:10px;color:#8696A0;text-align:right;margin-top:2px;}
+.wac-m .ck{color:#53BDEB;font-size:10px;margin-left:3px;}
+.wac-m .nm{font-size:9px;color:var(--gold);font-weight:600;margin-bottom:2px;}
+.wac-td{background:#202C33;align-self:flex-start;border-radius:18px 18px 18px 4px;padding:10px 16px;display:flex;gap:4px;opacity:0;transition:opacity 0.2s ease;margin-bottom:4px;}
+.wac-td.vis{opacity:1;}
+.wac-td span{width:5px;height:5px;background:#8696A0;border-radius:50%;animation:typingBounce 0.6s ease-in-out infinite;}
+.wac-td span:nth-child(2){animation-delay:0.15s;}
+.wac-td span:nth-child(3){animation-delay:0.3s;}
+.wac-vn{display:flex;align-items:center;gap:6px;}
+.wac-vn-play{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;}
+.wac-vn-play::after{content:'';border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid #fff;margin-left:2px;}
+.wac-vn-bars{display:flex;gap:2px;align-items:center;height:20px;flex:1;}
+.wac-vn-bars span{display:block;width:2px;border-radius:1px;background:#aee4d1;}
+.wac-vn-dur{font-size:11px;color:#aee4d1;}
 .wa-header{background:#1F2C34;padding:12px 16px;display:flex;align-items:center;gap:10px;}
 .wa-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:#fff;font-weight:500;}
 .wa-header-name{font-family:system-ui,sans-serif;font-size:14px;font-weight:500;color:#E9EDEF;}
@@ -716,46 +744,13 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <p class="wa-body">Text her, send a voice note, or just talk. She handles everything in the background and sends you back exactly what you need. Updates, tasks completed, emails sent, calls made. You see results. Nothing else.</p>
     </div>
     <div class="r2">
-      <div class="wa-phone">
-        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
-        <div class="wa-phone-inner">
-          <div class="wa-header">
-            <div class="wa-avatar">A</div>
-            <div>
-              <div class="wa-header-name">ARIA</div>
-              <div class="wa-header-status">online</div>
-            </div>
-          </div>
-          <div class="wa-chat">
-            <div class="wa-msg user">
-              <div class="wa-voice">
-                <div class="wa-voice-play"></div>
-                <div class="wa-voice-bars">
-                  <span style="height:4px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:22px"></span><span style="height:14px"></span><span style="height:20px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:8px"></span><span style="height:14px"></span><span style="height:6px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:8px"></span><span style="height:4px"></span>
-                </div>
-                <div class="wa-voice-dur">0:03</div>
-              </div>
-              <div class="wa-msg-meta"><span class="wa-msg-time">9:14 AM</span><span class="wa-checks">&#10003;&#10003;</span></div>
-            </div>
-            <div class="wa-msg aria">
-              <div class="wa-msg-name">ARIA</div>
-              Three things worth your attention. Milt replied about the turbine deal — he's reaching out to the seller. Greg confirmed the Siemens plant is sold. And you have a consent form from Amber Jimenez that needs a signature. Want me to draft a reply to Milt?
-              <div class="wa-msg-meta"><span class="wa-msg-time">9:14 AM</span></div>
-            </div>
-            <div class="wa-msg user">
-              Yes, draft it.
-              <div class="wa-msg-meta"><span class="wa-msg-time">9:15 AM</span><span class="wa-checks">&#10003;&#10003;</span></div>
-            </div>
-            <div class="wa-msg aria">
-              <div class="wa-msg-name">ARIA</div>
-              Done — sent to Milt. Here's what went out:
-              <div class="wa-email-card">
-                <div class="wa-email-label">&#128231; Sent to Milt Fyre</div>
-                <div class="wa-email-subject">Re: 750MW Steam Turbine Inquiry — Following Up</div>
-                <div class="wa-email-body">Hi Milt, following up on your message — glad to hear you're reaching out to the seller. We're still very interested and would like to move quickly if the opportunity opens back up...</div>
-                <a href="#" class="wa-email-link">View in Outlook &#8594;</a>
-              </div>
-              <div class="wa-msg-meta"><span class="wa-msg-time">9:15 AM</span></div>
+      <div class="wac-phone" id="wacPhone">
+        <div class="wac-notch"></div>
+        <div class="wac-screen">
+          <div class="wac-header"><div class="wac-avatar">A</div><div><div class="wac-hname">ARIA</div><div class="wac-hstat">online</div></div></div>
+          <div class="wac-body">
+            <div class="wac-scroll" id="wacScroll">
+              <div class="wac-td" id="wacTyping"><span></span><span></span><span></span></div>
             </div>
           </div>
         </div>
@@ -1190,6 +1185,74 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   console.log('[ARIA] Hero carousel: '+slides.length+' scenes loaded');
   const d=showScene(slides[0]);
   autoTimer=setTimeout(()=>goTo(1,'fwd'),d);
+})();
+
+// WhatsApp section animated conversation
+(function(){
+  const scroll=document.getElementById('wacScroll');
+  const typing=document.getElementById('wacTyping');
+  const body=document.querySelector('.wac-body');
+  if(!scroll||!typing)return;
+  let timers=[];
+  const msgs=[
+    {type:'u',html:'<div class="wac-vn"><div class="wac-vn-play"></div><div class="wac-vn-bars"><span style="height:4px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:8px"></span><span style="height:14px"></span></div><div class="wac-vn-dur">0:08</div></div><div class="t">9:01 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Good morning &#9728;&#65039; Three things: John replied about the contract — he\'s ready to sign. Two meetings today, both prepped. One email needs a quick decision. Start with John?<div class="t">9:01 AM</div>'},
+    {type:'u',html:'Yes start with John<div class="t">9:02 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Pulling up John\'s thread... he\'s confirmed all terms and wants to sign by Friday. Want me to draft the final agreement?<div class="t">9:02 AM</div>'},
+    {type:'u',html:'Draft it and send to him<div class="t">9:02 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Done — agreement drafted and sent to john@example.com. &#10003;&#10003;<div class="t">9:03 AM</div>'},
+    {type:'u',html:'What\'s on my calendar today?<div class="t">9:04 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Three things: 10am investor sync, 2pm Derek follow-up, 4pm team standup. Want me to prep notes for any of them?<div class="t">9:04 AM</div>'},
+    {type:'u',html:'Move the 2pm to Thursday<div class="t">9:04 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Done — Derek\'s follow-up moved to Thursday 2pm. He\'s been notified. &#10003;<div class="t">9:05 AM</div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Hey — Sarah just opened the proposal you sent. She\'s been on it for 3 minutes. Want to follow up?<div class="t">9:08 AM</div>'},
+    {type:'u',html:'Call her<div class="t">9:08 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Calling Sarah now...<div class="t">9:08 AM</div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Spoke with Sarah. She loves it but has one question on pricing. Want me to draft a response?<div class="t">9:10 AM</div>'},
+    {type:'u',html:'Yes draft it<div class="t">9:10 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Draft ready in your Outlook. Review and send when ready. &#10003;&#10003;<div class="t">9:11 AM</div>'},
+    {type:'u',html:'Find me lunch nearby at 12:30, somewhere quiet<div class="t">11:45 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Three options at 12:30:<br>1. The Capital Grille — private &#10003;<br>2. Osteria Moderna — quiet &#10003;<br>3. Villa Terrace — rooftop &#10003;<br>Which one?<div class="t">11:45 AM</div>'},
+    {type:'u',html:'Capital Grille<div class="t">11:46 AM<span class="ck">&#10003;&#10003;</span></div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Booked. Table for 2 at The Capital Grille, 12:30pm. Confirmation #4421. Added to calendar. &#127869;<div class="t">11:46 AM</div>'},
+  ];
+  let scrollOffset=0;
+  function doScroll(){
+    scrollOffset+=80;
+    scroll.style.transform='translateY(-'+scrollOffset+'px)';
+  }
+  function run(){
+    timers.forEach(clearTimeout);timers=[];
+    scroll.querySelectorAll('.wac-m').forEach(m=>m.remove());
+    scroll.style.transform='translateY(0)';
+    scrollOffset=0;typing.classList.remove('vis');
+    let t=0;
+    msgs.forEach((m,i)=>{
+      if(m.type==='a'){
+        timers.push(setTimeout(()=>{typing.classList.add('vis');},t));
+        t+=1400;
+        timers.push(setTimeout(()=>{typing.classList.remove('vis');},t));
+        t+=150;
+      } else {t+=500;}
+      const showAt=t;
+      timers.push(setTimeout(()=>{
+        const el=document.createElement('div');
+        el.className='wac-m '+(m.type==='u'?'u':'a');
+        el.innerHTML=m.html;
+        scroll.insertBefore(el,typing);
+        void el.offsetHeight;
+        el.classList.add('vis');
+        if(scroll.scrollHeight>body.clientHeight+scrollOffset+40)doScroll();
+      },showAt));
+      t+=800;
+    });
+    timers.push(setTimeout(run,t+4000));
+  }
+  // Start when section scrolls into view
+  const secObs=new IntersectionObserver(e=>{
+    if(e[0].isIntersecting){run();secObs.disconnect();}
+  },{threshold:0.2});
+  secObs.observe(document.getElementById('wacPhone'));
 })();
 </script>
 </body>
