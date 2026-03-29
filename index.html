@@ -81,17 +81,17 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-chat-body{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;padding:10px 8px;height:calc(100% - 52px);overflow:hidden;box-sizing:border-box;}
 
 /* bubbles */
-.hs-b{padding:7px 10px;font-size:11px;line-height:1.45;color:#E9EDEF;font-family:system-ui,-apple-system,sans-serif;opacity:0;max-height:0;margin:0;overflow:hidden;transition:opacity 0.3s ease,max-height 0.3s ease,margin 0.3s ease;}
-.hs-b.shown{opacity:1;max-height:200px;margin-bottom:6px;overflow:visible;}
+.hs-b{padding:0;font-size:11px;line-height:1.45;color:#E9EDEF;font-family:system-ui,-apple-system,sans-serif;opacity:0;visibility:hidden;height:0;margin:0;overflow:hidden;}
+.hs-b.shown{opacity:1;visibility:visible;height:auto;margin-bottom:6px;padding:7px 10px;overflow:visible;transition:opacity 0.3s ease;}
 .hs-b.u{background:#005C4B;align-self:flex-end;border-radius:14px 14px 3px 14px;max-width:195px;margin-left:auto;}
 .hs-b.a{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;max-width:205px;}
 .hs-b-name{font-size:8px;color:var(--gold);font-weight:600;letter-spacing:0.04em;margin-bottom:2px;}
 .hs-b-time{font-size:9px;color:#8696A0;text-align:right;margin-top:1px;}
 .hs-b-ck{color:#53BDEB;font-size:9px;margin-left:3px;}
 
-/* typing indicator — normal flex child, below last bubble */
-.hs-tdot{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;display:flex;gap:3px;opacity:0;max-height:0;margin:0;overflow:hidden;transition:opacity 0.2s ease,max-height 0.2s ease,margin 0.2s ease,padding 0.2s ease;padding:0 14px;}
-.hs-tdot.shown{opacity:1;max-height:40px;margin-bottom:6px;padding:8px 14px;}
+/* typing indicator — last child in chat, below all bubbles */
+.hs-tdot{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;display:flex;gap:3px;opacity:0;visibility:hidden;height:0;margin:0;padding:0;overflow:hidden;}
+.hs-tdot.shown{opacity:1;visibility:visible;height:auto;margin-bottom:6px;padding:8px 14px;}
 .hs-tdot span{width:5px;height:5px;background:#8696A0;border-radius:50%;animation:typingBounce 0.6s ease-in-out infinite;}
 .hs-tdot span:nth-child(2){animation-delay:0.15s;}
 .hs-tdot span:nth-child(3){animation-delay:0.3s;}
@@ -515,38 +515,38 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
 
             <!-- S1: Proposal + file attachment -->
             <div class="hs-slide active"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
               <div class="hs-b u" data-d="0">Put together a proposal for Sarah at Meridian Partners. Two-year contract, standard rates.<div class="hs-b-time">2:14 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
               <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>Got it. Pulling your rate sheet and drafting now...<div class="hs-b-time">2:14 PM</div></div>
               <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div><div class="hs-file"><div class="hs-file-icon">PDF</div><div class="hs-file-info"><div class="hs-file-name">Meridian_Partners_Proposal_2026.pdf</div><div class="hs-file-size">248 KB</div></div><div class="hs-file-dl">&#8595;</div></div>Ready to send. Email it to Sarah?<div class="hs-b-time">2:16 PM</div></div>
               <div class="hs-b u" data-d="3">Email it.<div class="hs-b-time">2:16 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
               <div class="hs-b a" data-d="4"><div class="hs-b-name">ARIA</div>Sent to sarah@meridianpartners.com. I'll let you know when she opens it.<div class="hs-b-time">2:16 PM</div></div>
+              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
             </div></div></div>
 
             <!-- S2: Voice notes -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
               <div class="hs-b u" data-d="0"><div class="hs-vn"><div class="hs-vn-play white"></div><div class="hs-vn-bars"><span style="height:4px;background:#aee4d1"></span><span style="height:10px;background:#aee4d1"></span><span style="height:16px;background:#aee4d1"></span><span style="height:12px;background:#aee4d1"></span><span style="height:18px;background:#aee4d1"></span><span style="height:8px;background:#aee4d1"></span><span style="height:14px;background:#aee4d1"></span></div><div class="hs-vn-dur">0:12</div></div><div class="hs-b-time">4:02 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
               <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div><div class="hs-vn"><div class="hs-vn-play gold"></div><div class="hs-vn-bars"><span style="height:6px;background:#8696A0"></span><span style="height:12px;background:#8696A0"></span><span style="height:18px;background:#8696A0"></span><span style="height:14px;background:#8696A0"></span><span style="height:20px;background:#8696A0"></span><span style="height:10px;background:#8696A0"></span><span style="height:16px;background:#8696A0"></span><span style="height:8px;background:#8696A0"></span></div><div class="hs-vn-dur">0:24</div></div><div class="hs-b-time">4:03 PM</div></div>
               <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div>Summary sent to your notes. Want me to follow up with Derek by end of day?<div class="hs-b-time">4:03 PM</div></div>
+              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
             </div></div></div>
 
             <!-- S3: Restaurant -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
               <div class="hs-b u" data-d="0">Find me restaurants for tonight. Check 6:30pm.<div class="hs-b-time">4:12 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
               <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>3 available:<br>1. The Capital Grille — private &#10003;<br>2. Osteria Moderna — quiet &#10003;<br>3. Villa Terrace — rooftop &#10003;<br>Which one?<div class="hs-b-time">4:13 PM</div></div>
               <div class="hs-b u" data-d="2">Capital Grille.<div class="hs-b-time">4:13 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
               <div class="hs-b a" data-d="3"><div class="hs-b-name">ARIA</div>Calling to confirm...<div class="hs-b-time">4:13 PM</div></div>
               <div class="hs-b a" data-d="4"><div class="hs-b-name">ARIA</div>Booked. Table for 4, 6:30pm. #7741. Added to calendar. &#127869;<div class="hs-b-time">4:15 PM</div></div>
+              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
             </div></div></div>
 
             <!-- S4: Pitch deck -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
               <div class="hs-b u" data-d="0">Make me a 6-slide investor pitch deck. Sharp and clean.<div class="hs-b-time">11:04 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
               <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>On it — problem, solution, product, traction, market, ask. Two minutes.<div class="hs-b-time">11:04 AM</div></div>
               <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div>Done. 'Investor Deck.pptx' is ready. Want me to email it to Jeff?<div class="hs-b-time">11:06 AM</div></div>
+              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
             </div></div></div>
 
             <!-- S5: iOS Call UI -->
@@ -579,11 +579,11 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
 
             <!-- S6: Morning + digest -->
             <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
               <div class="hs-b a" data-d="0"><div class="hs-b-name">ARIA</div>Good morning &#9728;&#65039; Derek replied — he's in. Two meetings, both prepped. One email needs a decision. Start with Derek?<div class="hs-b-time">8:02 AM</div></div>
               <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div><div class="hs-digest"><div class="hs-digest-row">&#128197; 10:00 AM — Investor sync</div><div class="hs-digest-row">&#128197; 2:00 PM — Derek follow-up</div><div class="hs-digest-row dim">&#128231; Sarah opened proposal (11:42 PM)</div><div class="hs-digest-row dim">&#128231; AWS billing alert</div><div class="hs-digest-row dim">&#128231; Machinio — new listing match</div></div><div class="hs-digest-caption">Your day at a glance. &#128203;</div><div class="hs-b-time">8:02 AM</div></div>
               <div class="hs-b u" data-d="2">Start with Derek.<div class="hs-b-time">8:03 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
               <div class="hs-b a" data-d="3"><div class="hs-b-name">ARIA</div>Pulling up the full thread now...<div class="hs-b-time">8:03 AM</div></div>
+              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
             </div></div></div>
 
           </div>
