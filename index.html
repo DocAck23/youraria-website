@@ -374,9 +374,9 @@ section{padding:120px 72px;}
 .hwp-ts{text-align:center;font-size:9px;color:#8696A0;padding:4px 0;}
 
 /* lock screen notification animation */
-.hw-notif{opacity:0;transform:translateY(-20px);transition:opacity 0.5s ease-out,transform 0.5s ease-out;background:rgba(255,255,255,0.18);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:12px 16px;margin:0 20px;display:flex;gap:10px;align-items:center;}
-.hw-notif.vis{opacity:1;transform:translateY(0);}
-.hw-notif.hide{opacity:0;transform:translateY(-20px);transition:opacity 0.4s ease-in,transform 0.4s ease-in;}
+.hw-notif{background:rgba(255,255,255,0.18);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:12px 16px;margin:0 20px;display:flex;gap:10px;align-items:center;transform:translateY(-120%);opacity:0;transition:transform 0.4s ease-out,opacity 0.4s ease-out;}
+.hw-notif.vis{transform:translateY(0);opacity:1;}
+.hw-notif.hide{transform:translateY(-120%);opacity:0;transition:transform 0.4s ease-in,opacity 0.4s ease-in;}
 
 /* lock screen */
 .hw-lock{background:linear-gradient(160deg,#0a0a1a 0%,#1a1a2e 50%,#0d0d1a 100%);padding:32px 20px 20px;text-align:center;flex:1;position:relative;}
@@ -1279,19 +1279,18 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   function makeTyp(){const d=document.createElement('div');d.className='hwp-typ';d.innerHTML='<span></span><span></span><span></span>';return d;}
   function addM(list,cls,html){const el=document.createElement('div');el.className='hwp-m '+cls;el.innerHTML=html;list.appendChild(el);void el.offsetHeight;el.classList.add('vis');}
 
-  // STEP 1: Lock screen notification loop
+  // STEP 1: Lock screen notification loop — slides down from top
   (function(){
     const n=document.getElementById('hwNotif1');if(!n)return;
-    let iv=null;
     function show(){
       n.classList.remove('hide');
       n.classList.add('vis');
-      setTimeout(()=>{n.classList.add('hide');n.classList.remove('vis');},4500);
+      setTimeout(()=>{n.classList.add('hide');n.classList.remove('vis');},4000);
     }
     const o=new IntersectionObserver(e=>{
       if(e[0].isIntersecting){
         setTimeout(show,1000);
-        iv=setInterval(show,6500);
+        setInterval(show,6400);
         o.disconnect();
       }
     },{threshold:0.2});
