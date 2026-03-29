@@ -1126,8 +1126,8 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     if(!data){
       const timerEl=document.getElementById('hsCallTimer');
       if(timerEl){
-        let secs=0;timerEl.textContent='00:00';
-        callInterval=setInterval(()=>{secs++;timerEl.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');},1000);
+        let secs=204;timerEl.textContent='3:24';
+        callInterval=setInterval(()=>{secs++;timerEl.textContent=Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0');},1000);
       }
       const bn=slide.querySelector('[data-banner]');
       if(bn){
