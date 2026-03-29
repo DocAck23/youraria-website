@@ -229,8 +229,8 @@ section{padding:120px 72px;}
 .wac-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:#fff;}
 .wac-hname{font-family:system-ui,sans-serif;font-size:14px;font-weight:600;color:#E9EDEF;}
 .wac-hstat{font-family:system-ui,sans-serif;font-size:11px;color:#25D366;}
-.wac-body{flex:1;overflow:hidden;padding:8px;display:flex;flex-direction:column;}
-.wac-scroll{display:flex;flex-direction:column;gap:4px;transition:transform 0.6s ease;}
+.wac-body{height:calc(100% - 52px);overflow:hidden;padding:10px 8px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-end;}
+.wac-scroll{display:flex;flex-direction:column;gap:4px;transition:transform 0.4s ease;}
 .wac-m{padding:8px 12px;font-size:13px;line-height:1.5;color:#E9EDEF;font-family:system-ui,sans-serif;margin-bottom:4px;opacity:0;transform:translateY(6px);transition:opacity 0.3s ease,transform 0.3s ease;}
 .wac-m.vis{opacity:1;transform:translateY(0);}
 .wac-m.u{background:#005C4B;align-self:flex-end;border-radius:18px 18px 4px 18px;max-width:220px;margin-left:auto;}
@@ -1187,13 +1187,41 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   autoTimer=setTimeout(()=>goTo(1,'fwd'),d);
 })();
 
-// WhatsApp section animated conversation
+// WhatsApp section animated conversation — push-up from bottom
 (function(){
-  const scroll=document.getElementById('wacScroll');
-  const typing=document.getElementById('wacTyping');
-  const body=document.querySelector('.wac-body');
-  if(!scroll||!typing)return;
-  let timers=[];
+  const list=document.getElementById('wacScroll');
+  const chatArea=document.querySelector('.wac-body');
+  if(!list||!chatArea)return;
+  let timers=[],typingEl=null;
+
+  function makeTyping(){
+    const d=document.createElement('div');
+    d.className='wac-td vis';
+    d.innerHTML='<span></span><span></span><span></span>';
+    return d;
+  }
+  function pushUp(){
+    const overflow=list.offsetHeight-chatArea.offsetHeight;
+    list.style.transform=overflow>0?'translateY(-'+overflow+'px)':'translateY(0)';
+  }
+  function addMsg(type,html){
+    const el=document.createElement('div');
+    el.className='wac-m '+type;
+    el.innerHTML=html;
+    list.appendChild(el);
+    void el.offsetHeight;
+    el.classList.add('vis');
+    pushUp();
+  }
+  function showTyping(){
+    typingEl=makeTyping();
+    list.appendChild(typingEl);
+    pushUp();
+  }
+  function hideTyping(){
+    if(typingEl){typingEl.remove();typingEl=null;}
+  }
+
   const msgs=[
     {type:'u',html:'<div class="wac-vn"><div class="wac-vn-play"></div><div class="wac-vn-bars"><span style="height:4px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:12px"></span><span style="height:18px"></span><span style="height:8px"></span><span style="height:14px"></span></div><div class="wac-vn-dur">0:08</div></div><div class="t">9:01 AM<span class="ck">&#10003;&#10003;</span></div>'},
     {type:'a',html:'<div class="nm">ARIA</div>Good morning &#9728;&#65039; Three things: John replied about the contract — he\'s ready to sign. Two meetings today, both prepped. One email needs a quick decision. Start with John?<div class="t">9:01 AM</div>'},
@@ -1202,10 +1230,10 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     {type:'u',html:'Draft it and send to him<div class="t">9:02 AM<span class="ck">&#10003;&#10003;</span></div>'},
     {type:'a',html:'<div class="nm">ARIA</div>Done — agreement drafted and sent to john@example.com. &#10003;&#10003;<div class="t">9:03 AM</div>'},
     {type:'u',html:'What\'s on my calendar today?<div class="t">9:04 AM<span class="ck">&#10003;&#10003;</span></div>'},
-    {type:'a',html:'<div class="nm">ARIA</div>Three things: 10am investor sync, 2pm Derek follow-up, 4pm team standup. Want me to prep notes for any of them?<div class="t">9:04 AM</div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Three things: 10am investor sync, 2pm Derek follow-up, 4pm team standup. Want me to prep notes?<div class="t">9:04 AM</div>'},
     {type:'u',html:'Move the 2pm to Thursday<div class="t">9:04 AM<span class="ck">&#10003;&#10003;</span></div>'},
     {type:'a',html:'<div class="nm">ARIA</div>Done — Derek\'s follow-up moved to Thursday 2pm. He\'s been notified. &#10003;<div class="t">9:05 AM</div>'},
-    {type:'a',html:'<div class="nm">ARIA</div>Hey — Sarah just opened the proposal you sent. She\'s been on it for 3 minutes. Want to follow up?<div class="t">9:08 AM</div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Hey — Sarah just opened the proposal. She\'s been on it for 3 minutes. Want to follow up?<div class="t">9:08 AM</div>'},
     {type:'u',html:'Call her<div class="t">9:08 AM<span class="ck">&#10003;&#10003;</span></div>'},
     {type:'a',html:'<div class="nm">ARIA</div>Calling Sarah now...<div class="t">9:08 AM</div>'},
     {type:'a',html:'<div class="nm">ARIA</div>Spoke with Sarah. She loves it but has one question on pricing. Want me to draft a response?<div class="t">9:10 AM</div>'},
@@ -1214,45 +1242,33 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     {type:'u',html:'Find me lunch nearby at 12:30, somewhere quiet<div class="t">11:45 AM<span class="ck">&#10003;&#10003;</span></div>'},
     {type:'a',html:'<div class="nm">ARIA</div>Three options at 12:30:<br>1. The Capital Grille — private &#10003;<br>2. Osteria Moderna — quiet &#10003;<br>3. Villa Terrace — rooftop &#10003;<br>Which one?<div class="t">11:45 AM</div>'},
     {type:'u',html:'Capital Grille<div class="t">11:46 AM<span class="ck">&#10003;&#10003;</span></div>'},
-    {type:'a',html:'<div class="nm">ARIA</div>Booked. Table for 2 at The Capital Grille, 12:30pm. Confirmation #4421. Added to calendar. &#127869;<div class="t">11:46 AM</div>'},
+    {type:'a',html:'<div class="nm">ARIA</div>Booked. Table for 2, 12:30pm, The Capital Grille. #4421. Added to calendar. &#127869;<div class="t">11:46 AM</div>'},
   ];
-  let scrollOffset=0;
-  function doScroll(){
-    scrollOffset+=80;
-    scroll.style.transform='translateY(-'+scrollOffset+'px)';
-  }
+
   function run(){
     timers.forEach(clearTimeout);timers=[];
-    scroll.querySelectorAll('.wac-m').forEach(m=>m.remove());
-    scroll.style.transform='translateY(0)';
-    scrollOffset=0;typing.classList.remove('vis');
+    list.innerHTML='';
+    list.style.transform='translateY(0)';
+    hideTyping();
     let t=0;
-    msgs.forEach((m,i)=>{
+    msgs.forEach(m=>{
       if(m.type==='a'){
-        timers.push(setTimeout(()=>{typing.classList.add('vis');},t));
+        timers.push(setTimeout(showTyping,t));
         t+=1400;
-        timers.push(setTimeout(()=>{typing.classList.remove('vis');},t));
-        t+=150;
-      } else {t+=500;}
-      const showAt=t;
-      timers.push(setTimeout(()=>{
-        const el=document.createElement('div');
-        el.className='wac-m '+(m.type==='u'?'u':'a');
-        el.innerHTML=m.html;
-        scroll.insertBefore(el,typing);
-        void el.offsetHeight;
-        el.classList.add('vis');
-        if(scroll.scrollHeight>body.clientHeight+scrollOffset+40)doScroll();
-      },showAt));
-      t+=800;
+        timers.push(setTimeout(()=>{hideTyping();addMsg('a',m.html);},t));
+        t+=800;
+      } else {
+        t+=500;
+        timers.push(setTimeout(()=>addMsg('u',m.html),t));
+        t+=800;
+      }
     });
     timers.push(setTimeout(run,t+4000));
   }
-  // Start when section scrolls into view
-  const secObs=new IntersectionObserver(e=>{
-    if(e[0].isIntersecting){run();secObs.disconnect();}
+  const obs=new IntersectionObserver(e=>{
+    if(e[0].isIntersecting){run();obs.disconnect();}
   },{threshold:0.2});
-  secObs.observe(document.getElementById('wacPhone'));
+  obs.observe(document.getElementById('wacPhone'));
 })();
 </script>
 </body>
