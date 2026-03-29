@@ -783,21 +783,31 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">One payment. One number. Save it in your contacts. That's the only setup you do.</div>
       </div>
       <div class="how-phone" id="hwPhone1">
-        <div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:20;"></div>
-        <div class="how-phone-inner">
-          <div class="hw-lock" style="position:relative;">
-            <div class="hw-lock-time">9:47</div>
-            <div class="hw-lock-date">Saturday, March 28</div>
-            <div style="position:absolute;bottom:90px;left:12px;right:12px;background:rgba(255,255,255,0.14);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:10px 12px;z-index:5;animation:slideDownNotif 0.6s ease 0.8s both;">
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
-                <div style="width:18px;height:18px;background:#25D366;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.849L0 24l6.335-1.51C8.05 23.447 9.986 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-                </div>
-                <span style="font-size:11px;color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;letter-spacing:0.2px;flex:1;">WhatsApp</span>
-                <span style="font-size:11px;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;">now</span>
+        <div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#2A2A2A;border-radius:20px;z-index:20;"></div>
+        <div class="how-phone-inner" style="position:relative;">
+          <!-- PHASE 1: Lock screen -->
+          <div id="hw1Lock" style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);padding:50px 0 0;border-radius:28px;transition:opacity 0.5s ease,transform 0.5s ease;">
+            <div style="font-family:system-ui,sans-serif;font-size:48px;font-weight:200;color:#fff;letter-spacing:-2px;line-height:1;">9:47</div>
+            <div style="font-family:system-ui,sans-serif;font-size:14px;color:rgba(255,255,255,0.7);margin-top:4px;margin-bottom:30px;">Saturday, March 28</div>
+            <div id="hw1Notif" style="background:rgba(50,50,50,0.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;padding:12px 14px;margin:0 10px;display:flex;gap:12px;align-items:flex-start;opacity:0;transform:translateY(-20px) scale(0.96);transition:opacity 0.5s cubic-bezier(0.34,1.2,0.64,1),transform 0.5s cubic-bezier(0.34,1.2,0.64,1);">
+              <div style="width:44px;height:44px;background:#25D366;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.849L0 24l6.335-1.51C8.05 23.447 9.986 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
               </div>
-              <div style="font-size:13px;font-weight:600;color:#fff;font-family:'DM Sans',sans-serif;margin-bottom:2px;">ARIA</div>
-              <div style="font-size:13px;color:rgba(255,255,255,0.75);font-family:'DM Sans',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Hey — it's ARIA. I just got your notification &#129293;</div>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+                  <span style="font-size:13px;font-weight:600;color:#fff;font-family:'DM Sans',sans-serif;">WhatsApp</span>
+                  <span style="font-size:12px;color:rgba(255,255,255,0.55);font-family:'DM Sans',sans-serif;">now</span>
+                </div>
+                <div style="font-size:13px;font-weight:600;color:#fff;font-family:'DM Sans',sans-serif;margin-bottom:1px;">ARIA</div>
+                <div style="font-size:13px;color:rgba(255,255,255,0.75);font-family:'DM Sans',sans-serif;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Hey — it's ARIA. I just got the notification &#129293;</div>
+              </div>
+            </div>
+          </div>
+          <!-- PHASE 2: WhatsApp chat -->
+          <div id="hw1Chat" style="position:absolute;inset:0;z-index:1;opacity:0;transition:opacity 0.5s ease;border-radius:28px;overflow:hidden;">
+            <div class="hwp-screen">
+              <div class="hwp-header"><div class="hwp-avatar">A</div><div><div class="hwp-hname">ARIA</div><div class="hwp-hstat">online</div></div></div>
+              <div class="hwp-body"><div class="hwp-list" id="hw1List"></div></div>
             </div>
           </div>
         </div>
@@ -1283,7 +1293,49 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   function makeTyp(){const d=document.createElement('div');d.className='hwp-typ';d.innerHTML='<span></span><span></span><span></span>';return d;}
   function addM(list,cls,html){const el=document.createElement('div');el.className='hwp-m '+cls;el.innerHTML=html;list.appendChild(el);void el.offsetHeight;el.classList.add('vis');}
 
-  // STEP 1: Lock screen — notification uses CSS animation (slideDownNotif)
+  // STEP 1: Lock screen → notification → unlock → chat → loop
+  (function(){
+    const lock=document.getElementById('hw1Lock');
+    const notif=document.getElementById('hw1Notif');
+    const chat=document.getElementById('hw1Chat');
+    const list=document.getElementById('hw1List');
+    if(!lock||!notif||!chat||!list)return;
+    let T=[];
+    function makeTyp(){const d=document.createElement('div');d.className='hwp-typ';d.innerHTML='<span></span><span></span><span></span>';return d;}
+    function addM(cls,html){const el=document.createElement('div');el.className='hwp-m '+cls;el.innerHTML=html;list.appendChild(el);void el.offsetHeight;el.classList.add('vis');}
+    function run(){
+      T.forEach(clearTimeout);T=[];
+      // Reset
+      lock.style.opacity='1';lock.style.transform='scale(1)';lock.style.pointerEvents='auto';
+      chat.style.opacity='0';
+      notif.style.opacity='0';notif.style.transform='translateY(-20px) scale(0.96)';
+      list.innerHTML='';
+      // Phase 1: show notification at 1s
+      T.push(setTimeout(()=>{notif.style.opacity='1';notif.style.transform='translateY(0) scale(1)';},1000));
+      // Phase 2: unlock at 3.5s
+      T.push(setTimeout(()=>{
+        lock.style.opacity='0';lock.style.transform='scale(1.04)';lock.style.pointerEvents='none';
+        chat.style.opacity='1';
+      },3500));
+      // Chat bubbles at 4s
+      let t=4000;
+      const msgs=[
+        {t:'a',h:'<div class="nm">ARIA</div>Hey — it\'s ARIA. I just got the notification that you\'re joining. I\'ve been looking forward to this &#129293;<div class="tm">9:47 AM</div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>Before we dive in — what does your typical day look like? I want to configure myself around you, not the other way around.<div class="tm">9:48 AM</div>'},
+      ];
+      msgs.forEach(m=>{
+        let typ;
+        T.push(setTimeout(()=>{typ=makeTyp();list.appendChild(typ);},t));
+        t+=1200;
+        T.push(setTimeout(()=>{if(typ)typ.remove();addM('a',m.h);},t));
+        t+=1500;
+      });
+      // Loop: fade back to lock at t+6s
+      T.push(setTimeout(run,t+4000));
+    }
+    const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){run();o.disconnect();}},{threshold:0.2});
+    o.observe(document.getElementById('hwPhone1'));
+  })();
 
   // STEP 2: Onboarding conversation
   function runStep2(){
