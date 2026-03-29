@@ -219,7 +219,7 @@ section{padding:120px 72px;}
 .wa-title{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);font-weight:400;line-height:1.05;margin-bottom:28px;}
 .wa-title em{font-style:italic;color:var(--gold-dk);}
 .wa-body{font-size:14px;line-height:2;color:var(--ink-60);margin-bottom:20px;}
-.wa-phone{background:#000;border-radius:40px;padding:12px;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,0.25);}
+.wa-phone{background:#000;border-radius:40px;padding:12px;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,0.25);position:relative;}
 .wa-phone-inner{border-radius:30px;overflow:hidden;}
 .wa-header{background:#1F2C34;padding:12px 16px;display:flex;align-items:center;gap:10px;}
 .wa-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:#fff;font-weight:500;}
@@ -296,7 +296,7 @@ section{padding:120px 72px;}
 .how-body{font-size:15px;color:#999;line-height:1.7;}
 
 /* phone mockup */
-.how-phone{background:#000;border-radius:36px;padding:10px;width:280px;height:480px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:hw-float 3s ease-in-out infinite;overflow:hidden;}
+.how-phone{background:#000;border-radius:36px;padding:10px;width:280px;height:480px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:hw-float 3s ease-in-out infinite;overflow:hidden;position:relative;}
 @keyframes hw-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .how-phone-inner{border-radius:28px;overflow:hidden;background:#0B141A;height:100%;display:flex;flex-direction:column;}
 .how-phone .wa-header{padding:10px 14px;}
@@ -717,6 +717,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
     </div>
     <div class="r2">
       <div class="wa-phone">
+        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
         <div class="wa-phone-inner">
           <div class="wa-header">
             <div class="wa-avatar">A</div>
@@ -776,6 +777,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">One payment. One number. Save it in your contacts. That's the only setup you do.</div>
       </div>
       <div class="how-phone">
+        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
         <div class="how-phone-inner">
           <div class="hw-lock">
             <div class="hw-lock-time">9:47</div>
@@ -802,6 +804,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">Before she does anything, she listens. She learns your businesses, your rhythm, your priorities. She configures herself around you.</div>
       </div>
       <div class="how-phone">
+        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
         <div class="how-phone-inner">
           <div class="wa-header">
             <div class="wa-avatar">A</div>
@@ -829,6 +832,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">The moment you're set up, she's on. Reading your inbox. Organizing your calendar. Flagging what matters. You wake up to a world already managed.</div>
       </div>
       <div class="how-phone">
+        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
         <div class="how-phone-inner">
           <div class="wa-header">
             <div class="wa-avatar">A</div>
@@ -852,6 +856,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">Every conversation teaches her more about how you work. Within a week she anticipates your needs. Within a month, you won't remember how you managed without her.</div>
       </div>
       <div class="how-phone">
+        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
         <div class="how-phone-inner">
           <div class="wa-header">
             <div class="wa-avatar">A</div>
