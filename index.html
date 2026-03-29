@@ -353,6 +353,31 @@ section{padding:120px 72px;}
 .how-phone .wa-chat{flex:1;min-height:0;}
 .how-phone .wa-header{flex-shrink:0;}
 
+/* How It Works animated phone internals */
+.hwp-screen{display:flex;flex-direction:column;height:100%;background:#0B141A;}
+.hwp-header{background:#1F2C34;height:56px;display:flex;align-items:flex-start;gap:8px;padding:18px 10px 6px;flex-shrink:0;}
+.hwp-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:11px;color:#fff;}
+.hwp-hname{font-family:system-ui,sans-serif;font-size:12px;font-weight:600;color:#E9EDEF;}
+.hwp-hstat{font-family:system-ui,sans-serif;font-size:9px;color:#25D366;}
+.hwp-body{position:relative;flex:1;overflow:hidden;}
+.hwp-list{position:absolute;bottom:8px;left:6px;right:6px;display:flex;flex-direction:column;gap:3px;}
+.hwp-m{padding:6px 10px;font-size:11px;line-height:1.45;color:#E9EDEF;font-family:system-ui,sans-serif;opacity:0;transition:opacity 0.3s ease;}
+.hwp-m.vis{opacity:1;}
+.hwp-m.u{background:#005C4B;align-self:flex-end;border-radius:18px 18px 4px 18px;max-width:180px;margin-left:auto;}
+.hwp-m.a{background:#2A3942;align-self:flex-start;border-radius:18px 18px 18px 4px;max-width:190px;}
+.hwp-m .nm{font-size:10px;color:#8696A0;font-weight:600;letter-spacing:0.03em;display:block;margin-bottom:3px;margin-left:2px;font-family:'DM Sans',sans-serif;}
+.hwp-m .tm{font-size:8px;color:#8696A0;text-align:right;margin-top:1px;}
+.hwp-m .ck{color:#53BDEB;font-size:8px;margin-left:2px;}
+.hwp-typ{background:#2A3942;align-self:flex-start;border-radius:18px 18px 18px 4px;padding:8px 14px;display:flex;gap:3px;}
+.hwp-typ span{width:4px;height:4px;background:#8696A0;border-radius:50%;animation:typingBounce 0.6s ease-in-out infinite;}
+.hwp-typ span:nth-child(2){animation-delay:0.15s;}
+.hwp-typ span:nth-child(3){animation-delay:0.3s;}
+.hwp-ts{text-align:center;font-size:9px;color:#8696A0;padding:4px 0;}
+
+/* lock screen notification animation */
+.hw-notif{transition:transform 0.4s ease-out,opacity 0.4s ease-out;transform:translateY(-100%);opacity:0;}
+.hw-notif.vis{transform:translateY(0);opacity:1;}
+
 /* lock screen */
 .hw-lock{background:linear-gradient(160deg,#0a0a1a 0%,#1a1a2e 50%,#0d0d1a 100%);padding:32px 20px 20px;text-align:center;flex:1;position:relative;}
 .hw-lock-time{font-family:system-ui,sans-serif;font-size:56px;font-weight:200;color:#fff;letter-spacing:-2px;line-height:1;}
@@ -754,20 +779,20 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-title">Pay and get ARIA's number</div>
         <div class="how-body">One payment. One number. Save it in your contacts. That's the only setup you do.</div>
       </div>
-      <div class="how-phone">
+      <div class="how-phone" id="hwPhone1">
         <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
         <div class="how-phone-inner">
           <div class="hw-lock">
             <div class="hw-lock-time">9:47</div>
             <div class="hw-lock-date">Saturday, March 28</div>
-            <div class="hw-notif">
+            <div class="hw-notif" id="hwNotif1">
               <div class="hw-notif-top">
                 <div class="hw-notif-icon">W</div>
                 <div class="hw-notif-app">WhatsApp</div>
                 <div class="hw-notif-when">now</div>
               </div>
               <div class="hw-notif-title">ARIA</div>
-              <div class="hw-notif-body">Hey Ahmed — it's ARIA. I just got the notification that you're joining. I've been looking forward to this &#129293;</div>
+              <div class="hw-notif-body">Hey — I just got the notification that you joined. I've been looking forward to this &#129293;</div>
             </div>
           </div>
         </div>
@@ -781,24 +806,12 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-title">She asks about your world</div>
         <div class="how-body">Before she does anything, she listens. She learns your businesses, your rhythm, your priorities. She configures herself around you.</div>
       </div>
-      <div class="how-phone">
+      <div class="how-phone" id="hwPhone2">
         <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
-        <div class="how-phone-inner">
-          <div class="wa-header">
-            <div class="wa-avatar">A</div>
-            <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
-          </div>
-          <div class="wa-chat">
-            <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div>Really glad you're here. Before we get into setup, I just want to get to know you a bit. What does your typical day actually look like right now?<div class="wa-msg-meta"><span class="wa-msg-time">9:48 AM</span></div></div>
-            <div class="wa-msg user hw-anim hw-anim-2">I run a consulting firm, a medical sales role, and I'm building an AI platform...<div class="wa-msg-meta"><span class="wa-msg-time">9:49 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>That's a lot of context-switching. What eats the most of your time right now — the communication side, the admin, or something else?<div class="wa-msg-meta"><span class="wa-msg-time">9:49 AM</span></div></div>
-            <div class="wa-msg user hw-anim hw-anim-4">Honestly the emails. I miss things constantly.<div class="wa-msg-meta"><span class="wa-msg-time">9:50 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-5"><div class="wa-msg-name">ARIA</div>Got it. Who are the people you can never afford to miss a message from? Give me a few names.<div class="wa-msg-meta"><span class="wa-msg-time">9:50 AM</span></div></div>
-            <div class="wa-msg user hw-anim hw-anim-6">James, Michael, Sarah, and anyone from the clinic.<div class="wa-msg-meta"><span class="wa-msg-time">9:51 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-7"><div class="wa-msg-name">ARIA</div>Perfect — I'll flag anything from them immediately. One last thing — what time do you usually start your day? I'll have your briefing ready before you open your eyes. &#129293;<div class="wa-msg-meta"><span class="wa-msg-time">9:51 AM</span></div></div>
-            <div class="hw-typing hw-anim hw-anim-8"><span></span><span></span><span></span></div>
-          </div>
-        </div>
+        <div class="how-phone-inner"><div class="hwp-screen">
+          <div class="hwp-header"><div class="hwp-avatar">A</div><div><div class="hwp-hname">ARIA</div><div class="hwp-hstat">online</div></div></div>
+          <div class="hwp-body"><div class="hwp-list" id="hwList2"></div></div>
+        </div></div>
       </div>
     </div>
 
@@ -809,20 +822,12 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-title">She goes to work immediately</div>
         <div class="how-body">The moment you're set up, she's on. Reading your inbox. Organizing your calendar. Flagging what matters. You wake up to a world already managed.</div>
       </div>
-      <div class="how-phone">
+      <div class="how-phone" id="hwPhone3">
         <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
-        <div class="how-phone-inner">
-          <div class="wa-header">
-            <div class="wa-avatar">A</div>
-            <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
-          </div>
-          <div class="wa-chat">
-            <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div><div class="hw-briefing">Good morning Ahmed &#9728;&#65039;<br><br>&#128231; James replied about the asset deal — flagged as priority<br>&#128197; You have 3 meetings — prepped and ready<br>&#9888;&#65039; a security alert on your account — worth checking</div>Want me to start with James?<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span></div></div>
-            <div class="wa-msg user hw-anim hw-anim-2">Start with James.<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span><span class="wa-checks">&#10003;&#10003;</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>On it — pulling up the full thread now...<div class="wa-msg-meta"><span class="wa-msg-time">9:02 AM</span></div></div>
-            <div class="wa-typing-bubble hw-anim hw-anim-4"><div class="wa-msg-name">ARIA</div><div class="wa-typing-dots"><span></span><span></span><span></span></div></div>
-          </div>
-        </div>
+        <div class="how-phone-inner"><div class="hwp-screen">
+          <div class="hwp-header"><div class="hwp-avatar">A</div><div><div class="hwp-hname">ARIA</div><div class="hwp-hstat">online</div></div></div>
+          <div class="hwp-body"><div class="hwp-list" id="hwList3"></div></div>
+        </div></div>
       </div>
     </div>
 
@@ -833,21 +838,12 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-title">She gets sharper every day</div>
         <div class="how-body">Every conversation teaches her more about how you work. Within a week she anticipates your needs. Within a month, you won't remember how you managed without her.</div>
       </div>
-      <div class="how-phone">
+      <div class="how-phone" id="hwPhone4">
         <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
-        <div class="how-phone-inner">
-          <div class="wa-header">
-            <div class="wa-avatar">A</div>
-            <div><div class="wa-header-name">ARIA</div><div class="wa-header-status">online</div></div>
-          </div>
-          <div class="wa-chat">
-            <div class="wa-msg aria hw-anim hw-anim-1"><div class="wa-msg-name">ARIA</div>Hey — James just replied about the asset deal. You'll want to see this before your 2pm. Want me to read it?<div class="wa-msg-meta"><span class="wa-msg-time">8:47 AM</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-2"><div class="wa-msg-name">ARIA</div>Your calendar tomorrow is heavy. I moved the listing platform call to Thursday and cleared you a 2-hour block in the morning. Let me know if that doesn't work.<div class="wa-msg-meta"><span class="wa-msg-time">11:23 AM</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-3"><div class="wa-msg-name">ARIA</div>Heads up — the listing on the listing platform dropped in price. Sending you the details.<div class="wa-msg-meta"><span class="wa-msg-time">1:14 PM</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-4"><div class="wa-msg-name">ARIA</div>Sarah from Meridian Partners responded to the billing proposal. She has two questions — want me to draft a reply?<div class="wa-msg-meta"><span class="wa-msg-time">3:02 PM</span></div></div>
-            <div class="wa-msg aria hw-anim hw-anim-5"><div class="wa-msg-name">ARIA</div>You have nothing urgent in your inbox. I flagged 3 things for tomorrow morning and cleared the noise. Have a good evening.<div class="wa-msg-meta"><span class="wa-msg-time">5:47 PM</span></div></div>
-          </div>
-        </div>
+        <div class="how-phone-inner"><div class="hwp-screen">
+          <div class="hwp-header"><div class="hwp-avatar">A</div><div><div class="hwp-hname">ARIA</div><div class="hwp-hstat">online</div></div></div>
+          <div class="hwp-body"><div class="hwp-list" id="hwList4"></div></div>
+        </div></div>
       </div>
     </div>
 
@@ -1275,6 +1271,86 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     if(e[0].isIntersecting){run();obs.disconnect();}
   },{threshold:0.2});
   obs.observe(document.getElementById('wacPhone'));
+})();
+
+// How It Works animated phones
+(function(){
+  function makeTyp(){const d=document.createElement('div');d.className='hwp-typ';d.innerHTML='<span></span><span></span><span></span>';return d;}
+  function addM(list,cls,html){const el=document.createElement('div');el.className='hwp-m '+cls;el.innerHTML=html;list.appendChild(el);void el.offsetHeight;el.classList.add('vis');}
+
+  // STEP 1: Lock screen notification loop
+  (function(){
+    const n=document.getElementById('hwNotif1');if(!n)return;
+    function loop(){n.classList.add('vis');setTimeout(()=>n.classList.remove('vis'),5400);setTimeout(loop,8000);}
+    const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){setTimeout(loop,1000);o.disconnect();}},{threshold:0.2});
+    o.observe(document.getElementById('hwPhone1'));
+  })();
+
+  // STEP 2: Onboarding conversation
+  function runStep2(){
+    const list=document.getElementById('hwList2');if(!list)return;let T=[];
+    function run(){T.forEach(clearTimeout);T=[];list.innerHTML='';let t=0;
+      const msgs=[
+        {t:'a',h:'<div class="nm">ARIA</div>Really glad you\'re here. What does your typical day actually look like right now?<div class="tm">9:48 AM</div>'},
+        {t:'u',h:'I run a few businesses, lots of emails, always context switching.<div class="tm">9:49 AM<span class="ck">&#10003;&#10003;</span></div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>Got it. What eats the most of your time — communication, admin, or something else?<div class="tm">9:49 AM</div>'},
+        {t:'u',h:'Honestly the emails. I miss things constantly.<div class="tm">9:50 AM<span class="ck">&#10003;&#10003;</span></div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>Who are the people you can never afford to miss a message from?<div class="tm">9:50 AM</div>'},
+        {t:'u',h:'My top clients and my business partner.<div class="tm">9:51 AM<span class="ck">&#10003;&#10003;</span></div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>Perfect — I\'ll flag anything from them. What time do you start your day? I\'ll have your briefing ready. &#129293;<div class="tm">9:51 AM</div>'},
+      ];
+      msgs.forEach(m=>{if(m.t==='a'){let typ;T.push(setTimeout(()=>{typ=makeTyp();list.appendChild(typ);},t));t+=1800;T.push(setTimeout(()=>{if(typ)typ.remove();addM(list,'a',m.h);},t));t+=1000;}else{t+=500;T.push(setTimeout(()=>addM(list,'u',m.h),t));t+=1000;}});
+      T.push(setTimeout(run,t+3000));
+    }
+    const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){run();o.disconnect();}},{threshold:0.2});
+    o.observe(document.getElementById('hwPhone2'));
+  }
+  runStep2();
+
+  // STEP 3: Morning briefing
+  function runStep3(){
+    const list=document.getElementById('hwList3');if(!list)return;let T=[];
+    function run(){T.forEach(clearTimeout);T=[];list.innerHTML='';let t=0;
+      const msgs=[
+        {t:'a',h:'<div class="nm">ARIA</div>Good morning &#9728;&#65039; Here\'s what needs your attention today:<div class="tm">9:02 AM</div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>&#128231; Your top client replied — priority<br>&#128197; 3 meetings — all prepped<br>&#9888;&#65039; One email needs a decision<br><br>Start with your client?<div class="tm">9:02 AM</div>'},
+        {t:'u',h:'Yes start there.<div class="tm">9:02 AM<span class="ck">&#10003;&#10003;</span></div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>Pulling up the full thread now...<div class="tm">9:02 AM</div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>He wants to move forward and sign by Friday. Want me to draft the final agreement?<div class="tm">9:03 AM</div>'},
+        {t:'u',h:'Draft it and send.<div class="tm">9:03 AM<span class="ck">&#10003;&#10003;</span></div>'},
+        {t:'a',h:'<div class="nm">ARIA</div>Done — agreement drafted and sent. &#10003;&#10003;<div class="tm">9:04 AM</div>'},
+      ];
+      msgs.forEach(m=>{if(m.t==='a'){let typ;T.push(setTimeout(()=>{typ=makeTyp();list.appendChild(typ);},t));t+=1800;T.push(setTimeout(()=>{if(typ)typ.remove();addM(list,'a',m.h);},t));t+=1000;}else{t+=500;T.push(setTimeout(()=>addM(list,'u',m.h),t));t+=1000;}});
+      T.push(setTimeout(run,t+3000));
+    }
+    const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){run();o.disconnect();}},{threshold:0.2});
+    o.observe(document.getElementById('hwPhone3'));
+  }
+  runStep3();
+
+  // STEP 4: Proactive messages (no typing, with time stamps)
+  function runStep4(){
+    const list=document.getElementById('hwList4');if(!list)return;let T=[];
+    function addTs(list,time){const d=document.createElement('div');d.className='hwp-ts';d.textContent=time;d.style.opacity='0';list.appendChild(d);void d.offsetHeight;d.style.opacity='1';d.style.transition='opacity 0.3s ease';}
+    function run(){T.forEach(clearTimeout);T=[];list.innerHTML='';
+      const msgs=[
+        {time:'8:47 AM',h:'<div class="nm">ARIA</div>Hey — your top client just replied. You\'ll want to see this before your 10am. Want me to read it?<div class="tm">8:47 AM</div>'},
+        {time:'11:23 AM',h:'<div class="nm">ARIA</div>Your afternoon is heavy. I moved your 3pm to Thursday and cleared a 2-hour block. Let me know if that works.<div class="tm">11:23 AM</div>'},
+        {time:'1:14 PM',h:'<div class="nm">ARIA</div>That listing you were watching dropped in price. Sending details now.<div class="tm">1:14 PM</div>'},
+        {time:'3:02 PM',h:'<div class="nm">ARIA</div>Your client responded to the proposal. She has two questions — want me to draft a reply?<div class="tm">3:02 PM</div>'},
+        {time:'5:47 PM',h:'<div class="nm">ARIA</div>Nothing urgent left. I flagged 3 things for tomorrow and cleared the noise. Good evening. &#129293;<div class="tm">5:47 PM</div>'},
+      ];
+      let t=0;
+      msgs.forEach(m=>{
+        T.push(setTimeout(()=>{addTs(list,m.time);addM(list,'a',m.h);},t));
+        t+=4000;
+      });
+      T.push(setTimeout(run,t+4000));
+    }
+    const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){run();o.disconnect();}},{threshold:0.2});
+    o.observe(document.getElementById('hwPhone4'));
+  }
+  runStep4();
 })();
 </script>
 </body>
