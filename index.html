@@ -229,8 +229,8 @@ section{padding:120px 72px;}
 .wac-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:#fff;}
 .wac-hname{font-family:system-ui,sans-serif;font-size:14px;font-weight:600;color:#E9EDEF;}
 .wac-hstat{font-family:system-ui,sans-serif;font-size:11px;color:#25D366;}
-.wac-body{height:calc(100% - 52px);overflow:hidden;padding:10px 8px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-end;}
-.wac-scroll{display:flex;flex-direction:column;gap:4px;transition:transform 0.4s ease;}
+.wac-body{position:relative;height:calc(100% - 52px);overflow:hidden;}
+.wac-scroll{position:absolute;bottom:10px;left:8px;right:8px;display:flex;flex-direction:column;gap:4px;}
 .wac-m{padding:8px 12px;font-size:13px;line-height:1.5;color:#E9EDEF;font-family:system-ui,sans-serif;margin-bottom:4px;opacity:0;transform:translateY(6px);transition:opacity 0.3s ease,transform 0.3s ease;}
 .wac-m.vis{opacity:1;transform:translateY(0);}
 .wac-m.u{background:#005C4B;align-self:flex-end;border-radius:18px 18px 4px 18px;max-width:220px;margin-left:auto;}
@@ -1190,8 +1190,7 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
 // WhatsApp section animated conversation — push-up from bottom
 (function(){
   const list=document.getElementById('wacScroll');
-  const chatArea=document.querySelector('.wac-body');
-  if(!list||!chatArea)return;
+  if(!list)return;
   let timers=[],typingEl=null;
 
   function makeTyping(){
@@ -1200,10 +1199,6 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     d.innerHTML='<span></span><span></span><span></span>';
     return d;
   }
-  function pushUp(){
-    const overflow=list.offsetHeight-chatArea.offsetHeight;
-    list.style.transform=overflow>0?'translateY(-'+overflow+'px)':'translateY(0)';
-  }
   function addMsg(type,html){
     const el=document.createElement('div');
     el.className='wac-m '+type;
@@ -1211,12 +1206,10 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     list.appendChild(el);
     void el.offsetHeight;
     el.classList.add('vis');
-    pushUp();
   }
   function showTyping(){
     typingEl=makeTyping();
     list.appendChild(typingEl);
-    pushUp();
   }
   function hideTyping(){
     if(typingEl){typingEl.remove();typingEl=null;}
@@ -1248,7 +1241,6 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   function run(){
     timers.forEach(clearTimeout);timers=[];
     list.innerHTML='';
-    list.style.transform='translateY(0)';
     hideTyping();
     let t=0;
     msgs.forEach(m=>{
