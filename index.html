@@ -336,9 +336,9 @@ section{padding:120px 72px;}
 .how-body{font-size:15px;color:#999;line-height:1.7;}
 
 /* phone mockup */
-.how-phone{background:#000;border-radius:36px;padding:10px;width:280px;height:480px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:hw-float 3s ease-in-out infinite;overflow:hidden;position:relative;}
+.how-phone{background:#000;border-radius:36px;padding:10px;width:280px;height:480px;margin:0 auto;box-shadow:0 20px 50px rgba(0,0,0,0.4);animation:hw-float 3s ease-in-out infinite;overflow:visible;position:relative;}
 @keyframes hw-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.how-phone-inner{border-radius:28px;overflow:hidden;background:#0B141A;height:100%;display:flex;flex-direction:column;}
+.how-phone-inner{border-radius:28px;overflow:hidden;background:#0B141A;height:100%;display:flex;flex-direction:column;position:relative;}
 .how-phone .wa-header{padding:10px 14px;}
 .how-phone .wa-avatar{width:26px;height:26px;font-size:11px;}
 .how-phone .wa-header-name{font-size:13px;}
@@ -374,8 +374,9 @@ section{padding:120px 72px;}
 .hwp-ts{text-align:center;font-size:9px;color:#8696A0;padding:4px 0;}
 
 /* lock screen notification animation */
-.hw-notif{transition:transform 0.4s ease-out,opacity 0.4s ease-out;transform:translateY(-100%);opacity:0;}
-.hw-notif.vis{transform:translateY(0);opacity:1;}
+.hw-notif{opacity:0;transform:translateY(-20px);transition:opacity 0.5s ease-out,transform 0.5s ease-out;background:rgba(255,255,255,0.18);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:12px 16px;margin:0 20px;display:flex;gap:10px;align-items:center;}
+.hw-notif.vis{opacity:1;transform:translateY(0);}
+.hw-notif.hide{opacity:0;transform:translateY(-20px);transition:opacity 0.4s ease-in,transform 0.4s ease-in;}
 
 /* lock screen */
 .hw-lock{background:linear-gradient(160deg,#0a0a1a 0%,#1a1a2e 50%,#0d0d1a 100%);padding:32px 20px 20px;text-align:center;flex:1;position:relative;}
@@ -780,7 +781,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">One payment. One number. Save it in your contacts. That's the only setup you do.</div>
       </div>
       <div class="how-phone" id="hwPhone1">
-        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
+        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:90px;height:28px;background:#111;border-radius:20px;z-index:20;"></div>
         <div class="how-phone-inner">
           <div class="hw-lock">
             <div class="hw-lock-time">9:47</div>
@@ -807,7 +808,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">Before she does anything, she listens. She learns your businesses, your rhythm, your priorities. She configures herself around you.</div>
       </div>
       <div class="how-phone" id="hwPhone2">
-        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
+        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:90px;height:28px;background:#111;border-radius:20px;z-index:20;"></div>
         <div class="how-phone-inner"><div class="hwp-screen">
           <div class="hwp-header"><div class="hwp-avatar">A</div><div><div class="hwp-hname">ARIA</div><div class="hwp-hstat">online</div></div></div>
           <div class="hwp-body"><div class="hwp-list" id="hwList2"></div></div>
@@ -823,7 +824,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">The moment you're set up, she's on. Reading your inbox. Organizing your calendar. Flagging what matters. You wake up to a world already managed.</div>
       </div>
       <div class="how-phone" id="hwPhone3">
-        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
+        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:90px;height:28px;background:#111;border-radius:20px;z-index:20;"></div>
         <div class="how-phone-inner"><div class="hwp-screen">
           <div class="hwp-header"><div class="hwp-avatar">A</div><div><div class="hwp-hname">ARIA</div><div class="hwp-hstat">online</div></div></div>
           <div class="hwp-body"><div class="hwp-list" id="hwList3"></div></div>
@@ -839,7 +840,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
         <div class="how-body">Every conversation teaches her more about how you work. Within a week she anticipates your needs. Within a month, you won't remember how you managed without her.</div>
       </div>
       <div class="how-phone" id="hwPhone4">
-        <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:10;"></div>
+        <div style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:90px;height:28px;background:#111;border-radius:20px;z-index:20;"></div>
         <div class="how-phone-inner"><div class="hwp-screen">
           <div class="hwp-header"><div class="hwp-avatar">A</div><div><div class="hwp-hname">ARIA</div><div class="hwp-hstat">online</div></div></div>
           <div class="hwp-body"><div class="hwp-list" id="hwList4"></div></div>
@@ -1281,8 +1282,19 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   // STEP 1: Lock screen notification loop
   (function(){
     const n=document.getElementById('hwNotif1');if(!n)return;
-    function loop(){n.classList.add('vis');setTimeout(()=>n.classList.remove('vis'),5400);setTimeout(loop,8000);}
-    const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){setTimeout(loop,1000);o.disconnect();}},{threshold:0.2});
+    let iv=null;
+    function show(){
+      n.classList.remove('hide');
+      n.classList.add('vis');
+      setTimeout(()=>{n.classList.add('hide');n.classList.remove('vis');},4500);
+    }
+    const o=new IntersectionObserver(e=>{
+      if(e[0].isIntersecting){
+        setTimeout(show,1000);
+        iv=setInterval(show,6500);
+        o.disconnect();
+      }
+    },{threshold:0.2});
     o.observe(document.getElementById('hwPhone1'));
   })();
 
