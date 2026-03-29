@@ -1246,13 +1246,13 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     msgs.forEach(m=>{
       if(m.type==='a'){
         timers.push(setTimeout(showTyping,t));
-        t+=1400;
+        t+=2000;
         timers.push(setTimeout(()=>{hideTyping();addMsg('a',m.html);},t));
-        t+=800;
+        t+=2300;
       } else {
-        t+=500;
+        t+=2000;
         timers.push(setTimeout(()=>addMsg('u',m.html),t));
-        t+=800;
+        t+=2300;
       }
     });
     timers.push(setTimeout(run,t+4000));
