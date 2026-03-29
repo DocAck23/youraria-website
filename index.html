@@ -78,7 +78,7 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-chat-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:#fff;font-weight:500;}
 .hs-chat-name{font-family:system-ui,sans-serif;font-size:14px;font-weight:600;color:#E9EDEF;}
 .hs-chat-status{font-family:system-ui,sans-serif;font-size:11px;color:#25D366;}
-.hs-chat-body{position:relative;height:calc(100% - 52px);overflow:hidden;}
+.hs-chat-body{position:relative;height:100%;overflow:hidden;padding-top:12px;box-sizing:border-box;}
 .hs-msglist{position:absolute;bottom:10px;left:8px;right:8px;display:flex;flex-direction:column;gap:4px;}
 
 /* bubbles — rendered dynamically by JS */
@@ -614,7 +614,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
             <div style="margin-left:auto;display:flex;align-items:center;gap:5px;z-index:2;position:relative;"><svg width="17" height="12" viewBox="0 0 17 12" fill="white"><rect x="0" y="7" width="3" height="5" rx=".5"/><rect x="4.5" y="5" width="3" height="7" rx=".5"/><rect x="9" y="2.5" width="3" height="9.5" rx=".5"/><rect x="13.5" y="0" width="3" height="12" rx=".5"/></svg><svg width="15" height="12" viewBox="0 0 24 24" fill="white"><path d="M1.5 8.5C5.5 4.5 10.5 2.5 12 2.5s6.5 2 10.5 6"/><path d="M5 12c1.9-1.9 4.3-3 7-3s5.1 1.1 7 3"/><path d="M8.5 15.5c.9-.9 2.2-1.5 3.5-1.5s2.6.6 3.5 1.5"/><circle cx="12" cy="19" r="1.5"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity=".35"/><rect x="2" y="2" width="17" height="8" rx="2" fill="white"/><path d="M23 4v4a2 2 0 0 0 0-4z" fill="white" fill-opacity=".4"/></svg></div>
           </div>
           <!-- WhatsApp header -->
-          <div style="height:52px;background:#1F2C34;display:flex;align-items:center;padding:0 12px;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+          <div id="hsWaHdr" style="height:52px;background:#1F2C34;display:flex;align-items:center;padding:0 12px;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;transition:max-height 0.3s ease,opacity 0.3s ease;overflow:hidden;">
             <span style="font-size:16px;font-weight:500;color:white;margin-right:4px;">&#8249; 13</span>
             <div style="width:36px;height:36px;border-radius:50%;background:#C9A84C;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><span style="color:white;font-size:15px;font-weight:600;">A</span></div>
             <div style="display:flex;flex-direction:column;justify-content:center;"><span style="font-size:14px;font-weight:600;color:white;line-height:1.2;">ARIA</span><span style="font-size:11px;color:#25D366;line-height:1.2;">online</span></div>
@@ -636,14 +636,14 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
             <div class="hs-slide"><div class="hs-chat-body"><div class="hs-msglist"></div></div></div>
           </div>
           <!-- Input bar -->
-          <div style="height:52px;background:#1F2C34;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;">
+          <div id="hsWaInput" style="height:52px;background:#1F2C34;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;transition:max-height 0.3s ease,opacity 0.3s ease;overflow:hidden;">
             <span style="font-size:22px;color:white;font-weight:300;line-height:1;">+</span>
             <div style="flex:1;height:34px;background:#2A3942;border-radius:20px;display:flex;align-items:center;padding:0 12px;gap:8px;"><span style="font-size:16px;">&#128578;</span><span style="font-size:13px;color:rgba(255,255,255,0.35);">Message</span></div>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/></svg>
           </div>
           <!-- Home indicator -->
-          <div style="height:20px;display:flex;align-items:center;justify-content:center;background:#1F2C34;border-radius:0 0 32px 32px;flex-shrink:0;">
+          <div id="hsWaHome" style="height:20px;display:flex;align-items:center;justify-content:center;background:#1F2C34;border-radius:0 0 32px 32px;flex-shrink:0;transition:max-height 0.3s ease,opacity 0.3s ease;overflow:hidden;">
             <div style="width:120px;height:5px;background:rgba(255,255,255,0.3);border-radius:3px;"></div>
           </div>
         </div>
@@ -1212,6 +1212,10 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
     slides[cur].classList.add('active');
     if(dots[cur])dots[cur].classList.add('active');
     if(descs[cur])descs[cur].classList.add('active');
+    // Hide chrome for call slide (index 4)
+    var hdr=document.getElementById('hsWaHdr'),inp=document.getElementById('hsWaInput'),hm=document.getElementById('hsWaHome');
+    if(cur===4){if(hdr)hdr.style.cssText+='max-height:0;opacity:0;height:0;padding:0;border:0;';if(inp)inp.style.cssText+='max-height:0;opacity:0;height:0;padding:0;';if(hm)hm.style.cssText+='max-height:0;opacity:0;height:0;';}
+    else{if(hdr)hdr.style.cssText='height:52px;background:#1F2C34;display:flex;align-items:center;padding:0 12px;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;transition:max-height 0.3s ease,opacity 0.3s ease;overflow:hidden;';if(inp)inp.style.cssText='height:52px;background:#1F2C34;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;transition:max-height 0.3s ease,opacity 0.3s ease;overflow:hidden;';if(hm)hm.style.cssText='height:20px;display:flex;align-items:center;justify-content:center;background:#1F2C34;border-radius:0 0 32px 32px;flex-shrink:0;transition:max-height 0.3s ease,opacity 0.3s ease;overflow:hidden;';}
     stepTimers.push(setTimeout(()=>{slides[prev].classList.remove('exit-left','exit-right');},500));
     const dur=showScene(cur);
     autoTimer=setTimeout(()=>goTo((cur+1)%slides.length,'fwd'),dur);
