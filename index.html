@@ -168,10 +168,11 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .btn-black:hover{background:var(--dark2);}
 .btn-gold{padding:16px 42px;background:transparent;color:var(--gold-dk);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;text-decoration:none;border:1px solid var(--gold);transition:all 0.3s;display:inline-block;cursor:none;}
 .btn-gold:hover{background:var(--gold-10);color:var(--gold);}
-.hero-stats{display:grid;grid-template-columns:repeat(3,auto);gap:0;margin-top:72px;width:fit-content;border:1px solid var(--ink-12);border-bottom:none;opacity:0;animation:up 0.9s 0.75s ease forwards;}
-.hero-badges-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;width:fit-content;border:1px solid var(--ink-12);border-top:none;opacity:0;animation:up 0.9s 0.8s ease forwards;}
+.hero-stats-wrap{margin-top:72px;width:fit-content;border:0.5px solid #d4cfc7;opacity:0;animation:up 0.9s 0.75s ease forwards;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:0.5px solid #d4cfc7;}
+.hero-badges-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
 .hero-badges-row .hstat{display:flex;align-items:center;justify-content:center;}
-.hstat{padding:20px 40px;border-right:1px solid var(--ink-12);}
+.hstat{padding:20px 40px;border-right:0.5px solid #d4cfc7;}
 .hstat:last-child{border-right:none;}
 .hstat-n{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:var(--gold);line-height:1;margin-bottom:4px;}
 .hstat-l{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-35);}
@@ -451,7 +452,7 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
   .price-grid{grid-template-columns:1fr 1fr;}
   footer{grid-template-columns:1fr;text-align:center;padding:40px 28px;}
   .footer-copy{text-align:center;}
-  .hero-stats,.hero-badges-row{grid-template-columns:repeat(3,1fr);width:100%;}
+  .hero-stats-wrap{width:100%;} .hero-stats,.hero-badges-row{grid-template-columns:repeat(3,1fr);}
 }
 @media(max-width:600px){
   .price-grid{grid-template-columns:1fr;}
@@ -496,15 +497,17 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
     <a href="aria-quiz.html" class="btn-black">Get Started</a>
     <a href="#gap" class="btn-gold">See How She Works</a>
   </div>
-  <div class="hero-stats">
-    <div class="hstat"><div class="hstat-n">10+</div><div class="hstat-l">Hours back weekly</div></div>
-    <div class="hstat"><div class="hstat-n">24/7</div><div class="hstat-l">Always on</div></div>
-    <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l">Apps to install</div></div>
-  </div>
-  <div class="hero-badges-row">
-    <div class="hstat"><div class="hstat-l">Claude Sonnet 4.6</div></div>
-    <div class="hstat"><div class="hstat-l">ElevenLabs Voice</div></div>
-    <div class="hstat"><div class="hstat-l">Your Data, Your Privacy</div></div>
+  <div class="hero-stats-wrap">
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">10+</div><div class="hstat-l">Hours back weekly</div></div>
+      <div class="hstat"><div class="hstat-n">24/7</div><div class="hstat-l">Always on</div></div>
+      <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l">Apps to install</div></div>
+    </div>
+    <div class="hero-badges-row">
+      <div class="hstat"><div class="hstat-l">Claude Sonnet 4.6</div></div>
+      <div class="hstat"><div class="hstat-l">ElevenLabs Voice</div></div>
+      <div class="hstat"><div class="hstat-l">Your Data, Your Privacy</div></div>
+    </div>
   </div>
   </div>
   <div class="hero-right">
@@ -606,6 +609,21 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
     </div>
   </div>
   <div class="hero-scroll"><div class="scroll-bar"></div>Scroll</div>
+</section>
+
+<!-- MEET ARIA -->
+<section style="background:#F7F4EF;padding:100px 60px;text-align:center;position:relative;">
+  <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.25) 30%,rgba(201,168,76,0.25) 70%,transparent);"></div>
+  <div class="r" style="position:relative;">
+    <div style="font-size:10px;letter-spacing:0.18em;color:#C9A84C;text-transform:uppercase;font-family:'DM Sans',sans-serif;margin-bottom:20px;">Your AI chief of staff</div>
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(52px,8vw,80px);font-weight:400;color:#111;line-height:1;">Meet <em style="font-style:italic;">ARIA.</em></div>
+    <div style="display:flex;align-items:center;gap:16px;justify-content:center;margin:28px 0;">
+      <div style="width:40px;height:1px;background:#C9A84C;"></div>
+      <div style="width:5px;height:5px;border-radius:50%;background:#C9A84C;"></div>
+      <div style="width:40px;height:1px;background:#C9A84C;"></div>
+    </div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:15px;color:#666;max-width:500px;margin:0 auto;line-height:1.75;">She reads your email before you wake up. Answers your calls. Builds your decks. And she never takes a day off. Here's what that looks like.</div>
+  </div>
 </section>
 
 <!-- MARQUEE -->
