@@ -406,6 +406,7 @@ section{padding:120px 72px;}
 .wa-typing-dots span:nth-child(2){animation-delay:0.15s;}
 .wa-typing-dots span:nth-child(3){animation-delay:0.3s;}
 @keyframes typingBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes slideDownNotif{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
 
 /* briefing card inside chat */
 .hw-briefing{background:#2A3942;border-left:3px solid var(--gold);border-radius:8px;padding:10px 12px;margin-top:4px;font-size:11px;line-height:1.6;color:#E9EDEF;}
@@ -784,17 +785,19 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
       <div class="how-phone" id="hwPhone1">
         <div style="position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#111;border-radius:20px;z-index:20;"></div>
         <div class="how-phone-inner">
-          <div class="hw-lock">
+          <div class="hw-lock" style="position:relative;">
             <div class="hw-lock-time">9:47</div>
             <div class="hw-lock-date">Saturday, March 28</div>
-            <div class="hw-notif" id="hwNotif1">
-              <div class="hw-notif-top">
-                <div class="hw-notif-icon">W</div>
-                <div class="hw-notif-app">WhatsApp</div>
-                <div class="hw-notif-when">now</div>
+            <div style="position:absolute;bottom:90px;left:12px;right:12px;background:rgba(255,255,255,0.14);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:10px 12px;z-index:5;animation:slideDownNotif 0.6s ease 0.8s both;">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px;">
+                <div style="width:18px;height:18px;background:#25D366;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.849L0 24l6.335-1.51C8.05 23.447 9.986 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+                </div>
+                <span style="font-size:11px;color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;letter-spacing:0.2px;flex:1;">WhatsApp</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;">now</span>
               </div>
-              <div class="hw-notif-title">ARIA</div>
-              <div class="hw-notif-body">Hey — it's ARIA. I just got the notification that you're joining. I've been looking forward to this &#129293;</div>
+              <div style="font-size:13px;font-weight:600;color:#fff;font-family:'DM Sans',sans-serif;margin-bottom:2px;">ARIA</div>
+              <div style="font-size:13px;color:rgba(255,255,255,0.75);font-family:'DM Sans',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Hey — it's ARIA. I just got your notification &#129293;</div>
             </div>
           </div>
         </div>
@@ -1280,23 +1283,7 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   function makeTyp(){const d=document.createElement('div');d.className='hwp-typ';d.innerHTML='<span></span><span></span><span></span>';return d;}
   function addM(list,cls,html){const el=document.createElement('div');el.className='hwp-m '+cls;el.innerHTML=html;list.appendChild(el);void el.offsetHeight;el.classList.add('vis');}
 
-  // STEP 1: Lock screen notification loop — slides down from top
-  (function(){
-    const n=document.getElementById('hwNotif1');if(!n)return;
-    function show(){
-      n.classList.remove('hide');
-      n.classList.add('vis');
-      setTimeout(()=>{n.classList.add('hide');n.classList.remove('vis');},4000);
-    }
-    const o=new IntersectionObserver(e=>{
-      if(e[0].isIntersecting){
-        setTimeout(show,1000);
-        setInterval(show,6400);
-        o.disconnect();
-      }
-    },{threshold:0.2});
-    o.observe(document.getElementById('hwPhone1'));
-  })();
+  // STEP 1: Lock screen — notification uses CSS animation (slideDownNotif)
 
   // STEP 2: Onboarding conversation
   function runStep2(){
