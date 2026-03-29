@@ -78,9 +78,25 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-chat-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dk));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:#fff;font-weight:500;}
 .hs-chat-name{font-family:system-ui,sans-serif;font-size:14px;font-weight:600;color:#E9EDEF;}
 .hs-chat-status{font-family:system-ui,sans-serif;font-size:11px;color:#25D366;}
-.hs-chat-body{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;padding:10px 8px;height:calc(100% - 52px);overflow:hidden;box-sizing:border-box;}
+.hs-chat-body{position:relative;height:calc(100% - 52px);overflow:hidden;}
+.hs-msglist{position:absolute;bottom:10px;left:8px;right:8px;display:flex;flex-direction:column;gap:4px;}
 
-/* bubbles */
+/* bubbles — rendered dynamically by JS */
+.hs-bub{padding:8px 12px;font-size:13px;line-height:1.5;color:#E9EDEF;font-family:system-ui,-apple-system,sans-serif;opacity:0;transition:opacity 0.3s ease;margin-bottom:0;}
+.hs-bub.vis{opacity:1;}
+.hs-bub.u{background:#005C4B;align-self:flex-end;border-radius:18px 18px 4px 18px;max-width:220px;margin-left:auto;}
+.hs-bub.a{background:#202C33;align-self:flex-start;border-radius:18px 18px 18px 4px;max-width:230px;}
+.hs-bub .nm{font-size:9px;color:var(--gold);font-weight:600;margin-bottom:2px;}
+.hs-bub .tm{font-size:10px;color:#8696A0;text-align:right;margin-top:2px;}
+.hs-bub .ck{color:#53BDEB;font-size:10px;margin-left:3px;}
+
+/* typing indicator */
+.hs-typ{background:#202C33;align-self:flex-start;border-radius:18px 18px 18px 4px;padding:10px 16px;display:flex;gap:4px;}
+.hs-typ span{width:5px;height:5px;background:#8696A0;border-radius:50%;animation:typingBounce 0.6s ease-in-out infinite;}
+.hs-typ span:nth-child(2){animation-delay:0.15s;}
+.hs-typ span:nth-child(3){animation-delay:0.3s;}
+
+/* legacy static bubbles — keep for file/voice/digest elements */
 .hs-b{padding:0;font-size:11px;line-height:1.45;color:#E9EDEF;font-family:system-ui,-apple-system,sans-serif;opacity:0;visibility:hidden;height:0;margin:0;overflow:hidden;}
 .hs-b.shown{opacity:1;visibility:visible;height:auto;margin-bottom:6px;padding:7px 10px;overflow:visible;transition:opacity 0.3s ease;}
 .hs-b.u{background:#005C4B;align-self:flex-end;border-radius:14px 14px 3px 14px;max-width:195px;margin-left:auto;}
@@ -88,10 +104,7 @@ nav.scrolled{background:rgba(247,244,239,0.97);border-bottom-color:var(--ink-06)
 .hs-b-name{font-size:8px;color:var(--gold);font-weight:600;letter-spacing:0.04em;margin-bottom:2px;}
 .hs-b-time{font-size:9px;color:#8696A0;text-align:right;margin-top:1px;}
 .hs-b-ck{color:#53BDEB;font-size:9px;margin-left:3px;}
-
-/* typing indicator — last child in chat, below all bubbles */
-.hs-tdot{background:#202C33;align-self:flex-start;border-radius:14px 14px 14px 3px;display:flex;gap:3px;opacity:0;visibility:hidden;height:0;margin:0;padding:0;overflow:hidden;}
-.hs-tdot.shown{opacity:1;visibility:visible;height:auto;margin-bottom:6px;padding:8px 14px;}
+.hs-tdot{display:none;}
 .hs-tdot span{width:5px;height:5px;background:#8696A0;border-radius:50%;animation:typingBounce 0.6s ease-in-out infinite;}
 .hs-tdot span:nth-child(2){animation-delay:0.15s;}
 .hs-tdot span:nth-child(3){animation-delay:0.3s;}
@@ -558,41 +571,17 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
           <div class="hs-home"></div>
           <div class="hs-screen">
 
-            <!-- S1: Proposal + file attachment -->
-            <div class="hs-slide active"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-b u" data-d="0">Put together a proposal for Sarah at Meridian Partners. Two-year contract, standard rates.<div class="hs-b-time">2:14 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>Got it. Pulling your rate sheet and drafting now...<div class="hs-b-time">2:14 PM</div></div>
-              <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div><div class="hs-file"><div class="hs-file-icon">PDF</div><div class="hs-file-info"><div class="hs-file-name">Meridian_Partners_Proposal_2026.pdf</div><div class="hs-file-size">248 KB</div></div><div class="hs-file-dl">&#8595;</div></div>Ready to send. Email it to Sarah?<div class="hs-b-time">2:16 PM</div></div>
-              <div class="hs-b u" data-d="3">Email it.<div class="hs-b-time">2:16 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="4"><div class="hs-b-name">ARIA</div>Sent to client@example.com. I'll let you know when she opens it.<div class="hs-b-time">2:16 PM</div></div>
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-            </div></div></div>
+            <!-- S1: Proposal -->
+            <div class="hs-slide active"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body"><div class="hs-msglist"></div></div></div></div>
 
-            <!-- S2: Voice notes -->
-            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-b u" data-d="0"><div class="hs-vn"><div class="hs-vn-play white"></div><div class="hs-vn-bars"><span style="height:4px;background:#aee4d1"></span><span style="height:10px;background:#aee4d1"></span><span style="height:16px;background:#aee4d1"></span><span style="height:12px;background:#aee4d1"></span><span style="height:18px;background:#aee4d1"></span><span style="height:8px;background:#aee4d1"></span><span style="height:14px;background:#aee4d1"></span></div><div class="hs-vn-dur">0:12</div></div><div class="hs-b-time">4:02 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div><div class="hs-vn"><div class="hs-vn-play gold"></div><div class="hs-vn-bars"><span style="height:6px;background:#8696A0"></span><span style="height:12px;background:#8696A0"></span><span style="height:18px;background:#8696A0"></span><span style="height:14px;background:#8696A0"></span><span style="height:20px;background:#8696A0"></span><span style="height:10px;background:#8696A0"></span><span style="height:16px;background:#8696A0"></span><span style="height:8px;background:#8696A0"></span></div><div class="hs-vn-dur">0:24</div></div><div class="hs-b-time">4:03 PM</div></div>
-              <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div>Summary sent to your notes. Want me to follow up with David by end of day?<div class="hs-b-time">4:03 PM</div></div>
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-            </div></div></div>
+            <!-- S2: Call summary -->
+            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body"><div class="hs-msglist"></div></div></div></div>
 
             <!-- S3: Restaurant -->
-            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-b u" data-d="0">Find me restaurants for tonight. Check 6:30pm.<div class="hs-b-time">4:12 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>3 available:<br>1. The Capital Grille — private &#10003;<br>2. Osteria Moderna — quiet &#10003;<br>3. Villa Terrace — rooftop &#10003;<br>Which one?<div class="hs-b-time">4:13 PM</div></div>
-              <div class="hs-b u" data-d="2">Capital Grille.<div class="hs-b-time">4:13 PM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="3"><div class="hs-b-name">ARIA</div>Calling to confirm...<div class="hs-b-time">4:13 PM</div></div>
-              <div class="hs-b a" data-d="4"><div class="hs-b-name">ARIA</div>Booked. Table for 4, 6:30pm. #7741. Added to calendar. &#127869;<div class="hs-b-time">4:15 PM</div></div>
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-            </div></div></div>
+            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body"><div class="hs-msglist"></div></div></div></div>
 
             <!-- S4: Pitch deck -->
-            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-b u" data-d="0">Make me a 6-slide investor pitch deck. Sharp and clean.<div class="hs-b-time">11:04 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div>On it — problem, solution, product, traction, market, ask. Two minutes.<div class="hs-b-time">11:04 AM</div></div>
-              <div class="hs-b a" data-d="2"><div class="hs-b-name">ARIA</div>Done. 'Investor Deck.pptx' is ready. Want me to email it to Ryan?<div class="hs-b-time">11:06 AM</div></div>
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-            </div></div></div>
+            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body"><div class="hs-msglist"></div></div></div></div>
 
             <!-- S5: iOS Call UI -->
             <div class="hs-slide" data-call><div class="hs-call">
@@ -622,14 +611,8 @@ footer{background:var(--bg2);border-top:1px solid var(--ink-12);padding:48px 72p
               </div>
             </div></div>
 
-            <!-- S6: Morning + digest -->
-            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body">
-              <div class="hs-b a" data-d="0"><div class="hs-b-name">ARIA</div>Good morning &#9728;&#65039; David replied — he's in. Two meetings, both prepped. One email needs a decision. Start with David?<div class="hs-b-time">8:02 AM</div></div>
-              <div class="hs-b a" data-d="1"><div class="hs-b-name">ARIA</div><div class="hs-digest"><div class="hs-digest-row">&#128197; 10:00 AM — Investor sync</div><div class="hs-digest-row">&#128197; 2:00 PM — David follow-up</div><div class="hs-digest-row dim">&#128231; Sarah opened proposal (11:42 PM)</div><div class="hs-digest-row dim">&#128231; AWS billing alert</div><div class="hs-digest-row dim">&#128231; the listing platform — new listing match</div></div><div class="hs-digest-caption">Your day at a glance. &#128203;</div><div class="hs-b-time">8:02 AM</div></div>
-              <div class="hs-b u" data-d="2">Start with David.<div class="hs-b-time">8:03 AM<span class="hs-b-ck">&#10003;&#10003;</span></div></div>
-              <div class="hs-b a" data-d="3"><div class="hs-b-name">ARIA</div>Pulling up the full thread now...<div class="hs-b-time">8:03 AM</div></div>
-              <div class="hs-tdot" data-typing><span></span><span></span><span></span></div>
-            </div></div></div>
+            <!-- S6: Morning briefing -->
+            <div class="hs-slide"><div class="hs-chat-inner"><div class="hs-chat-header"><div class="hs-chat-avatar">A</div><div><div class="hs-chat-name">ARIA</div><div class="hs-chat-status">online</div></div></div><div class="hs-chat-body"><div class="hs-msglist"></div></div></div></div>
 
           </div>
         </div>
@@ -1069,7 +1052,7 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60)
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}}),{threshold:0.07});
 document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
 
-// Hero carousel — reliable JS timeout animation
+// Hero carousel — bottom-anchor bubble approach (same as WhatsApp section)
 (function(){
   const slides=document.querySelectorAll('#heroPhone .hs-slide');
   const dots=document.querySelectorAll('#heroDots .hs-dot');
@@ -1077,39 +1060,76 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
   if(!slides.length)return;
   let cur=0,autoTimer=null,stepTimers=[],callInterval=null;
 
+  // Scene message data
+  const sceneData=[
+    // S1: Proposal
+    [
+      {t:'u',h:'Put together a proposal for Sarah at Meridian Partners. Two-year contract, standard rates.<div class="tm">2:14 PM<span class="ck">&#10003;&#10003;</span></div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>Got it. Pulling your rate sheet and drafting now...<div class="tm">2:14 PM</div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>Done — proposal ready. Email it to Sarah, or save for review?<div class="tm">2:16 PM</div>'},
+      {t:'u',h:'Email it.<div class="tm">2:16 PM<span class="ck">&#10003;&#10003;</span></div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>Sent to client@example.com. I\'ll let you know when she opens it.<div class="tm">2:16 PM</div>'},
+    ],
+    // S2: Call summary
+    [
+      {t:'a',h:'<div class="nm">ARIA</div>Summary from Alex\'s call: He wants to move forward but needs revised terms by Friday. Want me to draft the revision?<div class="tm">10:31 AM</div>'},
+      {t:'u',h:'Yes, draft it.<div class="tm">10:32 AM<span class="ck">&#10003;&#10003;</span></div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>Draft saved to your Docs. Sending the link now.<div class="tm">10:32 AM</div>'},
+    ],
+    // S3: Restaurant
+    [
+      {t:'u',h:'Find me restaurants for tonight. Check 6:30pm.<div class="tm">4:12 PM<span class="ck">&#10003;&#10003;</span></div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>3 available:<br>1. The Capital Grille — private &#10003;<br>2. Osteria Moderna — quiet &#10003;<br>3. Villa Terrace — rooftop &#10003;<br>Which one?<div class="tm">4:13 PM</div>'},
+      {t:'u',h:'Capital Grille.<div class="tm">4:13 PM<span class="ck">&#10003;&#10003;</span></div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>Booked. Table for 4, 6:30pm. #7741. Added to calendar. &#127869;<div class="tm">4:15 PM</div>'},
+    ],
+    // S4: Pitch deck
+    [
+      {t:'u',h:'Make me a 6-slide investor pitch deck. Sharp and clean.<div class="tm">11:04 AM<span class="ck">&#10003;&#10003;</span></div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>On it — problem, solution, product, traction, market, ask. Two minutes.<div class="tm">11:04 AM</div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>Done. \'Investor Deck.pptx\' is ready. Want me to email it to Ryan?<div class="tm">11:06 AM</div>'},
+    ],
+    // S5: Call (no messages — handled separately)
+    null,
+    // S6: Morning
+    [
+      {t:'a',h:'<div class="nm">ARIA</div>Good morning &#9728;&#65039; David replied — he\'s in. Two meetings, both prepped. One email needs a decision. Start with David?<div class="tm">8:02 AM</div>'},
+      {t:'u',h:'Start with David.<div class="tm">8:03 AM<span class="ck">&#10003;&#10003;</span></div>'},
+      {t:'a',h:'<div class="nm">ARIA</div>Pulling up the full thread now...<div class="tm">8:03 AM</div>'},
+    ],
+  ];
+
+  function makeTyp(){
+    const d=document.createElement('div');
+    d.className='hs-typ';
+    d.innerHTML='<span></span><span></span><span></span>';
+    return d;
+  }
+
   function clearSteps(){
     stepTimers.forEach(clearTimeout);stepTimers=[];
     if(callInterval){clearInterval(callInterval);callInterval=null;}
   }
 
-  function reset(slide){
-    slide.querySelectorAll('.hs-b').forEach(b=>b.classList.remove('shown'));
-    const td=slide.querySelector('[data-typing]');
-    if(td)td.classList.remove('shown');
+  function resetSlide(slide,idx){
+    const ml=slide.querySelector('.hs-msglist');
+    if(ml)ml.innerHTML='';
     const bn=slide.querySelector('[data-banner]');
     if(bn)bn.classList.remove('shown');
   }
 
-  function showScene(slide){
-    const bubbles=Array.from(slide.querySelectorAll('.hs-b[data-d]'));
-    const td=slide.querySelector('[data-typing]');
-    const bn=slide.querySelector('[data-banner]');
-    let t=400;
+  function showScene(idx){
+    const slide=slides[idx];
+    const data=sceneData[idx];
 
-    // Call screen — live timer + banner
-    if(!bubbles.length){
-      // Start live call timer
+    // S5: Call screen
+    if(!data){
       const timerEl=document.getElementById('hsCallTimer');
       if(timerEl){
-        let secs=0;
-        timerEl.textContent='00:00';
-        callInterval=setInterval(()=>{
-          secs++;
-          const m=String(Math.floor(secs/60)).padStart(2,'0');
-          const s=String(secs%60).padStart(2,'0');
-          timerEl.textContent=m+':'+s;
-        },1000);
+        let secs=0;timerEl.textContent='00:00';
+        callInterval=setInterval(()=>{secs++;timerEl.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');},1000);
       }
+      const bn=slide.querySelector('[data-banner]');
       if(bn){
         stepTimers.push(setTimeout(()=>bn.classList.add('shown'),3000));
         stepTimers.push(setTimeout(()=>bn.classList.remove('shown'),7000));
@@ -1117,22 +1137,31 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
       return 10000;
     }
 
-    bubbles.forEach((b,i)=>{
-      const isAria=b.classList.contains('a');
-      if(isAria&&td){
+    const ml=slide.querySelector('.hs-msglist');
+    if(!ml)return 5000;
+    let typEl=null;
+    let t=400;
+
+    data.forEach(m=>{
+      if(m.t==='a'){
         // Show typing
-        stepTimers.push(setTimeout(()=>td.classList.add('shown'),t));
-        t+=1400;
-        // Hide typing
-        stepTimers.push(setTimeout(()=>td.classList.remove('shown'),t));
-        t+=150;
-        // Then show ARIA bubble
-        stepTimers.push(setTimeout(()=>b.classList.add('shown'),t));
-        t+=700;
+        stepTimers.push(setTimeout(()=>{typEl=makeTyp();ml.appendChild(typEl);},t));
+        t+=1800;
+        // Hide typing, show bubble
+        stepTimers.push(setTimeout(()=>{
+          if(typEl){typEl.remove();typEl=null;}
+          const el=document.createElement('div');
+          el.className='hs-bub a';el.innerHTML=m.h;
+          ml.appendChild(el);void el.offsetHeight;el.classList.add('vis');
+        },t));
+        t+=1000;
       } else {
-        t+=400;
-        stepTimers.push(setTimeout(()=>b.classList.add('shown'),t));
-        t+=700;
+        stepTimers.push(setTimeout(()=>{
+          const el=document.createElement('div');
+          el.className='hs-bub u';el.innerHTML=m.h;
+          ml.appendChild(el);void el.offsetHeight;el.classList.add('vis');
+        },t));
+        t+=1000;
       }
     });
     return t+3000;
@@ -1140,50 +1169,35 @@ document.querySelectorAll('.r,.r2,.r3').forEach(el=>obs.observe(el));
 
   function goTo(idx,dir){
     if(idx===cur&&slides[cur].classList.contains('active'))return;
-    clearSteps();
-    clearTimeout(autoTimer);
-    const prev=cur;
-    const fwd=dir!=='bwd';
-
-    // Hide prev
+    clearSteps();clearTimeout(autoTimer);
+    const prev=cur;const fwd=dir!=='bwd';
     slides[prev].classList.remove('active');
     slides[prev].classList.add(fwd?'exit-left':'exit-right');
-    reset(slides[prev]);
+    resetSlide(slides[prev],prev);
     if(dots[prev])dots[prev].classList.remove('active');
     if(descs[prev])descs[prev].classList.remove('active');
-
-    // Position new slide off-screen first
     cur=idx;
-    reset(slides[cur]);
+    resetSlide(slides[cur],cur);
     slides[cur].style.transition='none';
     slides[cur].classList.remove('active','exit-left','exit-right');
-    if(!fwd){
-      slides[cur].classList.add('enter-left');
-    }
-    void slides[cur].offsetHeight; // force reflow
+    if(!fwd)slides[cur].classList.add('enter-left');
+    void slides[cur].offsetHeight;
     slides[cur].style.transition='';
     slides[cur].classList.remove('enter-left');
     slides[cur].classList.add('active');
-
     if(dots[cur])dots[cur].classList.add('active');
     if(descs[cur])descs[cur].classList.add('active');
-
-    stepTimers.push(setTimeout(()=>{
-      slides[prev].classList.remove('exit-left','exit-right');
-    },500));
-
-    const dur=showScene(slides[cur]);
+    stepTimers.push(setTimeout(()=>{slides[prev].classList.remove('exit-left','exit-right');},500));
+    const dur=showScene(cur);
     autoTimer=setTimeout(()=>goTo((cur+1)%slides.length,'fwd'),dur);
   }
 
-  // Controls
   document.getElementById('hsPrev').onclick=()=>goTo((cur-1+slides.length)%slides.length,'bwd');
   document.getElementById('hsNext').onclick=()=>goTo((cur+1)%slides.length,'fwd');
   dots.forEach((d,i)=>d.onclick=()=>{if(i!==cur)goTo(i,i>cur?'fwd':'bwd');});
 
-  // Init first scene
   console.log('[ARIA] Hero carousel: '+slides.length+' scenes loaded');
-  const d=showScene(slides[0]);
+  const d=showScene(0);
   autoTimer=setTimeout(()=>goTo(1,'fwd'),d);
 })();
 
