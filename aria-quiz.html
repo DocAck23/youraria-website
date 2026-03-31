@@ -702,32 +702,25 @@ footer {
     <div class="q-text">What investment level feels right for a tool that gives you back 10+ hours per week?</div>
     <div class="q-sub">Remember — a good human EA in South Florida costs $4,000–6,000/month. This is a fraction of that.</div>
     <div class="options">
-      <button class="option" data-value="price_low" onclick="selectOption(this)">
+      <button class="option" data-value="price_personal" onclick="selectOption(this)">
         <div class="option-letter">A</div>
         <div class="option-content">
-          <div class="option-title">$97 / month</div>
-          <div class="option-desc">Core personal assistant — calendar, email, research, voice</div>
+          <div class="option-title">~$997 / month</div>
+          <div class="option-desc">Personal AI chief-of-staff — WhatsApp, email, calendar, voice, research</div>
         </div>
       </button>
-      <button class="option" data-value="price_mid" onclick="selectOption(this)">
+      <button class="option" data-value="price_business" onclick="selectOption(this)">
         <div class="option-letter">B</div>
         <div class="option-content">
-          <div class="option-title">$197 / month</div>
-          <div class="option-desc">Full personal + business coordination, all channels, unlimited usage</div>
-        </div>
-      </button>
-      <button class="option" data-value="price_high" onclick="selectOption(this)">
-        <div class="option-letter">C</div>
-        <div class="option-content">
-          <div class="option-title">$497 / month</div>
-          <div class="option-desc">Elite — personal ARIA + full business team (sales, marketing, intelligence)</div>
+          <div class="option-title">~$2,997 / month</div>
+          <div class="option-desc">Full executive team — personal assistant + sales, marketing, and intelligence directors</div>
         </div>
       </button>
       <button class="option" data-value="price_enterprise" onclick="selectOption(this)">
-        <div class="option-letter">D</div>
+        <div class="option-letter">C</div>
         <div class="option-content">
-          <div class="option-title">Custom — I have specific needs</div>
-          <div class="option-desc">Multiple team members, HIPAA compliance, or enterprise integration required</div>
+          <div class="option-title">Custom — I need something built for my organization</div>
+          <div class="option-desc">Multiple team members, HIPAA compliance, custom integrations, or white-label deployment</div>
         </div>
       </button>
     </div>
@@ -738,67 +731,45 @@ footer {
   </div>
 
   <!-- Results -->
-  <div class="result-card" id="result-core">
+  <div class="result-card" id="result-personal">
     <div class="result-tier">Your Match</div>
-    <div class="result-title">ARIA Core</div>
-    <div class="result-price">$97 / month</div>
+    <div class="result-title">ARIA Personal</div>
+    <div class="result-price">$997 / month</div>
     <div class="result-divider"></div>
-    <div class="result-desc">You need a smart, always-on personal assistant that handles your calendar, email, and research — without the overhead of managing a human EA or paying for tools you won't use.</div>
-    <div class="summary-box" id="summary-core"></div>
+    <div class="result-desc">Your own AI chief-of-staff — always on, always learning, always one step ahead. ARIA handles your calendar, email, research, and coordination across every channel so you can focus on what actually matters.</div>
+    <div class="summary-box" id="summary-personal"></div>
     <div class="result-features">
-      <div class="result-feature"><div class="feature-dot"></div>Voice assistant via Telegram — talk to ARIA, she talks back</div>
-      <div class="result-feature"><div class="feature-dot"></div>Google Calendar — ARIA knows your schedule, preps you for meetings</div>
-      <div class="result-feature"><div class="feature-dot"></div>Email monitoring — surfaces what matters, drafts responses</div>
-      <div class="result-feature"><div class="feature-dot"></div>Web research — answers questions with real, current information</div>
+      <div class="result-feature"><div class="feature-dot"></div>WhatsApp + voice + email — talk to ARIA on any channel, she responds intelligently</div>
+      <div class="result-feature"><div class="feature-dot"></div>Calendar intelligence — ARIA knows your schedule, preps you for meetings, handles booking</div>
+      <div class="result-feature"><div class="feature-dot"></div>Email triage — surfaces what matters, drafts responses, follows up automatically</div>
+      <div class="result-feature"><div class="feature-dot"></div>Web research — answers questions with real, current information on demand</div>
       <div class="result-feature"><div class="feature-dot"></div>Proactive briefings — morning summary every day without being asked</div>
       <div class="result-feature"><div class="feature-dot"></div>Fully managed — we handle everything, you just use it</div>
     </div>
     <div class="result-cta">
-      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Core — I'm interested" class="btn-primary">Get Started</a>
+      <a href="/onboarding.html?tier=personal" class="btn-primary" onclick="handleRevealCTA('personal')">Get Started</a>
       <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Talk to Ahmed First</a>
     </div>
     <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
   </div>
 
-  <div class="result-card" id="result-pro">
+  <div class="result-card" id="result-business">
     <div class="result-tier">Your Match</div>
-    <div class="result-title">ARIA Pro</div>
-    <div class="result-price">$197 / month</div>
+    <div class="result-title">ARIA Business</div>
+    <div class="result-price">$2,997 / month</div>
     <div class="result-divider"></div>
-    <div class="result-desc">You run a real operation and need an assistant that can handle both your personal life and your business — coordinating across all channels without mixing the two.</div>
-    <div class="summary-box" id="summary-pro"></div>
+    <div class="result-desc">You don't just need an assistant — you need a full executive team in your pocket. ARIA Business gives you a CMO, Sales Director, and Intelligence Director working alongside your personal chief-of-staff 24/7.</div>
+    <div class="summary-box" id="summary-business"></div>
     <div class="result-features">
-      <div class="result-feature"><div class="feature-dot"></div>Everything in Core — voice, calendar, email, research</div>
-      <div class="result-feature"><div class="feature-dot"></div>WhatsApp integration — ARIA monitors and responds to your WhatsApp</div>
-      <div class="result-feature"><div class="feature-dot"></div>Personal + Business separation — two ARIAs that coordinate but never cross</div>
-      <div class="result-feature"><div class="feature-dot"></div>Phone call handling — ARIA screens and handles inbound calls</div>
-      <div class="result-feature"><div class="feature-dot"></div>Unlimited usage — no message caps, no throttling</div>
-      <div class="result-feature"><div class="feature-dot"></div>White-glove setup — we configure everything for your specific workflow</div>
+      <div class="result-feature"><div class="feature-dot"></div>Everything in Personal — all channels, proactive intelligence</div>
+      <div class="result-feature"><div class="feature-dot"></div>MARIAM (CMO) — marketing campaigns, content strategy, brand across your businesses</div>
+      <div class="result-feature"><div class="feature-dot"></div>SAM (Sales Director) — pipeline management, outreach, scripts, CRM integration</div>
+      <div class="result-feature"><div class="feature-dot"></div>RACHEL (Intelligence) — market research, competitor monitoring, opportunity alerts</div>
+      <div class="result-feature"><div class="feature-dot"></div>Phone call handling — ARIA screens, handles, and makes calls on your behalf</div>
+      <div class="result-feature"><div class="feature-dot"></div>Priority support — direct line to Ahmed for configuration and optimization</div>
     </div>
     <div class="result-cta">
-      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Pro — I'm interested" class="btn-primary">Get Started</a>
-      <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Talk to Ahmed First</a>
-    </div>
-    <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
-  </div>
-
-  <div class="result-card" id="result-elite">
-    <div class="result-tier">Your Match</div>
-    <div class="result-title">ARIA Elite</div>
-    <div class="result-price">$497 / month</div>
-    <div class="result-divider"></div>
-    <div class="result-desc">You need more than an assistant — you need a full executive team in your pocket. ARIA Elite gives you a CMO, Sales Director, and Intelligence Director working alongside your personal assistant 24/7.</div>
-    <div class="summary-box" id="summary-elite"></div>
-    <div class="result-features">
-      <div class="result-feature"><div class="feature-dot"></div>Everything in Pro — all channels, personal + business</div>
-      <div class="result-feature"><div class="feature-dot"></div>Maria (CMO) — marketing campaigns, content, brand across your businesses</div>
-      <div class="result-feature"><div class="feature-dot"></div>SAM (Sales) — pipeline management, outreach, scripts, CRM</div>
-      <div class="result-feature"><div class="feature-dot"></div>Rachel (Intelligence) — market research, industry monitoring, opportunity alerts</div>
-      <div class="result-feature"><div class="feature-dot"></div>HIPAA-eligible option — for medical or regulated business use</div>
-      <div class="result-feature"><div class="feature-dot"></div>Priority support — direct line to Ahmed for configuration and updates</div>
-    </div>
-    <div class="result-cta">
-      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Elite — I'm interested" class="btn-primary">Get Started</a>
+      <a href="/onboarding.html?tier=business" class="btn-primary" onclick="handleRevealCTA('business')">Get Started</a>
       <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Talk to Ahmed First</a>
     </div>
     <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
@@ -807,21 +778,24 @@ footer {
   <div class="result-card" id="result-enterprise">
     <div class="result-tier">Your Match</div>
     <div class="result-title">ARIA Enterprise</div>
-    <div class="result-price">Custom Pricing</div>
+    <div class="result-price" style="font-family:'Playfair Display','Cormorant Garamond',serif;font-style:italic;font-size:28px;">Let's talk.</div>
     <div class="result-divider"></div>
-    <div class="result-desc">Your needs go beyond a standard configuration. You may require HIPAA compliance, multiple team members, custom integrations, or a fully managed white-label deployment. Let's talk.</div>
+    <div class="result-desc">Your needs go beyond a standard configuration. Whether it's HIPAA compliance, multiple team members, custom integrations, or a fully managed white-label deployment — we build ARIA around your organization.</div>
     <div class="summary-box" id="summary-enterprise"></div>
     <div class="result-features">
-      <div class="result-feature"><div class="feature-dot"></div>Everything in Elite — full personal + business team</div>
+      <div class="result-feature"><div class="feature-dot"></div>Everything in Business — full personal + executive team</div>
       <div class="result-feature"><div class="feature-dot"></div>HIPAA-compliant infrastructure — BAA included</div>
       <div class="result-feature"><div class="feature-dot"></div>Multiple team members — each with their own ARIA instance</div>
-      <div class="result-feature"><div class="feature-dot"></div>Custom integrations — EHR, CRM, practice management systems</div>
-      <div class="result-feature"><div class="feature-dot"></div>Dedicated onboarding — Ahmed personally configures your deployment</div>
-      <div class="result-feature"><div class="feature-dot"></div>Ongoing optimization — monthly reviews and updates</div>
+      <div class="result-feature"><div class="feature-dot"></div>Custom integrations — EHR, CRM, practice management, internal systems</div>
+      <div class="result-feature"><div class="feature-dot"></div>Dedicated onboarding — Ahmed personally architects your deployment</div>
+      <div class="result-feature"><div class="feature-dot"></div>Ongoing optimization — monthly reviews, updates, and scaling</div>
     </div>
-    <div class="result-cta">
-      <a href="mailto:ahmed@babylonconsulting.us?subject=ARIA Enterprise — Let's Talk" class="btn-primary">Schedule a Call</a>
-      <a href="https://www.babylonconsulting.us/#contact" class="btn-ghost">Learn More</a>
+    <div class="result-cta" id="enterprise-cta">
+      <div class="enterprise-thank-you" id="enterprise-thanks" style="display:none;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;color:var(--gold);margin-bottom:8px;">We've received your assessment.</div>
+        <div style="font-size:13px;color:var(--white-dim);line-height:1.7;">Ahmed will personally review your profile and reach out within 24 hours to schedule an architecture call. No generic sales pitch — just a direct conversation about what ARIA can do for your organization.</div>
+      </div>
+      <a href="javascript:void(0)" class="btn-primary" id="enterprise-request-btn" onclick="goToEnterpriseBooking()" style="background:transparent;border:1.5px solid var(--gold);color:var(--gold);">Request a Meeting &rarr;</a>
     </div>
     <div class="restart-link" onclick="restartQuiz()">Retake assessment</div>
   </div>
@@ -893,7 +867,7 @@ function calcTier() {
   let score = 0;
 
   // Role weight
-  const roleScores = { executive: 3, professional: 2, entrepreneur: 2, individual: 1 };
+  const roleScores = { executive: 4, professional: 2, entrepreneur: 3, individual: 1 };
   score += roleScores[answers.q1] || 0;
 
   // Time lost
@@ -901,7 +875,7 @@ function calcTier() {
   score += timeScores[answers.q2] || 0;
 
   // HIPAA
-  if (answers.q4 === 'hipaa_yes') score += 4;
+  if (answers.q4 === 'hipaa_yes') score += 5;
   else if (answers.q4 === 'hipaa_maybe') score += 1;
 
   // Business need
@@ -912,20 +886,23 @@ function calcTier() {
   if (answers.q6 === 'tech_low') score += 1;
 
   // Price selection
-  const priceScores = { price_low: 0, price_mid: 2, price_high: 3, price_enterprise: 5 };
+  const priceScores = { price_personal: 0, price_business: 3, price_enterprise: 6 };
   score += priceScores[answers.q8] || 0;
 
   // Channels — WhatsApp or phone adds complexity
   const channels = answers.q3 || [];
-  if (channels.includes('whatsapp') || channels.includes('phone')) score += 2;
+  if (channels.includes('whatsapp') || channels.includes('phone')) score += 1;
 
-  // HIPAA forces enterprise
+  // --- Enterprise forces ---
+  // HIPAA requires enterprise
   if (answers.q4 === 'hipaa_yes') return 'enterprise';
+  // Explicitly chose enterprise pricing
   if (answers.q8 === 'price_enterprise') return 'enterprise';
+  // Executive with high time loss + business complexity = enterprise
+  if (answers.q1 === 'executive' && (answers.q2 === 'critical' || answers.q2 === 'high') && score >= 10) return 'enterprise';
 
-  if (score >= 12) return 'elite';
-  if (score >= 7) return 'pro';
-  return 'core';
+  if (score >= 8) return 'business';
+  return 'personal';
 }
 
 function buildSummary(tier) {
@@ -967,7 +944,52 @@ function showResults() {
   document.getElementById(summaryId).innerHTML = buildSummary(tier);
   document.getElementById(resultId).classList.add('active');
 
+  // For enterprise, auto-submit the lead to backend
+  if (tier === 'enterprise') {
+    submitEnterpriseLead();
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleRevealCTA(tier) {
+  // Track which tier CTA was clicked for analytics
+  const payload = {
+    tier: tier,
+    answers: { ...answers },
+    timestamp: new Date().toISOString()
+  };
+  // Fire-and-forget lead capture
+  fetch('https://aria.babylonconsulting.us/onboarding/lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+
+function goToEnterpriseBooking() {
+  // Submit lead, show thank-you, hide button
+  submitEnterpriseLead();
+  const btn = document.getElementById('enterprise-request-btn');
+  const thanks = document.getElementById('enterprise-thanks');
+  if (btn) btn.style.display = 'none';
+  if (thanks) thanks.style.display = 'block';
+}
+
+function submitEnterpriseLead() {
+  const payload = {
+    tier: 'enterprise',
+    answers: { ...answers },
+    frustration: answers.q7 || '',
+    role: answers.q1 || '',
+    hipaa: answers.q4 || '',
+    timestamp: new Date().toISOString()
+  };
+  fetch('https://aria.babylonconsulting.us/onboarding/enterprise-lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(() => {});
 }
 
 function restartQuiz() {
@@ -975,6 +997,11 @@ function restartQuiz() {
   document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   document.querySelectorAll('.btn-next').forEach(b => { if (b.id !== 'q3-next') b.disabled = true; });
   if (document.getElementById('q7-text')) document.getElementById('q7-text').value = '';
+  // Reset enterprise thank you
+  const btn = document.getElementById('enterprise-request-btn');
+  const thanks = document.getElementById('enterprise-thanks');
+  if (btn) btn.style.display = '';
+  if (thanks) thanks.style.display = 'none';
   Object.keys(answers).forEach(k => delete answers[k]);
   currentQ = 1;
   document.querySelector('.question-card[data-q="1"]').classList.add('active');
